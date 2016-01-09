@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/lnahum/ga/repo/abcore/app/build/intermediates/res/merged/release/xml/pref_mirror.xml",
+        "source": "/Users/lnahum/ga/repo/abcore/app/src/main/res/xml/pref_mirror.xml"
+    },
+    {
+        "merged": "/Users/lnahum/ga/repo/abcore/app/build/intermediates/res/merged/release/xml/pref_headers.xml",
+        "source": "/Users/lnahum/ga/repo/abcore/app/src/main/res/xml/pref_headers.xml"
+    },
+    {
+        "merged": "/Users/lnahum/ga/repo/abcore/app/build/intermediates/res/merged/release/xml/pref_conf.xml",
+        "source": "/Users/lnahum/ga/repo/abcore/app/src/main/res/xml/pref_conf.xml"
+    }
+]

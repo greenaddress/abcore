@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/configuration"
+          android:title="Settings"/>
+
+    <item android:id="@+id/peerview"
+          android:title="Peers"/>
+
+    <item android:id="@+id/synchronization"
+          android:title="Synchronization progress"/>
+
+    <item android:id="@+id/debug"
+          android:title="Debug"/>
+
+    <item android:id="@+id/about"
+          android:title="About"/>
+</menu>

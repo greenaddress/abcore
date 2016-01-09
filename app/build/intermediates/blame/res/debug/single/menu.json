@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/lnahum/ga/repo/abcore/app/build/intermediates/res/merged/debug/menu/menu.xml",
+        "source": "/Users/lnahum/ga/repo/abcore/app/src/main/res/menu/menu.xml"
+    },
+    {
+        "merged": "/Users/lnahum/ga/repo/abcore/app/build/intermediates/res/merged/debug/menu/directory_chooser.xml",
+        "source": "/Users/lnahum/ga/repo/abcore/app/build/intermediates/exploded-aar/net.rdrei.android.dirchooser/library/3.0/res/menu/directory_chooser.xml"
+    }
+]
