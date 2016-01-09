@@ -1,0 +1,13 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference android:title="Testnet" android:key="testnet" android:defaultValue="false"/>
+    <CheckBoxPreference android:title="Disable Wallet" android:key="disablewallet" android:defaultValue="true"/>
+    <CheckBoxPreference android:title="Upnp" android:key="upnp" android:defaultValue="false"/>
+
+    <Preference android:title="Datadir" android:key="datadir"/>
+
+    <Preference android:title="@string/pref_title_edit_bitcoin_conf">
+        <intent android:action="com.greenaddress.abcore.BitcoinConfEditActivity"/>
+    </Preference>
+
+</PreferenceScreen>

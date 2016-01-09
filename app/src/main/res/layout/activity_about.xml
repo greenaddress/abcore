@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.greenaddress.abcore.AboutActivity">
+
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="About"
+            android:id="@+id/textViewAbout" android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="ABCore is an Android app that makes it easy to run Bitcoin Core by acting as a wrapper.\n\nABCore is released under the terms of the MIT license. See opensource.org/licenses/MIT for more information.\n\nYou can find the source code on github.com/greenaddress/abcore"
+            android:id="@+id/textViewAboutText" android:layout_below="@+id/textViewAbout"
+            android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+            android:layout_marginTop="24dp" android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" android:linksClickable="true" android:autoLink="web"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:text="Development\n\tLawrence Nahum\n\ttwitter.com/LarryBitcoin\n\nIcon design\n\tOttavio Fontolan\n\totta88.box@gmail.com\n\nSpecial thanks to the Bitcoin Core Dev Team github.com/bitcoin and the Debian.org team"
+                  android:id="@+id/textViewContrib"
+                  android:linksClickable="true"
+                  android:autoLink="web|email"
+                  android:layout_marginTop="25dp" android:layout_below="@+id/textViewContribs"
+                  android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                  android:layout_alignRight="@+id/textViewAboutText" android:layout_alignEnd="@+id/textViewAboutText"
+                  android:layout_alignParentBottom="true"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceLarge" android:text="Contribs"
+                  android:id="@+id/textViewContribs"
+                  android:layout_marginTop="25dp" android:layout_below="@+id/textViewAboutText"
+                  android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+
+    </RelativeLayout>
+
+
+</ScrollView>
