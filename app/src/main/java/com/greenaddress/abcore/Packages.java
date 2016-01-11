@@ -36,7 +36,6 @@ public class Packages {
         // FIXME: some deps are not needed, ideally we just build what we need with a static binary, built with the NDK
         // This works for now
 
-        // FIXME: add support for arch linux packages, they seem to be more up to date
         DEB_PACKAGES = new ArrayList<>(
                 Arrays.asList(
                         /*armhf only*/
