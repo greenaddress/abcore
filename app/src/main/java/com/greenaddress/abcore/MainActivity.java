@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     button.setEnabled(false);
                     final TextView status = (TextView) findViewById(R.id.textView);
 
-                    status.setText("Please wait .. fetching, unpacking and configuring bitcoin core ..");
+                    status.setText("Please wait. Fetching, unpacking and configuring bitcoin core...");
 
                     break;
                 }
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                                     button.setEnabled(false);
                                     pb.setVisibility(View.VISIBLE);
                                     pb.setProgress(0);
-                                    status.setText("Please wait .. fetching, unpacking and configuring bitcoin core ..");
+                                    status.setText("Please wait. Fetching, unpacking and configuring bitcoin core...");
 
                                     startService(new Intent(MainActivity.this, DownloadInstallCoreIntentService.class));
                                 }

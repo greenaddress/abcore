@@ -9,6 +9,8 @@
 *.swp
 *.apk
 
+/app/build
+
 .idea/.name
 
 .idea/compiler.xml
