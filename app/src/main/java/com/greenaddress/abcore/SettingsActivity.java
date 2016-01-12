@@ -302,7 +302,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 public boolean onPreferenceClick(final Preference preference) {
                     final Intent chooserIntent = new Intent(getActivity(), DirectoryChooserActivity.class);
                     final DirectoryChooserConfig config = DirectoryChooserConfig.builder()
-                            .initialDirectory(Utils.getLargetFilesDir(getActivity()).getAbsolutePath())
+                            .initialDirectory(Utils.getLargestFilesDir(getActivity()).getAbsolutePath())
                             .newDirectoryName("./bitcoin")
                             .allowReadOnlyDirectory(true)
                             .allowNewDirectoryNameModification(true)

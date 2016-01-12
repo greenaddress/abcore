@@ -1,8 +1,10 @@
 package com.greenaddress.abcore;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.StatFs;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -167,7 +169,8 @@ public class Utils {
         IOUtils.closeQuietly(out);
     }
 
-    static String sha256Hex(final InputStream fis) throws NoSuchAlgorithmException, IOException {
+    static String sha256Hex(final String filePath) throws NoSuchAlgorithmException, IOException {
+        final InputStream fis = new BufferedInputStream(new FileInputStream(filePath));
         final MessageDigest md = MessageDigest.getInstance("SHA-256");
 
         final byte[] dataBytes = new byte[1024];
@@ -210,7 +213,7 @@ public class Utils {
         IOUtils.closeQuietly(dis);
     }
 
-    static void extractDataFromDeb(final String filePath, final File outputDir) throws IOException, ArchiveException {
+    static void extractDataTarXzFromDeb(final File filePath, final File outputDir) throws IOException, ArchiveException {
         final ArArchiveInputStream debInputStream = (ArArchiveInputStream) new ArchiveStreamFactory()
                 .createArchiveInputStream("ar", new BufferedInputStream(new FileInputStream(filePath)));
 
@@ -228,7 +231,7 @@ public class Utils {
             }
         }
         IOUtils.closeQuietly(debInputStream);
-        new File(filePath).delete();
+        filePath.delete();
     }
 
     static class UnsupportedArch extends RuntimeException {
@@ -269,7 +272,7 @@ public class Utils {
         return String.format("%s/.bitcoin/bitcoin.conf", getDir(c).getAbsolutePath());
     }
 
-    static File getLargetFilesDir(final Context c) {
+    static File getLargestFilesDir(final Context c) {
         File largest = getDir(c);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 
@@ -295,7 +298,7 @@ public class Utils {
     }
 
     static String getDataDir(final Context c) {
-        final String defaultDataDir = String.format("%s/.bitcoin", getLargetFilesDir(c).getAbsolutePath());
+        final String defaultDataDir = String.format("%s/.bitcoin", getLargestFilesDir(c).getAbsolutePath());
         try {
             final Properties p = new Properties();
             p.load(new BufferedInputStream(new FileInputStream(getBitcoinConf(c))));
@@ -359,5 +362,66 @@ public class Utils {
             enc[--resBegin] = ab[0];
 
         return new String(enc, resBegin, enc.length - resBegin);
+    }
+
+    static String getRepo(final Context c, final String arch, final boolean isArchEnabled) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+        if (isArchEnabled) {
+            if (arch.equals("amd64") || arch.equals("i386")) {
+                return prefs.getString("archi386Repo", "archlinux.openlabto.org/archlinux");
+            } else {
+                return prefs.getString("archarmRepo", "eu.mirror.archlinuxarm.org");
+            }
+        } else {
+            return prefs.getString("debianRepo", "ftp.us.debian.org/debian");
+        }
+    }
+
+    static String getArchLinuxArchitecture(final String arch) {
+        if (arch.equals("amd64")) {
+            return "x86_64";
+        } else if (arch.equals("i386")){
+            return "i686";
+        } else if (arch.equals("armhf")) {
+            return "armv7h";
+        } else if (arch.equals("arm64")) {
+            return "aarch64";
+        } else {
+            throw new UnsupportedArch(arch);
+        }
+    }
+
+    static String getPackageUrl(final Packages.PkgH pkg, final Context c, final String arch, final boolean isArchLinux) {
+
+        final String osArch = getArchLinuxArchitecture(arch);
+
+        final boolean isArmArchitecture = !arch.equals("amd64") && !arch.equals("i386");
+        final String repo = Utils.getRepo(c, arch, isArchLinux);
+
+        final String fileArch = arch.equals("armhf") ? "armv7h" : osArch;
+
+        final String template = isArchLinux ?
+                (isArmArchitecture? "http://%s/%s-" + fileArch : "http://%s/%s-" + osArch ) + ".pkg.tar.xz" : "http://%s/pool/main/%s_%s.deb";
+
+        return isArchLinux ? String.format(template, repo, String.format(pkg.pkg, fileArch)): String.format(template, repo, pkg.pkg, arch);
+    }
+
+    static String getFilePathFromUrl(final Context c, final String url) {
+        return getLargestFilesDir(c).getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
+    }
+
+    static class ValidationFailure extends RuntimeException {
+        ValidationFailure(final String s) {
+            super(s);
+        }
+    }
+
+    static void validateSha256sum(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
+        final String hash = Utils.sha256Hex(filePath);
+        final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
+
+        if (!sha256hash.equals(hash)) {
+            throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s, expected %s", filePath, hash, sha256hash));
+        }
     }
 }

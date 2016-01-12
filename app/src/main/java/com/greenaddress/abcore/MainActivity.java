@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (requiresDownload) {
                         final float internal = Utils.megabytesAvailable(Utils.getDir(MainActivity.this));
-                        final float external = Utils.megabytesAvailable(Utils.getLargetFilesDir(MainActivity.this));
+                        final float external = Utils.megabytesAvailable(Utils.getLargestFilesDir(MainActivity.this));
 
                         if (internal > 70) {
                             status.setText("Please select SETUP BITCOIN CORE to download and configure Core");

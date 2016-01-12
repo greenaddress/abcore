@@ -11,9 +11,7 @@ import android.util.Log;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.utils.IOUtils;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,26 +38,11 @@ public class DownloadInstallCoreIntentService extends IntentService {
     }
 
 
-    private String getRepo() {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final Boolean archEnabled = prefs.getBoolean("archisenabled", false);
-        if (archEnabled) {
-            if (Utils.getArch().equals("amd64") || Utils.getArch().equals("i386")) {
-                return prefs.getString("archi386Repo", "archlinux.openlabto.org/archlinux");
-            } else {
-                return prefs.getString("archarmRepo", "eu.mirror.archlinuxarm.org");
-            }
-        } else {
-            return prefs.getString("debianRepo", "ftp.us.debian.org/debian");
-        }
-    }
-
     @Override
     protected void onHandleIntent(final Intent intent) {
         // this already runs in its own thread but no reasons the pkgs couldn't be handle concurrently.
         final File dir = Utils.getDir(DownloadInstallCoreIntentService.this);
         final String arch = Utils.getArch();
-        final String repo = getRepo();
 
         final List<Packages.PkgH> pkgs = getPackages();
 
@@ -69,7 +52,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 for (final String a : d.archHash) {
                     try {
                         if (a.startsWith(arch)) {
-                            unpack(repo, d, arch, dir, a);
+                            unpack(d, arch, dir, a);
                             break;
                         }
                     } catch (final FileNotFoundException e) {
@@ -93,7 +76,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             sendBroadcast(broadcastIntent);
 
 
-        } catch (final ValidationFailure | ArchiveException | NoSuchAlgorithmException | IOException e) {
+        } catch (final Utils.ValidationFailure | ArchiveException | NoSuchAlgorithmException | IOException e) {
             Log.i(TAG, e.getMessage());
             e.printStackTrace();
             Intent broadcastIntent = new Intent();
@@ -116,13 +99,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
         return Utils.toBase58(pass);
     }
 
-    static class ValidationFailure extends RuntimeException {
-        final String pkg;
-        ValidationFailure(final String s, final String a) {
-            super(s);
-            this.pkg = a;
-        }
-    }
 
     public static void configureCore(final Context c) throws IOException {
 
@@ -153,7 +129,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             // Afaik ipv6 is broken on android, disable by default, user can change this
             // outputStream.write("onlynet=ipv6\n".getBytes());
-            outputStream.write(String.format("datadir=%s\n", Utils.getLargetFilesDir(c)).getBytes());
+            outputStream.write(String.format("datadir=%s\n", Utils.getLargestFilesDir(c)).getBytes());
 
             IOUtils.closeQuietly(outputStream);
         } catch (final IOException e) {
@@ -174,20 +150,13 @@ public class DownloadInstallCoreIntentService extends IntentService {
         sendBroadcast(broadcastIntent);
     }
 
-    private void unpack(final String repo, final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw) throws IOException, NoSuchAlgorithmException, ArchiveException {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final Boolean archEnabled = prefs.getBoolean("archisenabled", false);
-        final String osArch = System.getProperty("os.arch");
-        final boolean archarm = !Utils.getArch().equals("amd64") && !Utils.getArch().equals("i386");
+    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw) throws IOException, NoSuchAlgorithmException, ArchiveException {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final String template = archEnabled ?
-                archarm? "http://%s/%s-"+(
-                        Utils.getArch().contains("armhf")?"armv7h":osArch)+".pkg.tar.xz":"http://%s/%s-" + osArch + ".pkg.tar.xz" : "http://%s/pool/main/%s_%s.deb";
+        final boolean isArchLinux = prefs.getBoolean("archisenabled", false);
 
-        final String url = archEnabled ? String.format(template, repo, String.format(pkg.pkg, Utils.getArch().contains("armhf")?"armv7h":osArch)): String.format(template, repo, pkg.pkg, arch);
-
-        final String fileName = url.substring(url.lastIndexOf("/") + 1);
-        final String filePath = outputDir.getAbsoluteFile() + "/" + fileName;
+        final String url = Utils.getPackageUrl(pkg, this, arch, isArchLinux);
+        final String filePath = Utils.getFilePathFromUrl(this, url);
 
         // Download file
         sendUpdate("Downloading", pkg);
@@ -196,23 +165,15 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
         // Verify sha256sum
         sendUpdate("Verifying", pkg);
-
-        final String hash = Utils.sha256Hex(new BufferedInputStream(new FileInputStream(filePath)));
-        final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
-
-        if (!sha256hash.equals(hash)) {
-            Log.e(TAG, "Doesn't match " + url + " " + hash);
-            throw new ValidationFailure("Doesn't match " + url + " " + hash, fileName);
-        } else {
-            Log.i(TAG, "Matched " + url);
-        }
+        Utils.validateSha256sum(arch, sha256raw, filePath);
 
         // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
         sendUpdate("Unpacking", pkg);
-        if (archEnabled) {
+
+        if (isArchLinux) {
             Utils.extractTarXz(new File(filePath), outputDir);
         } else {
-            Utils.extractDataFromDeb(filePath, outputDir);
+            Utils.extractDataTarXzFromDeb(new File(filePath), outputDir);
         }
     }
 }
