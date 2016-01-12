@@ -18,6 +18,10 @@
         android:ems="10"
         android:id="@+id/editText"
         android:gravity="top"
+        android:clickable="false"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" android:layout_alignParentBottom="true"/>

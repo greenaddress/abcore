@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         tw.setText("Bitcoin core fetched and configured");
         final TextView status = (TextView) activity.findViewById(R.id.textView);
         final Button button = (Button) activity.findViewById(R.id.button);
-        status.setText("Bitcoin Core is not running, please select START CORE to start it");
+        status.setText("Bitcoin Core is not running, please switch Core ON to start it");
         button.setVisibility(View.GONE);
         final Switch coreSwitch = (Switch) activity.findViewById(R.id.switchCore);
         coreSwitch.setVisibility(View.VISIBLE);

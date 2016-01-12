@@ -26,6 +26,7 @@ public class LogActivity extends AppCompatActivity {
         try {
 
             // Verify if RandomAccessFile is better than linear scanning given the line issues?
+            // FIXME: This is not good enough when the file is big, we should use RAF above.
             final File f = new File(Utils.getDataDir(this) + (Utils.isTestnet(this)?"/testnet3/debug.log":"/debug.log"));
             if (!f.exists()) {
                 ((EditText) findViewById(R.id.editText))
@@ -52,8 +53,11 @@ public class LogActivity extends AppCompatActivity {
             }
             final EditText et = (EditText)  findViewById(R.id.editText);
             final String txt = sb.toString();
+            et.getText().clearSpans();
+            et.getText().clear();
             et.setText(txt);
             et.setSelection(txt.length());
+            et.setKeyListener(null);
             IOUtils.closeQuietly(bufferedReader);
 
         } catch (IOException e) {
