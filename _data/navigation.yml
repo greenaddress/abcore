@@ -1,0 +1,124 @@
+# Site navigation links
+en:
+  home:
+    title: "Bitcoin Core"
+    url:   "/"
+  about:
+    title: "About"
+    url:   "/en/about/"
+  test: # this is temporary structure to show how to do nested menus
+    disabled: true # disable from rendering
+    title: "Nested"
+    submenu: true
+    tree: # menus go here
+      first:
+        title: "first"
+        url: "/first"
+      second:
+        title: "second"
+        url: "/second"
+  blog:
+    title: "blog"
+    url:   "/en/blog/"
+  releases:
+    title: "releases"
+    url:   "/en/releases/"
+  contribute:
+    title: "contribute"
+    url:   "/en/contribute/"
+de:
+  home:
+    title: "Bitcoin Core"
+    url:   "/de/"
+  about:
+    title: "About"
+    url:   "/de/about/"
+  blog:
+    title: "blog"
+    url:   "/de/blog/"
+  releases:
+    title: "releases"
+    url:   "/de/releases/"
+  contribute:
+    title: "contribute"
+    url:   "/de/contribute/"
+es:
+  home:
+    title: "Bitcoin Core"
+    url:   "/es/"
+  about:
+    title: "About"
+    url:   "/es/about/"
+  blog:
+    title: "blog"
+    url:   "/es/blog/"
+  releases:
+    title: "releases"
+    url:   "/es/releases/"
+  contribute:
+    title: "contribute"
+    url:   "/es/contribute/"
+fr:
+  home:
+    title: "Bitcoin Core"
+    url:   "/fr/"
+  about:
+    title: "à propos"
+    url:   "/fr/about/"
+  blog:
+    title: "blog"
+    url:   "/fr/blog/"
+  releases:
+    title: "releases"
+    url:   "/fr/releases/"
+  contribute:
+    title: "contribute"
+    url:   "/fr/contribute/"
+ru:
+  home:
+    title: "Bitcoin Core"
+    url:   "/ru/"
+  about:
+    title: "about"
+    url:   "/ru/about/"
+  blog:
+    title: "blog"
+    url:   "/ru/blog/"
+  releases:
+    title: "releases"
+    url:   "/ru/releases/"
+  contribute:
+    title: "contribute"
+    url:   "/ru/contribute/"
+zh_CN:
+  home:
+    title: "Bitcoin Core"
+    url:   "/zh_CN/"
+  about:
+    title: "关于我们"
+    url:   "/zh_CN/about/"
+  blog:
+    title: "博客"
+    url:   "/zh_CN/blog/"
+  releases:
+    title: "软件发行"
+    url:   "/zh_CN/releases/"
+  contribute:
+    title: "贡献"
+    url:   "/zh_CN/contribute/"
+zh_TW:
+  home:
+    title: "Bitcoin Core"
+    url:   "/zh_TW/"
+  about:
+    title: "關於我們"
+    url:   "/zh_TW/about/"
+  blog:
+    title: "網誌"
+    url:   "/zh_TW/blog/"
+  releases:
+    title: "軟件發行"
+    url:   "/zh_TW/releases/"
+  contribute:
+    title: "貢獻"
+    url:   "/zh_TW/contribute/"

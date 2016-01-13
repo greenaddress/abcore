@@ -1,52 +1,62 @@
-ABCore - Android Bitcoin Core
-=============================
+#bitcoinco.re [![Build Status](https://travis-ci.org/bitcoin-core/website.svg?branch=gh-pages)](https://travis-ci.org/bitcoin-core/website)
 
-[![Build Status](https://travis-ci.org/greenaddress/abcore.svg?branch=master)](https://travis-ci.org/greenaddress/abcore)
+This repository is the source code of the Bitcoin Core project website built with Jekyll.
 
-Warning: This app is still in a very Proof of Concept/Alpha stage.
-If you want to try it get it from the Play Store (opt-in https://play.google.com/apps/testing/com.greenaddress.abcore) or directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.21alphaPoC
+## Directory structure
 
-What is Android Bitcoin Core?
------------------------------
+  - `_posts/<lang>/posts` for blog articles.
+  - `_posts/<lang>/pages` for static pages.
+  - `_posts/<lang>/releases` for Bitcoin Core release notes
 
-Android Bitcoin Core is an Android app that fetches bitcoin core daemon and dependencies and is meant to make it easier 
-to run Bitcoin Core daemon node on always on Android set top box devices and home appliances.
+File names *must* be in the format `Y/m/d-title.md`, e.g. `2015-12-31-title.md`. File names can be translated.
 
-The dependencies are fetched from either a Debian or Arch mirror (currently providing respectively Bitcoin Core 0.11.1 and Bitcoin Core 0.11.2) and the node is meant to be used as a personal node when on the go.
+## Translations
 
-License
--------
+Menu and miscellaneous translations can be found in:
 
-ABCore is released under the terms of the MIT license. See [COPYING](COPYING) for more
-information or see https://opensource.org/licenses/MIT.
+  - `_data/lanaguges.yml`
+  - `_data/navgation.yml`
+  - `_data/translations.yml`
+  
+## Front Matter notes
 
-Privacy
--------
+The following `Front Matter` is required for the multilingual setup in all files. The required fields are as follows:
 
-ABCore doesn't do any kind of phone home, doesn't have In-App Purchase or advertising.
+  - `name:`      group name for unique article. Each translation must share the same group name, e.g. `october15-report`
+  - `id:`        each article translation must have a unique ID. Use the language code + `-name` field. e.g. `en-october15-report`
+  - `permalink:` the ML permalink must include the language code, e.g. `/en/2015/12/31/report`. Permalinks should be translated.
+  - `title:`     the translated title of the article
 
-During the initial configuration connects to a user selectable Debian or Arch Linux mirror to fetch the required dependencies and once it is installed it only communicates with the rest of the Bitcoin network like any normal full node.
+```
+---
+name: short-title
+id: en-short-title
+permalink: /en/2016/01/01/short-title
+title: Short Title
+---
+```
 
-Limitations
------------
+## Building
 
-ABCore requires a fair amount of ram (tested with 2GB) and a fair amount of disk space (tested with 100GB) as well as a decent always on connection - 3G or 4G is not adviced.
+This website is based on Jekyll. To build locally, [install Ruby 2.2.3](https://gorails.com/setup) or greater
+and then run the following commands:
 
-We also do not advice to use this as a wallet, we advice to use this as your personal blockchain anchor when on the go with wallets that support to set a personal node.
+    gem install bundle
+    bundle install
+    
+To preview the site (this will launch a tiny webserver on port 4000):
 
-The contributors of ABCore are not liable for any cost or damage caused by the app including but not limited to data charges/penalties.
+    bundle exec jekyll server
 
-Acknowledgement
----------------
+To simply build the site (output placed in the `_site` directory):
 
-Development
+    bundle exec jekyll build
+    
+To test the site:
 
-Lawrence Nahum twitter.com/LarryBitcoin
+    bundle exec jekyll build && bundle exec htmlproof ./_site
 
-Icon Design
+## Contributing
 
-Ottavio Fontolan otta88.box@gmail.com
-
-Special thanks to the Bitcoin Dev team, the Debian and Arch Linux teams and to github.com/Polve for JavaBitcoindRpcClient.
-
+Contributions welcome. Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details.
 
