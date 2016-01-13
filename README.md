@@ -1,6 +1,6 @@
-#abco.re [![Build Status](https://travis-ci.org/greenaddress/website.svg?branch=gh-pages)](https://travis-ci.org/greenaddress/abcore)
+#abco.re [![Build Status](https://travis-ci.org/greenaddress/abcore.svg?branch=gh-pages)](https://travis-ci.org/greenaddress/abcore)
 
-This repository is the source code of the ABCoreproject website built with Jekyll.
+This repository is the source code of the ABCore project website built with Jekyll.
 
 ## Directory structure
 
