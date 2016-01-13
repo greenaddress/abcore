@@ -117,7 +117,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
             outputStream.write("listen=1\n".getBytes());
 
             //outputStream.write("bind=127.0.0.1\n".getBytes());
-            outputStream.write("rpcbind=127.0.0.1\n".getBytes());
             outputStream.write("disablewallet=1\n".getBytes());
             outputStream.write("testnet=0\n".getBytes());
             //outputStream.write("testnet=1\n".getBytes());
@@ -144,8 +143,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
         broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "ABCOREUPDATE");
-        broadcastIntent.putExtra("ABCOREUPDATE", Integer.valueOf(getPackages().indexOf(pkg)));
-        broadcastIntent.putExtra("ABCOREUPDATEMAX", getPackages().size() * 3);
+        broadcastIntent.putExtra("ABCOREUPDATE", getPackages().indexOf(pkg));
+        broadcastIntent.putExtra("ABCOREUPDATEMAX", getPackages().size());
         broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
         sendBroadcast(broadcastIntent);
     }

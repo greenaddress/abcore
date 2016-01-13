@@ -32,7 +32,7 @@ public class RPCIntentService extends IntentService {
         return p;
     }
 
-    BitcoinJSONRPCClient getRpc() throws IOException {
+    BitcoindRpcClient getRpc() throws IOException {
 
         final Properties p = getBitcoinConf();
         final String user = p.getProperty("rpcuser", "bitcoinrpc");
@@ -83,7 +83,6 @@ public class RPCIntentService extends IntentService {
         broadcastIntent.putExtra(PARAM_OUT_MSG, "progress");
 
         final List<BitcoindRpcClient.PeerInfoResult> pir = bitcoin.getPeerInfo();
-        // FIXME: find the most common blockchain height that is higher than hardcoded constant
         int max = -1;
         for (final BitcoindRpcClient.PeerInfoResult r : pir) {
             final int h = r.getStartingHeight();
@@ -115,7 +114,7 @@ public class RPCIntentService extends IntentService {
 
         if (intent.getStringExtra("stop") != null) {
             try {
-                getRpc().query("stop");
+                getRpc().stop();
             } catch (final BitcoinRPCException | IOException e) {
                 broadcastError(e);
             }
