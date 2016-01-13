@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView status = (TextView) activity.findViewById(R.id.textView);
         final Button button = (Button) activity.findViewById(R.id.button);
         button.setVisibility(View.GONE);
-        status.setText("Bitcoin Core is running, select STOP CORE to stop it.");
+        status.setText("Bitcoin Core is running, please swtich Core OFF to stop it.");
         final Switch coreSwitch = (Switch) activity.findViewById(R.id.switchCore);
 
         coreSwitch.setVisibility(View.VISIBLE);
