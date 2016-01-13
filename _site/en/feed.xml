@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title type="text">ABCore</title>
+    <link rel="self" type="application/atom+xml" href="/en/feed.xml" />
+    <link rel="alternate" type="text/html" href="" />
+    <updated>2016-01-13T16:09:15+01:00</updated>
+    <id>/</id>
+    <author>
+        <name>ABCore</name>
+        <uri>/</uri>
+        
+    </author>
+    
+    
+    
+    
+    
+    <entry>
+        <title type="html"><![CDATA[ABCore says HalloWorld! -- 2016-01-12]]></title>
+        <link rel="alternate" type="text/html" href="/en/2016/01/12/halloworld" />
+        <id>/en/2016/01/12/halloworld</id>
+        <published>2016-01-12T00:00:00+01:00</published>
+        <updated>2016-01-12T00:00:00+01:00</updated>
+        <author>
+            <name>ABCore</name>
+            <uri></uri>
+            
+        </author>
+        <content type="html">
+            &lt;p&gt;ABCore says HalloWorld!&lt;/p&gt;
+
+            &lt;p&gt;&lt;a href=&quot;/en/2016/01/12/halloworld&quot;&gt;ABCore says HalloWorld! -- 2016-01-12&lt;/a&gt; was originally published by ABCore at &lt;a href=&quot;&quot;&gt;ABCore&lt;/a&gt; on January 12, 2016.&lt;/p&gt;
+        </content>
+    </entry>
+    
+</feed>
+

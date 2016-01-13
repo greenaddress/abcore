@@ -1,0 +1,530 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="ru"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="ru"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="ru"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ru"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Bitcoin Core 0.11.1 &#8211; ABCore</title>
+<meta name="description" content="Bitcoin Core installation binaries can be downloaded from bitcoin.org and the source-code is available from the Bitcoin Core source repository.
+
+">
+<meta name="keywords" content="">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Bitcoin Core 0.11.1">
+<meta name="twitter:description" content="Bitcoin Core installation binaries can be downloaded from bitcoin.org and the source-code is available from the Bitcoin Core source repository.
+
+">
+
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitcoin Core 0.11.1">
+<meta property="og:description" content="Bitcoin Core installation binaries can be downloaded from bitcoin.org and the source-code is available from the Bitcoin Core source repository.
+
+">
+<meta property="og:url" content="/ru/releases/0.11.1">
+<meta property="og:site_name" content="ABCore">
+
+<meta property="og:image" content="/images/default-thumb.png">
+
+
+
+
+
+
+<link rel="canonical" href="/ru/releases/0.11.1">
+<link href="/ru/feed.xml" type="application/atom+xml" rel="alternate" title="ABCore Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/assets/images/favicon.png">
+<!-- 32x32
+<link rel="shortcut icon" href="/assets/images/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices
+<link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation 
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/apple-touch-icon-144x144-precomposed.png">
+-->
+
+</head>
+
+<body class="page">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper" >
+	<div class="site-name">
+        
+		<a href="/ru/"><img style="width: 150px; //background: #3f51b5;" src="/assets/images/abcore.png" alt="abcore logo"></a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				        
+				    
+
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/ru/about/">about</a></li>
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/ru/blog/">blog</a></li>
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/ru/releases/">releases</a></li>
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/ru/contribute/">contribute</a></li>
+                    
+ 				
+                
+
+                <li id="langselect" class="lang">
+                    <select onchange="window.location=this.value;">
+                        <option class="langoption" value="">русский</option>
+                        
+                        <option class="langoption" value="/de/releases/0.11.0">Deutsche</option>
+                        
+                        <option class="langoption" value="/de/releases/0.11.1">Deutsche</option>
+                        
+                        <option class="langoption" value="/de/releases/0.11.2">Deutsche</option>
+                        
+                        <option class="langoption" value="/en/releases/0.11.0">English</option>
+                        
+                        <option class="langoption" value="/es/releases/0.11.0">Español</option>
+                        
+                        <option class="langoption" value="/es/releases/0.11.1">Español</option>
+                        
+                        <option class="langoption" value="/es/releases/0.11.2">Español</option>
+                        
+                        <option class="langoption" value="/fr/releases/0.11.0">Français</option>
+                        
+                        <option class="langoption" value="/fr/releases/0.11.1">Français</option>
+                        
+                        <option class="langoption" value="/fr/releases/0.11.2">Français</option>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <option class="langoption" value="/zn_CN/releases/0.11.0">简体中文</option>
+                        
+                        <option class="langoption" value="/zn_CH/releases/0.11.1">简体中文</option>
+                        
+                        <option class="langoption" value="/zh_CN/releases/0.11.2">简体中文</option>
+                        
+                        <option class="langoption" value="/zh_TW/releases/0.11.0">繁體中文</option>
+                        
+                        <option class="langoption" value="/zh_TW/releases/0.11.1">繁體中文</option>
+                        
+                        <option class="langoption" value="/zh_TW/releases/0.11.2">繁體中文</option>
+                        
+                    </select>
+                </li>
+                <!--<li class="lang">-->
+                    <!--<li><a>русский</a>-->
+                    <!--      -->
+                    <!---->
+                    <!--<a href="/de/releases/0.11.0" class="de"></a>-->
+                    <!--<a href="/de/releases/0.11.0" class="de">Deutsche</a>-->
+                    <!--<a href="/de/releases/0.11.0" class="de">Deutsche</a>-->
+                    <!---->
+                    <!--<a href="/de/releases/0.11.1" class="de"></a>-->
+                    <!--<a href="/de/releases/0.11.1" class="de">Deutsche</a>-->
+                    <!--<a href="/de/releases/0.11.1" class="de">Deutsche</a>-->
+                    <!---->
+                    <!--<a href="/de/releases/0.11.2" class="de"></a>-->
+                    <!--<a href="/de/releases/0.11.2" class="de">Deutsche</a>-->
+                    <!--<a href="/de/releases/0.11.2" class="de">Deutsche</a>-->
+                    <!---->
+                    <!--<a href="/en/releases/0.11.0" class="en"></a>-->
+                    <!--<a href="/en/releases/0.11.0" class="en">English</a>-->
+                    <!--<a href="/en/releases/0.11.0" class="en">English</a>-->
+                    <!---->
+                    <!--<a href="/es/releases/0.11.0" class="es"></a>-->
+                    <!--<a href="/es/releases/0.11.0" class="es">Español</a>-->
+                    <!--<a href="/es/releases/0.11.0" class="es">Español</a>-->
+                    <!---->
+                    <!--<a href="/es/releases/0.11.1" class="es"></a>-->
+                    <!--<a href="/es/releases/0.11.1" class="es">Español</a>-->
+                    <!--<a href="/es/releases/0.11.1" class="es">Español</a>-->
+                    <!---->
+                    <!--<a href="/es/releases/0.11.2" class="es"></a>-->
+                    <!--<a href="/es/releases/0.11.2" class="es">Español</a>-->
+                    <!--<a href="/es/releases/0.11.2" class="es">Español</a>-->
+                    <!---->
+                    <!--<a href="/fr/releases/0.11.0" class="fr"></a>-->
+                    <!--<a href="/fr/releases/0.11.0" class="fr">Français</a>-->
+                    <!--<a href="/fr/releases/0.11.0" class="fr">Français</a>-->
+                    <!---->
+                    <!--<a href="/fr/releases/0.11.1" class="fr"></a>-->
+                    <!--<a href="/fr/releases/0.11.1" class="fr">Français</a>-->
+                    <!--<a href="/fr/releases/0.11.1" class="fr">Français</a>-->
+                    <!---->
+                    <!--<a href="/fr/releases/0.11.2" class="fr"></a>-->
+                    <!--<a href="/fr/releases/0.11.2" class="fr">Français</a>-->
+                    <!--<a href="/fr/releases/0.11.2" class="fr">Français</a>-->
+                    <!---->
+                    <!---->
+                    <!--<a href="/ru/releases/0.11.0" class="ru">русский</a>-->
+                    <!--<a href="/ru/releases/0.11.0" class="ru">русский</a>-->
+                    <!---->
+                    <!---->
+                    <!--<a href="/ru/releases/0.11.1" class="ru">русский</a>-->
+                    <!--<a href="/ru/releases/0.11.1" class="ru">русский</a>-->
+                    <!---->
+                    <!---->
+                    <!--<a href="/ru/releases/0.11.2" class="ru">русский</a>-->
+                    <!--<a href="/ru/releases/0.11.2" class="ru">русский</a>-->
+                    <!---->
+                    <!--<a href="/zn_CN/releases/0.11.0" class="zh_CN"></a>-->
+                    <!--<a href="/zn_CN/releases/0.11.0" class="zh_CN">简体中文</a>-->
+                    <!--<a href="/zn_CN/releases/0.11.0" class="zh_CN">简体中文</a>-->
+                    <!---->
+                    <!--<a href="/zn_CH/releases/0.11.1" class="zh_CN"></a>-->
+                    <!--<a href="/zn_CH/releases/0.11.1" class="zh_CN">简体中文</a>-->
+                    <!--<a href="/zn_CH/releases/0.11.1" class="zh_CN">简体中文</a>-->
+                    <!---->
+                    <!--<a href="/zh_CN/releases/0.11.2" class="zh_CN"></a>-->
+                    <!--<a href="/zh_CN/releases/0.11.2" class="zh_CN">简体中文</a>-->
+                    <!--<a href="/zh_CN/releases/0.11.2" class="zh_CN">简体中文</a>-->
+                    <!---->
+                    <!--<a href="/zh_TW/releases/0.11.0" class="zh_TW"></a>-->
+                    <!--<a href="/zh_TW/releases/0.11.0" class="zh_TW">繁體中文</a>-->
+                    <!--<a href="/zh_TW/releases/0.11.0" class="zh_TW">繁體中文</a>-->
+                    <!---->
+                    <!--<a href="/zh_TW/releases/0.11.1" class="zh_TW"></a>-->
+                    <!--<a href="/zh_TW/releases/0.11.1" class="zh_TW">繁體中文</a>-->
+                    <!--<a href="/zh_TW/releases/0.11.1" class="zh_TW">繁體中文</a>-->
+                    <!---->
+                    <!--<a href="/zh_TW/releases/0.11.2" class="zh_TW"></a>-->
+                    <!--<a href="/zh_TW/releases/0.11.2" class="zh_TW">繁體中文</a>-->
+                    <!--<a href="/zh_TW/releases/0.11.2" class="zh_TW">繁體中文</a>-->
+                    <!---->
+                <!--</li>-->
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+    
+
+
+
+
+
+
+    <img src="/assets/images/bio-blank.jpg" class="bio-photo" alt="bio-blank">
+
+
+  <h3 itemprop="name"></h3>
+  <p></p>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </div>
+  <article class="page">
+    <h1>Bitcoin Core 0.11.1</h1>
+    <div class="article-wrap">
+      <strong></strong>
+      <h4 id="bitcoin-core-installation-binaries-can-be-downloaded-from-bitcoinorghttpsbitcoinorgendownload-and-the-source-code-is-available-from-the-bitcoin-corehttpsgithubcombitcoinbitcoin-source-repository">Bitcoin Core installation binaries can be downloaded from <a href="https://bitcoin.org/en/download">bitcoin.org</a> and the source-code is available from the <a href="https://github.com/bitcoin/bitcoin">Bitcoin Core</a> source repository.</h4>
+
+<p>Bitcoin Core version 0.11.1 is now available from:</p>
+
+<p><a href="https://bitcoin.org/bin/bitcoin-core-0.11.1/">https://bitcoin.org/bin/bitcoin-core-0.11.1/</a></p>
+
+<p>This is a new minor version release, bringing security fixes. It is recommended
+to upgrade to this version as soon as possible.</p>
+
+<p>Please report bugs using the issue tracker at github:</p>
+
+<p><a href="https://github.com/bitcoin/bitcoin/issues">https://github.com/bitcoin/bitcoin/issues</a></p>
+
+<h1 id="upgrading-and-downgrading">Upgrading and downgrading</h1>
+
+<h2 id="how-to-upgrade">How to Upgrade</h2>
+
+<p>If you are running an older version, shut it down. Wait until it has completely
+shut down (which might take a few minutes for older versions), then run the
+installer (on Windows) or just copy over /Applications/Bitcoin-Qt (on Mac) or
+bitcoind/bitcoin-qt (on Linux).</p>
+
+<h2 id="downgrade-warning">Downgrade warning</h2>
+
+<p>Because release 0.10.0 and later makes use of headers-first synchronization and
+parallel block download (see further), the block files and databases are not
+backwards-compatible with pre-0.10 versions of Bitcoin Core or other software:</p>
+
+<ul>
+  <li>
+    <p>Blocks will be stored on disk out of order (in the order they are
+received, really), which makes it incompatible with some tools or
+other programs. Reindexing using earlier versions will also not work
+anymore as a result of this.</p>
+  </li>
+  <li>
+    <p>The block index database will now hold headers for which no block is
+stored on disk, which earlier versions won’t support.</p>
+  </li>
+</ul>
+
+<p>If you want to be able to downgrade smoothly, make a backup of your entire data
+directory. Without this your node will need start syncing (or importing from
+bootstrap.dat) anew afterwards. It is possible that the data from a completely
+synchronised 0.10 node may be usable in older versions as-is, but this is not
+supported and may break as soon as the older version attempts to reindex.</p>
+
+<p>This does not affect wallet forward or backward compatibility. There are no
+known problems when downgrading from 0.11.x to 0.10.x.</p>
+
+<h1 id="notable-changes">Notable changes</h1>
+
+<h2 id="fix-buffer-overflow-in-bundled-upnp">Fix buffer overflow in bundled upnp</h2>
+
+<p>Bundled miniupnpc was updated to 1.9.20151008. This fixes a buffer overflow in
+the XML parser during initial network discovery.</p>
+
+<p>Details can be found here: http://talosintel.com/reports/TALOS-2015-0035/</p>
+
+<p>This applies to the distributed executables only, not when building from source or
+using distribution provided packages.</p>
+
+<p>Additionally, upnp has been disabled by default. This may result in a lower
+number of reachable nodes on IPv4, however this prevents future libupnpc
+vulnerabilities from being a structural risk to the network
+(see https://github.com/bitcoin/bitcoin/pull/6795).</p>
+
+<h2 id="test-for-lows-signatures-before-relaying">Test for LowS signatures before relaying</h2>
+
+<p>Make the node require the canonical ‘low-s’ encoding for ECDSA signatures when
+relaying or mining.  This removes a nuisance malleability vector.</p>
+
+<p>Consensus behavior is unchanged.</p>
+
+<p>If widely deployed this change would eliminate the last remaining known vector
+for nuisance malleability on SIGHASH_ALL P2PKH transactions. On the down-side
+it will block most transactions made by sufficiently out of date software.</p>
+
+<p>Unlike the other avenues to change txids on transactions this
+one was randomly violated by all deployed bitcoin software prior to
+its discovery. So, while other malleability vectors where made
+non-standard as soon as they were discovered, this one has remained
+permitted. Even BIP62 did not propose applying this rule to
+old version transactions, but conforming implementations have become
+much more common since BIP62 was initially written.</p>
+
+<p>Bitcoin Core has produced compatible signatures since a28fb70e in
+September 2013, but this didn’t make it into a release until 0.9
+in March 2014; Bitcoinj has done so for a similar span of time.
+Bitcoinjs and electrum have been more recently updated.</p>
+
+<p>This does not replace the need for BIP62 or similar, as miners can
+still cooperate to break transactions.  Nor does it replace the
+need for wallet software to handle malleability sanely[1]. This
+only eliminates the cheap and irritating DOS attack.</p>
+
+<p>[1] On the Malleability of Bitcoin Transactions
+Marcin Andrychowicz, Stefan Dziembowski, Daniel Malinowski, Łukasz Mazurek
+http://fc15.ifca.ai/preproceedings/bitcoin/paper_9.pdf</p>
+
+<h2 id="minimum-relay-fee-default-increase">Minimum relay fee default increase</h2>
+
+<p>The default for the <code>-minrelaytxfee</code> setting has been increased from <code>0.00001</code>
+to <code>0.00005</code>.</p>
+
+<p>This is necessitated by the current transaction flooding, causing
+outrageous memory usage on nodes due to the mempool ballooning. This is a
+temporary measure, bridging the time until a dynamic method for determining
+this fee is merged (which will be in 0.12).</p>
+
+<p>(see https://github.com/bitcoin/bitcoin/pull/6793, as well as the 0.11
+release notes, in which this value was suggested)</p>
+
+<h1 id="change-log">0.11.1 Change log</h1>
+
+<p>Detailed release notes follow. This overview includes changes that affect
+behavior, not code moves, refactors and string updates. For convenience in locating
+the code changes and accompanying discussion, both the pull request and
+git merge commit are mentioned.</p>
+
+<ul>
+  <li>#6438 <code>2531438</code> openssl: avoid config file load/race</li>
+  <li>#6439 <code>980f820</code> Updated URL location of netinstall for Debian</li>
+  <li>#6384 <code>8e5a969</code> qt: Force TLS1.0+ for SSL connections</li>
+  <li>#6471 <code>92401c2</code> Depends: bump to qt 5.5</li>
+  <li>#6224 <code>93b606a</code> Be even stricter in processing unrequested blocks</li>
+  <li>#6571 <code>100ac4e</code> libbitcoinconsensus: avoid a crash in multi-threaded environments</li>
+  <li>#6545 <code>649f5d9</code> Do not store more than 200 timedata samples.</li>
+  <li>#6694 <code>834e299</code> [QT] fix thin space word wrap line break issue</li>
+  <li>#6703 <code>1cd7952</code> Backport bugfixes to 0.11</li>
+  <li>#6750 <code>5ed8d0b</code> Recent rejects backport to v0.11</li>
+  <li>#6769 <code>71cc9d9</code> Test LowS in standardness, removes nuisance malleability vector.</li>
+  <li>#6789 <code>b4ad73f</code> Update miniupnpc to 1.9.20151008</li>
+  <li>#6785 <code>b4dc33e</code> Backport to v0.11: In (strCommand == “tx”), return if AlreadyHave()</li>
+  <li>#6412 <code>0095b9a</code> Test whether created sockets are select()able</li>
+  <li>#6795 <code>4dbcec0</code> net: Disable upnp by default</li>
+  <li>#6793 <code>e7bcc4a</code> Bump minrelaytxfee default</li>
+</ul>
+
+<h1 id="credits">Credits</h1>
+
+<p>Thanks to everyone who directly contributed to this release:</p>
+
+<ul>
+  <li>Adam Weiss</li>
+  <li>Alex Morcos</li>
+  <li>Casey Rodarmor</li>
+  <li>Cory Fields</li>
+  <li>fanquake</li>
+  <li>Gregory Maxwell</li>
+  <li>Jonas Schnelli</li>
+  <li>J Ross Nicoll</li>
+  <li>Luke Dashjr</li>
+  <li>Pavel Janík</li>
+  <li>Pavel Vasin</li>
+  <li>Peter Todd</li>
+  <li>Pieter Wuille</li>
+  <li>randy-waterhouse</li>
+  <li>Ross Nicoll</li>
+  <li>Suhas Daftuar</li>
+  <li>tailsjoin</li>
+  <li>฿tcDrak</li>
+  <li>Tom Harding</li>
+  <li>Veres Lajos</li>
+  <li>Wladimir J. van der Laan</li>
+</ul>
+
+<p>And those who contributed additional code review and/or security research:</p>
+
+<ul>
+  <li>timothy on IRC for reporting the issue</li>
+  <li>Vulnerability in miniupnp discovered by Aleksandar Nikolic of Cisco Talos</li>
+</ul>
+
+<p>As well as everyone that helped translating on <a href="https://www.transifex.com/projects/p/bitcoin/">Transifex</a>.</p>
+
+      
+        <hr />
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=http://abco.re/ru/releases/0.11.1" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://abco.re/ru/releases/0.11.1" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+      
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    <span>&copy; 2016 ABCore.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+
+
+
+</body>
+</html>

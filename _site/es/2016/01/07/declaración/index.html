@@ -1,0 +1,290 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="es"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="es"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="es"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="es"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Declaración de Bitcoin Core -- 2016-01-07 &#8211; ABCore</title>
+<meta name="description" content="Bitcoin es una «versión peer-to-peer de efectivo electrónico que permite mandar pagos online directamente entre personas sin necesidad de utilizar una institución financiera». Nuestra visión para Bitcoin es aumentar la flexibilidad del sistema para que funcione eficientemente a escala masiva mientras manteniendo la seguridad y las propiedades básicas de decentralización que distinguen a Bitcoin.
+
+">
+<meta name="keywords" content="">
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:title" content="Declaración de Bitcoin Core -- 2016-01-07">
+<meta name="twitter:description" content="Bitcoin es una «versión peer-to-peer de efectivo electrónico que permite mandar pagos online directamente entre personas sin necesidad de utilizar una institución financiera». Nuestra visión para Bitcoin es aumentar la flexibilidad del sistema para que funcione eficientemente a escala masiva mientras manteniendo la seguridad y las propiedades básicas de decentralización que distinguen a Bitcoin.
+
+">
+
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="/images/default-thumb.png">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Declaración de Bitcoin Core -- 2016-01-07">
+<meta property="og:description" content="Bitcoin es una «versión peer-to-peer de efectivo electrónico que permite mandar pagos online directamente entre personas sin necesidad de utilizar una institución financiera». Nuestra visión para Bitcoin es aumentar la flexibilidad del sistema para que funcione eficientemente a escala masiva mientras manteniendo la seguridad y las propiedades básicas de decentralización que distinguen a Bitcoin.
+
+">
+<meta property="og:url" content="/es/2016/01/07/declaración">
+<meta property="og:site_name" content="ABCore">
+
+<meta property="og:image" content="/images/default-thumb.png">
+
+
+
+
+
+
+<link rel="canonical" href="/es/2016/01/07/declaración">
+<link href="/es/feed.xml" type="application/atom+xml" rel="alternate" title="ABCore Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- HTML5 Shiv and Media Query Support -->
+<!--[if lt IE 9]>
+	<script src="/assets/js/vendor/html5shiv.min.js"></script>
+	<script src="/assets/js/vendor/respond.min.js"></script>
+<![endif]-->
+
+<!-- Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.7.1.custom.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700%7CPT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/assets/images/favicon.png">
+<!-- 32x32
+<link rel="shortcut icon" href="/assets/images/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices
+<link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation 
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/images/apple-touch-icon-144x144-precomposed.png">
+-->
+
+</head>
+
+<body class="page">
+
+<!--[if lt IE 9]><div class="browser-upgrade alert alert-info">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div><![endif]-->
+
+<div class="navigation-wrapper" >
+	<div class="site-name">
+        
+		<a href="/es/"><img style="width: 150px; //background: #3f51b5;" src="/assets/images/abcore.png" alt="abcore logo"></a>
+	</div><!-- /.site-name -->
+	<div class="top-navigation">
+		<nav role="navigation" id="site-nav" class="nav">
+		    <ul>
+		        
+				    
+				        
+				    
+
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/es/about/">About</a></li>
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/es/blog/">blog</a></li>
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/es/releases/">releases</a></li>
+                    
+ 				
+				    
+				        
+				    
+
+                    
+                      <li><a href="/es/contribute/">contribute</a></li>
+                    
+ 				
+                
+
+                <li id="langselect" class="lang">
+                    <select onchange="window.location=this.value;">
+                        <option class="langoption" value="">Español</option>
+                        
+                        <option class="langoption" value="/de/2016/01/07/stellungnahme-der-bitcoin-core-entwickler">Deutsche</option>
+                        
+                        
+                        
+                        <option class="langoption" value="/ru/2016/01/07/cообщение-от-bitcoin-core">русский</option>
+                        
+                        <option class="langoption" value="/zh_CN/2016/01/07/bitcoin-core-声明">简体中文</option>
+                        
+                        <option class="langoption" value="/zh_TW/2016/01/07/bitcoin-core-聲明">繁體中文</option>
+                        
+                    </select>
+                </li>
+                <!--<li class="lang">-->
+                    <!--<li><a>Español</a>-->
+                    <!--      -->
+                    <!---->
+                    <!--<a href="/de/2016/01/07/stellungnahme-der-bitcoin-core-entwickler" class="de"></a>-->
+                    <!--<a href="/de/2016/01/07/stellungnahme-der-bitcoin-core-entwickler" class="de">Deutsche</a>-->
+                    <!--<a href="/de/2016/01/07/stellungnahme-der-bitcoin-core-entwickler" class="de">Deutsche</a>-->
+                    <!---->
+                    <!---->
+                    <!--<a href="/es/2016/01/07/declaración" class="es">Español</a>-->
+                    <!--<a href="/es/2016/01/07/declaración" class="es">Español</a>-->
+                    <!---->
+                    <!--<a href="/ru/2016/01/07/cообщение-от-bitcoin-core" class="ru"></a>-->
+                    <!--<a href="/ru/2016/01/07/cообщение-от-bitcoin-core" class="ru">русский</a>-->
+                    <!--<a href="/ru/2016/01/07/cообщение-от-bitcoin-core" class="ru">русский</a>-->
+                    <!---->
+                    <!--<a href="/zh_CN/2016/01/07/bitcoin-core-声明" class="zh_CN"></a>-->
+                    <!--<a href="/zh_CN/2016/01/07/bitcoin-core-声明" class="zh_CN">简体中文</a>-->
+                    <!--<a href="/zh_CN/2016/01/07/bitcoin-core-声明" class="zh_CN">简体中文</a>-->
+                    <!---->
+                    <!--<a href="/zh_TW/2016/01/07/bitcoin-core-聲明" class="zh_TW"></a>-->
+                    <!--<a href="/zh_TW/2016/01/07/bitcoin-core-聲明" class="zh_TW">繁體中文</a>-->
+                    <!--<a href="/zh_TW/2016/01/07/bitcoin-core-聲明" class="zh_TW">繁體中文</a>-->
+                    <!---->
+                <!--</li>-->
+		    </ul>
+		</nav>
+	</div><!-- /.top-navigation -->
+</div><!-- /.navigation-wrapper -->
+
+
+
+
+<div id="main" role="main">
+  <div class="article-author-side">
+    
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+
+    
+
+
+
+
+
+
+    <img src="/assets/images/bio-blank.jpg" class="bio-photo" alt="bio-blank">
+
+
+  <h3 itemprop="name"></h3>
+  <p></p>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+  </div>
+  <article class="page">
+    <h1>Declaración de Bitcoin Core -- 2016-01-07</h1>
+    <div class="article-wrap">
+      <strong></strong>
+      <p>Bitcoin es una «versión peer-to-peer de efectivo electrónico que permite mandar pagos online directamente entre personas sin necesidad de utilizar una institución financiera». Nuestra visión para Bitcoin es aumentar la flexibilidad del sistema para que funcione eficientemente a escala masiva mientras manteniendo la seguridad y las propiedades básicas de decentralización que distinguen a Bitcoin.</p>
+
+<p>Creemos que Bitcoin puede lograr esto mediante el establecimiento de una base sobre la cual se pueden construir capas adicionales al protocolo y interfaces con otros sistemas. Además, nuestras metas a largo plazo incluyen proteger y mejorar la privacía de usuarios de Bitcoin.</p>
+
+<p>«Bitcoin Core» se refiere a un proyecto de software de código abierto que es descendiente directo de la implementación original de Bitcoin. Como contribuyentes al proyecto, mantenemos y lanzamos software para la consideración de la comunidad de Bitcoin. Esforzamos para hacer mejoras a las reglas del consenso a base de proponer actualizaciones que creemos que tienen sentido técnico basado en nuestro entendimiento de las metas de Bitcoin y que creemos que tienen buena probabilidad de soporte y adopción masivo.</p>
+
+<p>Cambios a las reglas del consenso de Bitcoin se pueden realizar a través de soft forks o hard forks (ver el Apéndice A). Soft forks permiten cambios compatibles. Con soft forks, software viejo y nuevo puede coexistir en el network. Soft forks pueden introducir nuevas funciones sin disrupción porque los usuarios que quieren utilizarlas pueden actualizarse mientras los que no quieren pueden seguir normalmente.</p>
+
+<p>Hard forks rompen compatibilidad de todo el software de Bitcoin anterior y requieren que todos los participantes se actualizen a las mismas reglas por dada fecha o arriesguen pérdida financiera. Estos eventos pueden dañar los efectos de red, echando para afuera a usuarios si no toman acción y potencialmente rompiendo software y aplicaciónes dependientes del sistema.</p>
+
+<p>Por estas razones, Bitcoin Core fuertemente favorece compatibilidad y cree que cada usuario debe poder elegir no actualizar las reglas de su software de Bitcoin. Casi cualquiera función nueva se puede agregar con soft fork. A veces hard forks pueden tener beneficios, y si hay acuerdo casi universal, estos beneficios pueden superar a las desventajas. Excepto para estos casos, soft forks serán preferidos. Creemos que esto es en el mejor interés de los usuarios actuales y futuros del sistema.</p>
+
+<p>También se espera que a la medida que el ecosistema de Bitcoin vaya creciendo, el número de implementaciones alternativas del protocolo de Bitcoin aumentará. Es inevitable que otros proyectos hagan propuestas radicalmente diferentes a las nuestras para la consideración de la comunidad. Al fin de cuentas, los desarrolladores de Bitcoin Core no decide las reglas del consenso de Bitcoin. Sino, los usuarios que participan en Bitcoin eligen cual software usar. Por esto, el software de Bitcoin Core intencionalmente excluye función de actualización automática. Su omisión asegura la participación voluntaria de todos en cada cambio para que todos siempre tengan libre la opción de cual software usar.</p>
+
+<p>Apéndice A</p>
+
+<p>Un hard fork es un cambio en las reglas del consenso en el cual bloques inválidos bajo las reglas viejas podrán ser válidos bajo las nuevas reglas.</p>
+
+<p>Un soft fork es un cambio en las reglas del consenso en el cual bloques válidos bajo las reglas viejas podrán ser inválidos bajo las nuevas reglas pero todos los bloques inválidos bajo las reglas viejas siguen siendo inválidos bajo las nuevas reglas.</p>
+
+      
+        <hr />
+        <div class="social-share">
+  <h4>Share on</h4>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=http://abco.re/es/2016/01/07/declaración" class="twitter" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://abco.re/es/2016/01/07/declaración" class="facebook" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=" class="google-plus" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+  </ul>
+</div><!-- /.social-share -->
+      
+    </div><!-- /.article-wrap -->
+  </article>
+</div><!-- /#index -->
+
+<div class="footer-wrap">
+  <footer>
+    <span>&copy; 2016 ABCore.</span>
+
+  </footer>
+</div><!-- /.footer-wrap -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+
+
+
+</body>
+</html>
