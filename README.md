@@ -1,6 +1,6 @@
-#bitcoinco.re [![Build Status](https://travis-ci.org/bitcoin-core/website.svg?branch=gh-pages)](https://travis-ci.org/bitcoin-core/website)
+#abco.re [![Build Status](https://travis-ci.org/greenaddress/website.svg?branch=gh-pages)](https://travis-ci.org/greenaddress/abcore)
 
-This repository is the source code of the Bitcoin Core project website built with Jekyll.
+This repository is the source code of the ABCoreproject website built with Jekyll.
 
 ## Directory structure
 
