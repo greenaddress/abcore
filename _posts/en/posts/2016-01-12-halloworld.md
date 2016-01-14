@@ -6,4 +6,4 @@ title: ABCore says HalloWorld! -- 2016-01-12
 permalink: /en/2016/01/12/halloworld
 version: 1
 ---
-ABCore says HalloWorld!
+ABCore says HalloWorld! Get our last release on the Releases Page.
