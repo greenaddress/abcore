@@ -1,23 +1,32 @@
 # Authors
 
-laanwj:
-  name: Wladamir van der Laan
+lawrence:
+  name: Lawrence Nahum
   web:
   email:
   bio:
-  avatar: laanwj.jpg
-  twitter: orionwl
-  github: laanwj
+  avatar:
+  twitter: LarryBitcoin
+  github:
   google:
     plus:
 
-sipa:
-  name: Pieter Wuille
+ottavio:
+  name: Ottavio Fontolan
+  email: otta88.box@gmail.com
+  bio:
+  avatar:
+  github:
+  twitter:
+  google:
+    plus:
+
+gabriele:
+  name: Gabriele Domenichini
   email:
   bio:
-  avatar: https://avatars2.githubusercontent.com/u/548488?v=3&s=460
-  github: sipa
-  twitter: pwuille
+  avatar:
+  github:
+  twitter: gabridome
   google:
     plus:
-

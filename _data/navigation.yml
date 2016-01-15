@@ -1,7 +1,7 @@
 # Site navigation links
 en:
   home:
-    title: "Bitcoin Core"
+    title: "ABCore"
     url:   "/"
   about:
     title: "About"
@@ -28,7 +28,7 @@ en:
     url:   "/en/contribute/"
 de:
   home:
-    title: "Bitcoin Core"
+    title: "ABCore"
     url:   "/de/"
   about:
     title: "About"
@@ -44,7 +44,7 @@ de:
     url:   "/de/contribute/"
 es:
   home:
-    title: "Bitcoin Core"
+    title: "ABCore"
     url:   "/es/"
   about:
     title: "About"
@@ -60,7 +60,7 @@ es:
     url:   "/es/contribute/"
 fr:
   home:
-    title: "Bitcoin Core"
+    title: "ABCore"
     url:   "/fr/"
   about:
     title: "à propos"
@@ -76,7 +76,7 @@ fr:
     url:   "/fr/contribute/"
 ru:
   home:
-    title: "Bitcoin Core"
+    title: "ABCore"
     url:   "/ru/"
   about:
     title: "about"
@@ -92,7 +92,7 @@ ru:
     url:   "/ru/contribute/"
 zh_CN:
   home:
-    title: "Bitcoin Core"
+    title: "ABCore"
     url:   "/zh_CN/"
   about:
     title: "关于我们"
@@ -106,19 +106,19 @@ zh_CN:
   contribute:
     title: "贡献"
     url:   "/zh_CN/contribute/"
-zh_TW:
+it:
   home:
-    title: "Bitcoin Core"
-    url:   "/zh_TW/"
+    title: "ABCore"
+    url:   "/it/"
   about:
-    title: "關於我們"
-    url:   "/zh_TW/about/"
+    title: "info"
+    url:   "/it/about/"
   blog:
-    title: "網誌"
-    url:   "/zh_TW/blog/"
+    title: "blog"
+    url:   "/it/blog/"
   releases:
-    title: "軟件發行"
-    url:   "/zh_TW/releases/"
+    title: "rilasci"
+    url:   "/it/releases/"
   contribute:
-    title: "貢獻"
-    url:   "/zh_TW/contribute/"
+    title: "contribuisci"
+    url:   "/it/contribute/"

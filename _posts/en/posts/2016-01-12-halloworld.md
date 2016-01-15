@@ -1,9 +1,13 @@
 ---
 layout: post
-id: en-bitcoin-core-2016-01-12-statement
-name: bitcoin-core-2016-01-12-statement
+id: en-abcore-2016-01-12-halloworld
+name: abcore-2016-01-12-halloworld
 title: ABCore says HalloWorld! -- 2016-01-12
 permalink: /en/2016/01/12/halloworld
 version: 1
 ---
-ABCore says HalloWorld!
+ABCore is finally released!
+
+Have you ever wondered about run a Bitcoin Core full node on your android device? Now it's possible.
+
+Check the [Releases Page]({{site.baseurl}}/en/releases) to get the last version.
