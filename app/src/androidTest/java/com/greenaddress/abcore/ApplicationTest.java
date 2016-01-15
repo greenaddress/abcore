@@ -34,6 +34,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
                     break;
                 }
             }
+            //noinspection ResultOfMethodCallIgnored
             new File(filePath).delete();
         }
     }

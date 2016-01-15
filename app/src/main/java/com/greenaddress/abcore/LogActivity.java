@@ -48,7 +48,8 @@ public class LogActivity extends AppCompatActivity {
             final StringBuilder sb = new StringBuilder();
             for (final String l: lines) {
                 if (l != null){
-                    sb.append(l + "\n");
+                    sb.append(l);
+                    sb.append("\n");
                 }
             }
             final EditText et = (EditText)  findViewById(R.id.editText);

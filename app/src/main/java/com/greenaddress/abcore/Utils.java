@@ -33,9 +33,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class Utils {
+class Utils {
 
-    final static String TAG = Utils.class.getSimpleName();
+    private final static String TAG = Utils.class.getSimpleName();
 
     @SuppressWarnings("deprecation")
     static float megabytesAvailable(final File f) {
@@ -155,7 +155,7 @@ public class Utils {
         input.delete();
     }
 
-    static void copyFile(final String src, final String dst, final File outputDir) throws IOException {
+    private static void copyFile(final String src, final String dst, final File outputDir) throws IOException {
         final InputStream linked = new BufferedInputStream(new FileInputStream(new File(outputDir, src)));
         final OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(outputDir, dst)));
 
@@ -169,7 +169,7 @@ public class Utils {
         IOUtils.closeQuietly(out);
     }
 
-    static String sha256Hex(final String filePath) throws NoSuchAlgorithmException, IOException {
+    private static String sha256Hex(final String filePath) throws NoSuchAlgorithmException, IOException {
         final InputStream fis = new BufferedInputStream(new FileInputStream(filePath));
         final MessageDigest md = MessageDigest.getInstance("SHA-256");
 
@@ -364,7 +364,7 @@ public class Utils {
         return new String(enc, resBegin, enc.length - resBegin);
     }
 
-    static String getRepo(final Context c, final String arch, final boolean isArchEnabled) {
+    private static String getRepo(final Context c, final String arch, final boolean isArchEnabled) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
         if (isArchEnabled) {
             if (arch.equals("amd64") || arch.equals("i386")) {
@@ -377,7 +377,7 @@ public class Utils {
         }
     }
 
-    static String getArchLinuxArchitecture(final String arch) {
+    private static String getArchLinuxArchitecture(final String arch) {
         if (arch.equals("amd64")) {
             return "x86_64";
         } else if (arch.equals("i386")){
