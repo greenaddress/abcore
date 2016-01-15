@@ -104,9 +104,9 @@ defaults:
       lang: zh_CN
   -
     scope:
-      path: _posts/zh_TW
+      path: _posts/it
     values:
-      lang: zh_TW
+      lang: it
   -
     scope:
       path: _posts/en/pages
@@ -144,7 +144,7 @@ defaults:
       type: pages
   -
     scope:
-      path: _posts/zh_TW/pages
+      path: _posts/it/pages
     values:
       layout: page
       type: pages
@@ -186,7 +186,7 @@ defaults:
       type: posts
   -
     scope:
-      path: _posts/zh_TW/posts
+      path: _posts/it/posts
     values:
       layout: post
       type: posts
@@ -228,7 +228,7 @@ defaults:
       type: releases
   -
     scope:
-      path: _posts/zh_TW/releases
+      path: _posts/it/releases
     values:
       layout: page
       type: releases

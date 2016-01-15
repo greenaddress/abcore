@@ -9,7 +9,11 @@
         
         <item>
             <title>ABCore says HalloWorld! -- 2016-01-12</title>
-            <description>&lt;p&gt;ABCore says HalloWorld!&lt;/p&gt;
+            <description>&lt;p&gt;ABCore is finally released!&lt;/p&gt;
+
+&lt;p&gt;Have you ever wondered about run a Bitcoin Core full node on your android device? Now it’s possible.&lt;/p&gt;
+
+&lt;p&gt;Check the &lt;a href=&quot;/en/releases&quot;&gt;Releases Page&lt;/a&gt; to get the last version.&lt;/p&gt;
 </description>
             <pubDate>Tue, 12 Jan 2016 00:00:00 +0100</pubDate>
             <link>/en/2016/01/12/halloworld</link>
