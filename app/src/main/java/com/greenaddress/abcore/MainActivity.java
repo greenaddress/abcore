@@ -140,16 +140,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case "ABCOREUPDATE": {
-                    final String file = intent.getStringExtra("ABCOREUPDATETXT");
-                    int update = intent.getIntExtra("ABCOREUPDATE", 0);
-                    int max = intent.getIntExtra("ABCOREUPDATEMAX", 100);
+
 
                     final ProgressBar pb = (ProgressBar) MainActivity.this.findViewById(R.id.progressBar);
                     final TextView tw = (TextView) MainActivity.this.findViewById(R.id.textViewDetails);
-                    tw.setText(file);
+                    tw.setText(String.format("%s %s", getSpeed(intent.getIntExtra("ABCOREUPDATESPEED", 0)), intent.getStringExtra("ABCOREUPDATETXT")));
+
                     pb.setVisibility(View.VISIBLE);
-                    pb.setMax(max);
-                    pb.setProgress(update);
+                    pb.setMax(intent.getIntExtra("ABCOREUPDATEMAX", 100));
+                    pb.setProgress(intent.getIntExtra("ABCOREUPDATE", 0));
                     final Button button = (Button) findViewById(R.id.button);
 
                     button.setEnabled(false);
@@ -160,6 +159,20 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
+        }
+    }
+
+    private String getSpeed(final int bytesPerSec) {
+        if (bytesPerSec == 0) {
+            return "";
+        } else if (bytesPerSec > 1024 * 1024 * 1024) {
+            return String.format("%s MB/s", bytesPerSec / (1024 * 1024 * 1024));
+        } else if (bytesPerSec > 1024 * 1024) {
+            return String.format("%s KB/s", bytesPerSec / (1024 * 1024));
+        } else if (bytesPerSec > 1024) {
+            return String.format("%s KB/s", bytesPerSec / 1024);
+        } else {
+            return String.format("%s B/s", bytesPerSec);
         }
     }
 

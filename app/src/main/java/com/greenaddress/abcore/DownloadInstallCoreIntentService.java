@@ -37,7 +37,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
         return archEnabled ? Packages.getArchPackages(arch): Packages.getDebPackages(arch);
     }
 
-
     @Override
     protected void onHandleIntent(final Intent intent) {
         // this already runs in its own thread but no reasons the pkgs couldn't be handle concurrently.
@@ -52,7 +51,12 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 for (final String a : d.archHash) {
                     try {
                         if (a.startsWith(arch)) {
-                            unpack(d, arch, dir, a);
+                            unpack(d, arch, dir, a, new Utils.OnDownloadSpeedChange() {
+                                @Override
+                                public void bytesPerSecondUpdate(final int bytes) {
+                                    sendUpdate("Downloading", d, bytes);
+                                }
+                            });
                             break;
                         }
                     } catch (final FileNotFoundException e) {
@@ -136,8 +140,10 @@ public class DownloadInstallCoreIntentService extends IntentService {
             throw e;
         }
     }
-
     private void sendUpdate(final String upd, final Packages.PkgH pkg) {
+        sendUpdate(upd, pkg, null);
+    }
+    private void sendUpdate(final String upd, final Packages.PkgH pkg, final Integer bytesPerSec) {
         Log.i(TAG, upd);
         final Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
@@ -145,11 +151,15 @@ public class DownloadInstallCoreIntentService extends IntentService {
         broadcastIntent.putExtra(PARAM_OUT_MSG, "ABCOREUPDATE");
         broadcastIntent.putExtra("ABCOREUPDATE", getPackages().indexOf(pkg));
         broadcastIntent.putExtra("ABCOREUPDATEMAX", getPackages().size());
+        if (bytesPerSec != null) {
+            broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
+        }
+
         broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
         sendBroadcast(broadcastIntent);
     }
 
-    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw) throws IOException, NoSuchAlgorithmException, ArchiveException {
+    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw, final Utils.OnDownloadSpeedChange odsc) throws IOException, NoSuchAlgorithmException, ArchiveException {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final boolean isArchLinux = prefs.getBoolean("archisenabled", false);
@@ -159,7 +169,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
         // Download file
         sendUpdate("Downloading", pkg);
-        Utils.downloadFile(url, filePath);
+        Utils.downloadFile(url, filePath, odsc);
 
 
         // Verify sha256sum

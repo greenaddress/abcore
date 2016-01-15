@@ -26,7 +26,12 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
             final String filePath = Utils.getFilePathFromUrl(getContext(), url);
 
-            Utils.downloadFile(url, filePath);
+            Utils.downloadFile(url, filePath, new Utils.OnDownloadSpeedChange() {
+                @Override
+                public void bytesPerSecondUpdate(final int bytes) {
+                    // do nothing
+                }
+            });
 
             for (final String a: pkg.archHash) {
                 if (a.startsWith(arch)) {

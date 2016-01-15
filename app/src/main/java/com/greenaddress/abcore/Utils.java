@@ -198,15 +198,38 @@ class Utils {
         }
     }
 
-    static void downloadFile(final String url, final String filePath) throws IOException {
+    interface OnDownloadSpeedChange {
+        void bytesPerSecondUpdate(final int bytes);
+    }
+
+    static void downloadFile(final String url, final String filePath, final OnDownloadSpeedChange odsc) throws IOException {
+
         final FileOutputStream fos = new FileOutputStream(filePath);
+        final long start_download_time = System.currentTimeMillis();
+
         final DataInputStream dis = new DataInputStream(new BufferedInputStream(new URL(url).openStream()));
 
-        byte[] buffer = new byte[1024];
+        final byte[] buffer = new byte[1024];
         int length;
 
+        long lastUpdate = 0;
+
+        int totalBytesDownloaded = 0, currentRate = 0;
         while ((length = dis.read(buffer)) > 0) {
+            totalBytesDownloaded += length;
             fos.write(buffer, 0, length);
+            final long currentTime = System.currentTimeMillis();
+            final long ms  = currentTime - start_download_time;
+            if (ms > 200) {
+                final int rate = (int)(totalBytesDownloaded / (ms / 1000.0));
+                if (rate != currentRate) {
+                    if (currentTime - lastUpdate > 200) {
+                        odsc.bytesPerSecondUpdate(rate);
+                        lastUpdate = currentTime;
+                    }
+                    currentRate = rate;
+                }
+            }
         }
 
         IOUtils.closeQuietly(fos);
