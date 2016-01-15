@@ -168,7 +168,7 @@ $button-size: 1.5rem;
 .nav .navtoggle {
 	@include font-rem(18);
 	font-weight: normal;
-	background-color: $black;
+	background-color: #3f51b5;
 	color: $white;
 	border: none;
 	cursor: pointer;
