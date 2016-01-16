@@ -43,9 +43,13 @@ Development
 
 Lawrence Nahum twitter.com/LarryBitcoin
 
-Icon Design
+Icon & Web Design
 
-Ottavio Fontolan otta88.box@gmail.com
+Ottavio Fontolan otta88.box (at) gmail (dot) com
+
+Testing & UX
+
+Gabriele Domenichini twitter.com/gabridome
 
 Special thanks to the Bitcoin Dev team, the Debian and Arch Linux teams and to github.com/Polve for JavaBitcoindRpcClient.
 
