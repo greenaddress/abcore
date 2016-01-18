@@ -4,6 +4,7 @@ id: zh_CN-abcore-2016-01-12-halloworld
 name: abcore-2016-01-12-halloworld
 title: ABCore says HalloWorld! -- 2016-01-12
 permalink: /zh_CN/2016/01/12/halloworld
+author: team
 version: 1
 ---
 ABCore is finally released!

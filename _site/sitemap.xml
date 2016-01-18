@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>/en/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/zh_CN/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/ru/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/de/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/fr/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/es/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/it/2016/01/17/abcore-added-value</loc>
+    <lastmod>2016-01-17T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/es/2016/01/12/halloworld</loc>
+    <lastmod>2016-01-12T00:00:00+01:00</lastmod>
+  </url>
+  <url>
     <loc>/en/2016/01/12/halloworld</loc>
     <lastmod>2016-01-12T00:00:00+01:00</lastmod>
   </url>
@@ -9,7 +41,7 @@
     <lastmod>2016-01-12T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/it/2016/01/12/halloworld</loc>
+    <loc>/ru/2016/01/12/halloworld</loc>
     <lastmod>2016-01-12T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -17,11 +49,7 @@
     <lastmod>2016-01-12T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/es/2016/01/12/halloworld</loc>
-    <lastmod>2016-01-12T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/ru/2016/01/12/halloworld</loc>
+    <loc>/it/2016/01/12/halloworld</loc>
     <lastmod>2016-01-12T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -33,11 +61,15 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/en/releases/</loc>
+    <loc>/zh_CN/releases/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/ru/releases/</loc>
+    <loc>/de/releases/</loc>
+    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/en/releases/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -49,15 +81,7 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/zh_CN/releases/</loc>
-    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/de/releases/</loc>
-    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/it/</loc>
+    <loc>/ru/releases/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -65,11 +89,19 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/es/</loc>
+    <loc>/it/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
     <loc>/de/</loc>
+    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/es/</loc>
+    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/ru/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -81,15 +113,7 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/ru/</loc>
-    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/zh_CN/contribute</loc>
-    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/it/contribute</loc>
+    <loc>/en/contribute</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -97,7 +121,11 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/en/contribute</loc>
+    <loc>/ru/contribute</loc>
+    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/it/contribute</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -105,15 +133,23 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
+    <loc>/zh_CN/contribute</loc>
+    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
     <loc>/de/contribute</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/ru/contribute</loc>
+    <loc>/de/blog/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
     <loc>/zh_CN/blog/</loc>
+    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/en/blog/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -125,11 +161,7 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/en/blog/</loc>
-    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/de/blog/</loc>
+    <loc>/ru/blog/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -137,11 +169,7 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/ru/blog/</loc>
-    <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/de/about/</loc>
+    <loc>/it/about/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -153,7 +181,7 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/en/about/</loc>
+    <loc>/fr/about/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
@@ -161,19 +189,19 @@
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/it/about/</loc>
+    <loc>/en/about/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
   </url>
   <url>
-    <loc>/fr/about/</loc>
+    <loc>/de/about/</loc>
     <lastmod>2016-01-01T00:00:00+01:00</lastmod>
-  </url>
-  <url>
-    <loc>/de/releases/0.11.0</loc>
-    <lastmod>2015-10-13T00:00:00+02:00</lastmod>
   </url>
   <url>
     <loc>/en/releases/0.11.0</loc>
+    <lastmod>2015-10-13T00:00:00+02:00</lastmod>
+  </url>
+  <url>
+    <loc>/de/releases/0.11.0</loc>
     <lastmod>2015-10-13T00:00:00+02:00</lastmod>
   </url>
   <url>

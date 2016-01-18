@@ -4,6 +4,7 @@ id: it-abcore-2016-01-12-halloworld
 name: abcore-2016-01-12-halloworld
 title: ABCore dice HalloWorld! -- 2016-01-12
 permalink: /it/2016/01/12/halloworld
+author: team
 version: 1
 ---
 ABCore è stato rilasciato!

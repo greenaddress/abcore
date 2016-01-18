@@ -26,7 +26,7 @@ kramdown:
 # Site owner
 owner:
   name: ABCore
-  avatar: bio-photo.jpg
+  avatar: favicon.png
   bio: ""
   email:
   disqus-shortname:
