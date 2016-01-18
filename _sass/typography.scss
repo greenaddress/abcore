@@ -42,12 +42,12 @@ a {
 		color: $linkcolorhover;
 	}
 	&:focus {
-		outline: thin dotted;
+		//outline: thin dotted;
 		color: $linkcolorfocus;
 	}
 	&:hover,
 	&:active {
-		outline: 0;
+		//outline: 0;
 	}
 }
 

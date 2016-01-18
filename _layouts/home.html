@@ -25,13 +25,15 @@
   </div><!-- /.image-wrap -->
 {% endif %}
 
-<div id="main" role="main">
-  <div class="article-author-side">
-    {% include _author-bio.html %}
+<div id="main" role="main" style="background: #eee; padding-top: 20px; padding-bottom: 20px; margin-bottom: 20px;">
+  <div class="article-author-side" style="//padding-top: 5px;">
+    <!-- {% include _author-bio.html %} -->
+    <a href="/assets/images/schema.png" ><img src="/assets/images/schema.png" class="" style="width: 200px; border: 0; padding: 0; outline: 0;" title="ABCore schema" alt="abcore-schema"></a>
   </div>
   <div id="index">
+
     {% assign navigation = site.data.navigation[page.lang] %}
-    <h3><a href="{{ site.url }}/{{ navigation[1].blog }}">Recent Posts</a></h3>
+    <h3><a href="{{ site.url }}/{{ navigation[1].blog }}">News</a></h3>
     <!-- h3><a href="{{ navigation.blog.url }}">Recent Posts</a></h3 -->
       {% assign posts=site.posts | where:"lang", page.lang | where:"type", 'posts' %}
       {% for post in posts limit:5 %}
