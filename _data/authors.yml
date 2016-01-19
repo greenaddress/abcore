@@ -2,7 +2,7 @@
 team:
   name: ABCore Team
   email:
-  bio: Lawrence Nahum<br/>Ottavio Fontolan<br/>Gabriele Domenichini
+  bio: Lawrence Nahum<br/>Ottavio Fontolan<br/>Gabriele Domenichini<br/>Timothy Redaelli
   avatar: favicon.png
   github: greenaddress/abcore/
   twitter:
@@ -37,5 +37,15 @@ gabriele:
   avatar:
   github:
   twitter: gabridome
+  google:
+    plus:
+
+timothy:
+  name: Timothy Redaelli
+  email: timothy.redaelli@gmail.com
+  bio:
+  avatar:
+  github: drizzt
+  twitter: drizztbsd
   google:
     plus:
