@@ -3,10 +3,14 @@ ABCore - Android Bitcoin Core
 
 [![Build Status](https://travis-ci.org/greenaddress/abcore.svg?branch=master)](https://travis-ci.org/greenaddress/abcore)
 
-[![Logo](http://abco.re/assets/images/schema.png)](http://abco.re/assets/images/schema.png)
+<a href="http://abco.re"> <img src="http://abco.re/assets/images/schema.png" alt="Infographic" width="650" height="650"></a>
 
 Warning: This app is still in a very Proof of Concept/Alpha stage.
-If you want to try it get it from the Play Store (opt-in https://play.google.com/apps/testing/com.greenaddress.abcore) or directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.23alphaPoC
+
+
+<a href="https://play.google.com/apps/testing/com.greenaddress.abcore"> <img src="http://abco.re/assets/images/playstore.png" alt="Play Store" width="200" height="60"></a>
+
+If you want to try it get it from the Play Store or directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.23alphaPoC
 
 What is Android Bitcoin Core?
 -----------------------------
