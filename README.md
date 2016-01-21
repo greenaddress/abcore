@@ -5,6 +5,8 @@ ABCore - Android Bitcoin Core
 
 <a href="http://abco.re"> <img src="http://abco.re/assets/images/schema.png" alt="Infographic" width="650" height="650"></a>
 
+Web site: <a href="http://abco.re">abco.re</a>
+
 Warning: This app is still in a very Proof of Concept/Alpha stage.
 
 
