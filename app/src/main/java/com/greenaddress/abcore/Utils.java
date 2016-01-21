@@ -189,19 +189,6 @@ class Utils {
         return sb.toString();
     }
 
-    static class FileToCopy {
-        final String src, dst;
-
-        FileToCopy(final String src, final String dst) {
-            this.src = src;
-            this.dst = dst;
-        }
-    }
-
-    interface OnDownloadSpeedChange {
-        void bytesPerSecondUpdate(final int bytes);
-    }
-
     static void downloadFile(final String url, final String filePath, final OnDownloadSpeedChange odsc) throws IOException {
 
         final FileOutputStream fos = new FileOutputStream(filePath);
@@ -219,9 +206,9 @@ class Utils {
             totalBytesDownloaded += length;
             fos.write(buffer, 0, length);
             final long currentTime = System.currentTimeMillis();
-            final long ms  = currentTime - start_download_time;
+            final long ms = currentTime - start_download_time;
             if (ms > 200) {
-                final int rate = (int)(totalBytesDownloaded / (ms / 1000.0));
+                final int rate = (int) (totalBytesDownloaded / (ms / 1000.0));
                 if (rate != currentRate) {
                     if (currentTime - lastUpdate > 200) {
                         odsc.bytesPerSecondUpdate(rate);
@@ -257,15 +244,6 @@ class Utils {
         filePath.delete();
     }
 
-    static class UnsupportedArch extends RuntimeException {
-        final String arch;
-
-        UnsupportedArch(final String a) {
-            super(UnsupportedArch.class.getName());
-            this.arch = a;
-        }
-    }
-
     static String getArch() {
         final String arch = System.getProperty("os.arch");
         Log.v(TAG, arch);
@@ -280,7 +258,6 @@ class Utils {
         }
         throw new UnsupportedArch(arch);
     }
-
 
     static File getDir(final Context c) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -403,7 +380,7 @@ class Utils {
     private static String getArchLinuxArchitecture(final String arch) {
         if (arch.equals("amd64")) {
             return "x86_64";
-        } else if (arch.equals("i386")){
+        } else if (arch.equals("i386")) {
             return "i686";
         } else if (arch.equals("armhf")) {
             return "armv7h";
@@ -424,19 +401,13 @@ class Utils {
         final String fileArch = arch.equals("armhf") ? "armv7h" : osArch;
 
         final String template = isArchLinux ?
-                (isArmArchitecture? "http://%s/%s-" + fileArch : "http://%s/%s-" + osArch ) + ".pkg.tar.xz" : "http://%s/pool/main/%s_%s.deb";
+                (isArmArchitecture ? "http://%s/%s-" + fileArch : "http://%s/%s-" + osArch) + ".pkg.tar.xz" : "http://%s/pool/main/%s_%s.deb";
 
-        return isArchLinux ? String.format(template, repo, String.format(pkg.pkg, fileArch)): String.format(template, repo, pkg.pkg, arch);
+        return isArchLinux ? String.format(template, repo, String.format(pkg.pkg, fileArch)) : String.format(template, repo, pkg.pkg, arch);
     }
 
     static String getFilePathFromUrl(final Context c, final String url) {
         return getLargestFilesDir(c).getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
-    }
-
-    static class ValidationFailure extends RuntimeException {
-        ValidationFailure(final String s) {
-            super(s);
-        }
     }
 
     static void validateSha256sum(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
@@ -445,6 +416,34 @@ class Utils {
 
         if (!sha256hash.equals(hash)) {
             throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s, expected %s", filePath, hash, sha256hash));
+        }
+    }
+
+    interface OnDownloadSpeedChange {
+        void bytesPerSecondUpdate(final int bytes);
+    }
+
+    static class FileToCopy {
+        final String src, dst;
+
+        FileToCopy(final String src, final String dst) {
+            this.src = src;
+            this.dst = dst;
+        }
+    }
+
+    static class UnsupportedArch extends RuntimeException {
+        final String arch;
+
+        UnsupportedArch(final String a) {
+            super(UnsupportedArch.class.getName());
+            this.arch = a;
+        }
+    }
+
+    static class ValidationFailure extends RuntimeException {
+        ValidationFailure(final String s) {
+            super(s);
         }
     }
 }

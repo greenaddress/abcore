@@ -21,6 +21,9 @@ import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
 
 public class RPCIntentService extends IntentService {
 
+    public static final String PARAM_OUT_MSG = "rpccore";
+    private static final String TAG = RPCIntentService.class.getName();
+
     public RPCIntentService() {
         super(RPCIntentService.class.getName());
     }
@@ -28,7 +31,11 @@ public class RPCIntentService extends IntentService {
     Properties getBitcoinConf() throws IOException {
         final Properties p = new Properties();
         final InputStream i = new BufferedInputStream(new FileInputStream(Utils.getBitcoinConf(this)));
-        try {p.load(i);} finally {IOUtils.closeQuietly(i);}
+        try {
+            p.load(i);
+        } finally {
+            IOUtils.closeQuietly(i);
+        }
         return p;
     }
 
@@ -42,17 +49,13 @@ public class RPCIntentService extends IntentService {
 
         final String testnet = p.getProperty("testnet");
 
-        final String nonMainnet = testnet == null || !testnet.equals("1") ?  p.getProperty("regtest"): testnet;
+        final String nonMainnet = testnet == null || !testnet.equals("1") ? p.getProperty("regtest") : testnet;
 
         final String url = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "8332" : port) + "/";
         final String testUrl = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "18332" : port) + "/";
 
-        return new BitcoinJSONRPCClient(nonMainnet == null || !nonMainnet.equals("1")? url : testUrl);
+        return new BitcoinJSONRPCClient(nonMainnet == null || !nonMainnet.equals("1") ? url : testUrl);
     }
-
-    private static final String TAG = RPCIntentService.class.getName();
-
-    public static final String PARAM_OUT_MSG = "rpccore";
 
     private void broadcastPeerlist() throws IOException {
         final BitcoindRpcClient bitcoin = getRpc();
@@ -66,7 +69,7 @@ public class RPCIntentService extends IntentService {
         final ArrayList<String> peers = new ArrayList<>();
         // find the most common blockchain height that is higher than hardcoded constant
         for (final BitcoindRpcClient.PeerInfoResult r : pir) {
-            peers.add(String.format("%s - %s - %s", r.getAddr(), r.getSubVer(),r.getStartingHeight()));
+            peers.add(String.format("%s - %s - %s", r.getAddr(), r.getSubVer(), r.getStartingHeight()));
         }
         broadcastIntent.putStringArrayListExtra("peerlist", peers);
 

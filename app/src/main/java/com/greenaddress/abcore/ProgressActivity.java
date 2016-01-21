@@ -17,6 +17,9 @@ import java.util.TimerTask;
 
 public class ProgressActivity extends AppCompatActivity {
 
+    Timer timer;
+    private RPCResponseReceiver rpcResponseReceiver;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,34 @@ public class ProgressActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private RPCResponseReceiver rpcResponseReceiver;
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(rpcResponseReceiver);
+        rpcResponseReceiver = null;
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final IntentFilter filter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
+        if (rpcResponseReceiver == null) {
+            rpcResponseReceiver = new RPCResponseReceiver();
+        }
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        registerReceiver(rpcResponseReceiver, filter);
+        refresh();
+    }
+
+    private void refresh() {
+        final Intent i = new Intent(this, RPCIntentService.class);
+        i.putExtra("REQUEST", "progress");
+        startService(i);
+    }
 
     class RPCResponseReceiver extends BroadcastReceiver {
 
@@ -48,21 +78,18 @@ public class ProgressActivity extends AppCompatActivity {
                     if (max == -1) {
                         Snackbar.make(findViewById(android.R.id.content),
                                 "There are no peers yet", Snackbar.LENGTH_LONG).show();
-                    }
-                    else {
+                    } else {
                         pb.setMax(max);
                         pb.setProgress(sync);
                         if (max == sync) {
                             textStatus.setText(String.format("Up to date (block height %s)", sync));
                         } else {
-                            textStatus.setText(String.format("Processed %s%s (%s out of %s)", new DecimalFormat("#.##").format(((double)sync / max) * 100.0), "%", sync, max));
+                            textStatus.setText(String.format("Processed %s%s (%s out of %s)", new DecimalFormat("#.##").format(((double) sync / max) * 100.0), "%", sync, max));
                         }
 
                         timer = new Timer();
-                        timer.schedule(new TimerTask()
-                        {
-                            public void run()
-                            {
+                        timer.schedule(new TimerTask() {
+                            public void run() {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -81,35 +108,5 @@ public class ProgressActivity extends AppCompatActivity {
                     break;
             }
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        unregisterReceiver(rpcResponseReceiver);
-        rpcResponseReceiver = null;
-        if (timer != null) {
-            timer.cancel();
-            timer.purge();
-        }
-    }
-    Timer timer;
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        final IntentFilter filter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
-        if (rpcResponseReceiver == null) {
-            rpcResponseReceiver = new RPCResponseReceiver();
-        }
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(rpcResponseReceiver, filter);
-        refresh();
-    }
-
-    private void refresh() {
-        final Intent i = new Intent(this, RPCIntentService.class);
-        i.putExtra("REQUEST", "progress");
-        startService(i);
     }
 }

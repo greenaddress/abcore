@@ -22,19 +22,63 @@ import java.util.Random;
 
 public class DownloadInstallCoreIntentService extends IntentService {
 
-    private static final String TAG = DownloadInstallCoreIntentService.class.getName();
-
     public static final String PARAM_OUT_MSG = "abtcore";
+    private static final String TAG = DownloadInstallCoreIntentService.class.getName();
 
     public DownloadInstallCoreIntentService() {
         super(DownloadInstallCoreIntentService.class.getName());
+    }
+
+    private static String getRnd() {
+
+        final Random ranGen = new SecureRandom();
+        final byte[] pass = new byte[16];
+        ranGen.nextBytes(pass);
+        return Utils.toBase58(pass);
+    }
+
+    public static void configureCore(final Context c) throws IOException {
+
+        final File coreConf = new File(Utils.getBitcoinConf(c));
+        if (coreConf.exists()) {
+            return;
+        }
+        coreConf.getParentFile().mkdirs();
+
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = new FileOutputStream(coreConf);
+            outputStream.write("rpcuser=bitcoinrpc\n".getBytes());
+            outputStream.write(String.format("rpcpassword=%s\n", getRnd()).getBytes());
+            outputStream.write("listen=1\n".getBytes());
+
+            //outputStream.write("bind=127.0.0.1\n".getBytes());
+            outputStream.write("disablewallet=1\n".getBytes());
+            outputStream.write("testnet=0\n".getBytes());
+            //outputStream.write("testnet=1\n".getBytes());
+            //outputStream.write("addnode=192.168.2.47\n".getBytes());
+            //outputStream.write("regtest=1\n".getBytes());
+            outputStream.write("upnp=0\n".getBytes());
+            // don't attempt onion connections by default
+            outputStream.write("onlynet=ipv4\n".getBytes());
+
+            // Afaik ipv6 is broken on android, disable by default, user can change this
+            // outputStream.write("onlynet=ipv6\n".getBytes());
+            outputStream.write(String.format("datadir=%s\n", Utils.getLargestFilesDir(c)).getBytes());
+
+            IOUtils.closeQuietly(outputStream);
+        } catch (final IOException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     private List<Packages.PkgH> getPackages() {
         final String arch = Utils.getArch();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final Boolean archEnabled = prefs.getBoolean("archisenabled", false);
-        return archEnabled ? Packages.getArchPackages(arch): Packages.getDebPackages(arch);
+        return archEnabled ? Packages.getArchPackages(arch) : Packages.getDebPackages(arch);
     }
 
     @Override
@@ -95,54 +139,10 @@ public class DownloadInstallCoreIntentService extends IntentService {
         Log.v(TAG, "onHandleIntent END");
     }
 
-    private static String getRnd() {
-
-        final Random ranGen = new SecureRandom();
-        final byte[] pass = new byte[16];
-        ranGen.nextBytes(pass);
-        return Utils.toBase58(pass);
-    }
-
-
-    public static void configureCore(final Context c) throws IOException {
-
-        final File coreConf = new File(Utils.getBitcoinConf(c));
-        if (coreConf.exists()) {
-            return;
-        }
-        coreConf.getParentFile().mkdirs();
-
-        FileOutputStream outputStream;
-
-        try {
-            outputStream = new FileOutputStream(coreConf);
-            outputStream.write("rpcuser=bitcoinrpc\n".getBytes());
-            outputStream.write(String.format("rpcpassword=%s\n", getRnd()).getBytes());
-            outputStream.write("listen=1\n".getBytes());
-
-            //outputStream.write("bind=127.0.0.1\n".getBytes());
-            outputStream.write("disablewallet=1\n".getBytes());
-            outputStream.write("testnet=0\n".getBytes());
-            //outputStream.write("testnet=1\n".getBytes());
-            //outputStream.write("addnode=192.168.2.47\n".getBytes());
-            //outputStream.write("regtest=1\n".getBytes());
-            outputStream.write("upnp=0\n".getBytes());
-            // don't attempt onion connections by default
-            outputStream.write("onlynet=ipv4\n".getBytes());
-
-            // Afaik ipv6 is broken on android, disable by default, user can change this
-            // outputStream.write("onlynet=ipv6\n".getBytes());
-            outputStream.write(String.format("datadir=%s\n", Utils.getLargestFilesDir(c)).getBytes());
-
-            IOUtils.closeQuietly(outputStream);
-        } catch (final IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
-    }
     private void sendUpdate(final String upd, final Packages.PkgH pkg) {
         sendUpdate(upd, pkg, null);
     }
+
     private void sendUpdate(final String upd, final Packages.PkgH pkg, final Integer bytesPerSec) {
         Log.i(TAG, upd);
         final Intent broadcastIntent = new Intent();

@@ -11,9 +11,8 @@ import java.io.InputStreamReader;
 
 class ProcessLogger extends Thread {
 
-    final InputStream is;
-
     final static String TAG = ProcessLogger.class.getName();
+    final InputStream is;
 
     ProcessLogger(InputStream is) {
         super();
@@ -30,8 +29,7 @@ class ProcessLogger extends Thread {
             while ((line = br.readLine()) != null) {
                 Log.v(TAG, line);
             }
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         } finally {
             IOUtils.closeQuietly(is);

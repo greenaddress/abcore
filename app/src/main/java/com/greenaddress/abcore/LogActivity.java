@@ -27,7 +27,7 @@ public class LogActivity extends AppCompatActivity {
 
             // Verify if RandomAccessFile is better than linear scanning given the line issues?
             // FIXME: This is not good enough when the file is big, we should use RAF above.
-            final File f = new File(Utils.getDataDir(this) + (Utils.isTestnet(this)?"/testnet3/debug.log":"/debug.log"));
+            final File f = new File(Utils.getDataDir(this) + (Utils.isTestnet(this) ? "/testnet3/debug.log" : "/debug.log"));
             if (!f.exists()) {
                 ((EditText) findViewById(R.id.editText))
                         .setText("No debug file exists yet");
@@ -46,13 +46,13 @@ public class LogActivity extends AppCompatActivity {
             }
 
             final StringBuilder sb = new StringBuilder();
-            for (final String l: lines) {
-                if (l != null){
+            for (final String l : lines) {
+                if (l != null) {
                     sb.append(l);
                     sb.append("\n");
                 }
             }
-            final EditText et = (EditText)  findViewById(R.id.editText);
+            final EditText et = (EditText) findViewById(R.id.editText);
             final String txt = sb.toString();
             et.getText().clearSpans();
             et.getText().clear();
