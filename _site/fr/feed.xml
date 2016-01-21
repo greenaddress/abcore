@@ -3,7 +3,7 @@
     <title type="text">ABCore</title>
     <link rel="self" type="application/atom+xml" href="/fr/feed.xml" />
     <link rel="alternate" type="text/html" href="" />
-    <updated>2016-01-18T14:36:55+01:00</updated>
+    <updated>2016-01-21T11:28:06+01:00</updated>
     <id>/</id>
     <author>
         <name>ABCore</name>
@@ -27,7 +27,7 @@
             
         </author>
         <content type="html">
-            &lt;p&gt;What’s the reason to choose an Android Bitcoin Core full node instead a Linux/Windows/Machintosh one?&lt;/p&gt;
+            &lt;p&gt;What’s the reason to choose an Android Bitcoin Core full node instead a Linux/Windows/Macintosh one?&lt;/p&gt;
 
 &lt;p&gt;ABCore runs on Android Devices and you have these advantages:&lt;/p&gt;
 
