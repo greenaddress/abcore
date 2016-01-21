@@ -39,17 +39,26 @@ The contributors of ABCore are not liable for any cost or damage caused by the a
 Acknowledgement
 ---------------
 
-Development
+- Development
 
-Lawrence Nahum twitter.com/LarryBitcoin
+Lawrence Nahum
+twitter.com/LarryBitcoin
 
-Icon & Web Design
+- Icon & Web Design
 
-Ottavio Fontolan otta88.box (at) gmail (dot) com
+Ottavio Fontolan
+otta88.box (at) gmail (dot) com
 
-Testing & UX
+- Testing & UX
 
-Gabriele Domenichini twitter.com/gabridome
+Gabriele Domenichini
+twitter.com/gabridome
+
+- Community Manager
+
+Timothy Redaelli
+twitter.com/drizztbsd
+timothy.redaelli (at) gmail (dot) com
 
 Special thanks to the Bitcoin Dev team, the Debian and Arch Linux teams and to github.com/Polve for JavaBitcoindRpcClient.
 
