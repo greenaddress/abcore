@@ -60,6 +60,6 @@ Timothy Redaelli
 twitter.com/drizztbsd
 timothy.redaelli (at) gmail (dot) com
 
-Special thanks to the Bitcoin Dev team, the Debian and Arch Linux teams and to Alessandro Polverini for the Java RPC client (https://github.com/Polve/JavaBitcoindRpcClient).
+Special thanks to the [Bitcoin Core dev team](https://bitcoincore.org/), the [Debian](https://debian.org) and [Arch Linux](https://www.archlinux.org/) teams and to [Alessandro Polverini](https://github.com/Polve) for the [Java RPC client](https://github.com/Polve/JavaBitcoindRpcClient).
 
 
