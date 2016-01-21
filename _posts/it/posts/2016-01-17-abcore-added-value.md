@@ -7,7 +7,7 @@ permalink: /it/2016/01/17/abcore-added-value
 author: team
 version: 1
 ---
-Perché scegliere un full-node Bitcoin Core su dispositivi Android invece che su Linux/Windows/Machintosh?
+Perché scegliere un full-node Bitcoin Core su dispositivi Android invece che su Linux/Windows/Macintosh?
 
 ABCore funziona su dispositivi Android e ha questi vantaggi:
 

@@ -7,7 +7,7 @@ permalink: /en/2016/01/17/abcore-added-value
 author: team
 version: 1
 ---
-What's the reason to choose an Android Bitcoin Core full node instead a Linux/Windows/Machintosh one?
+What's the reason to choose an Android Bitcoin Core full node instead a Linux/Windows/Macintosh one?
 
 ABCore runs on Android Devices and you have these advantages:
 
