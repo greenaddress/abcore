@@ -14,6 +14,8 @@ to run Bitcoin Core daemon node on always on Android set top box devices and hom
 
 The dependencies are fetched from either a Debian or Arch mirror (currently providing respectively Bitcoin Core 0.11.1 and Bitcoin Core 0.11.2) and the node is meant to be used as a personal node when on the go.
 
+ABCore works on x86, x86_64, armhf and arm64 Android (any version from 4.0.0 onwards - sdk 16). Mips is not supported.
+
 License
 -------
 
