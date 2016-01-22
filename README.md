@@ -54,7 +54,7 @@ Acknowledgement
 Lawrence Nahum
 twitter.com/LarryBitcoin
 
-- Icon & Web Design
+- Graphic Content
 
 Ottavio Fontolan
 otta88.box (at) gmail (dot) com
