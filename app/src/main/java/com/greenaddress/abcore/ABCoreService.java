@@ -72,7 +72,7 @@ public class ABCoreService extends Service {
 
             // unset LD_PRELOAD for devices such as Samsung S6 (LD_PRELOAD errors on libsigchain.so starting core although works ..)
 
-            env.put("LD_PRELOAD","");
+            env.put("LD_PRELOAD", "");
 
             env.put("LD_LIBRARY_PATH",
                     String.format("%s:%s:%s:%s:%s:%s",
@@ -110,7 +110,7 @@ public class ABCoreService extends Service {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         if (mProcess != null) {
             mProcess.destroy();

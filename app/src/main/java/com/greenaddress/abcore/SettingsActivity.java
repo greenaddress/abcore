@@ -144,6 +144,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 || RepoPreferenceFragment.class.getName().equals(fragmentName)
                 || CorePreferenceFragment.class.getName().equals(fragmentName);
     }
+
     /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
@@ -282,7 +283,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             final Preference.OnPreferenceChangeListener ps = new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(final Preference preference, final Object newValue) {
-                    p.setProperty(preference.getKey(), (Boolean)newValue?"1":"0");
+                    p.setProperty(preference.getKey(), (Boolean) newValue ? "1" : "0");
                     try {
                         p.store(new FileOutputStream(Utils.getBitcoinConf(getActivity())), "");
                     } catch (IOException e) {

@@ -17,6 +17,10 @@ import java.util.List;
 
 public class PeerActivity extends ListActivity {
 
+    final List<String> listItems = new ArrayList<>();
+    ArrayAdapter<String> adapter;
+    private RPCResponseReceiver rpcResponseReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +42,36 @@ public class PeerActivity extends ListActivity {
         });
     }
 
-    final List<String> listItems = new ArrayList<>();
-    ArrayAdapter<String> adapter;
-    private RPCResponseReceiver rpcResponseReceiver;
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(rpcResponseReceiver);
+        rpcResponseReceiver = null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final IntentFilter filter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
+        if (rpcResponseReceiver == null) {
+            rpcResponseReceiver = new RPCResponseReceiver();
+        }
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        registerReceiver(rpcResponseReceiver, filter);
+        refresh();
+    }
+
+    private void refresh() {
+        final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarPeerList);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        pb.setVisibility(View.VISIBLE);
+        fab.setVisibility(View.GONE);
+
+        final Intent i = new Intent(this, RPCIntentService.class);
+        i.putExtra("REQUEST", "peerlist");
+        startService(i);
+    }
 
     class RPCResponseReceiver extends BroadcastReceiver {
 
@@ -73,36 +104,5 @@ public class PeerActivity extends ListActivity {
                     break;
             }
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        unregisterReceiver(rpcResponseReceiver);
-        rpcResponseReceiver = null;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        final IntentFilter filter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
-        if (rpcResponseReceiver == null) {
-            rpcResponseReceiver = new RPCResponseReceiver();
-        }
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        registerReceiver(rpcResponseReceiver, filter);
-        refresh();
-    }
-
-    private void refresh() {
-        final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarPeerList);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        pb.setVisibility(View.VISIBLE);
-        fab.setVisibility(View.GONE);
-
-        final Intent i = new Intent(this, RPCIntentService.class);
-        i.putExtra("REQUEST", "peerlist");
-        startService(i);
     }
 }

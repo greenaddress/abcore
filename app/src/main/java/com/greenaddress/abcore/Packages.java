@@ -6,29 +6,7 @@ import java.util.List;
 
 public class Packages {
 
-    private static List<PkgH> getPackages(final String arch, final List<Packages.PkgH> static_pkgs) {
-        final List<PkgH> pkgs = new ArrayList<>();
-        for (final PkgH d : static_pkgs) {
-            for (final String s : d.archHash) {
-                if (s.startsWith(arch)) {
-                    pkgs.add(d);
-                    break;
-                }
-            }
-        }
-        return pkgs;
-    }
-
-    public static List<PkgH> getDebPackages(final String arch) {
-        return getPackages(arch, DEB_PACKAGES);
-    }
-
-    public static List<PkgH> getArchPackages(final String arch) {
-        return getPackages(arch, ARCH_PACKAGES);
-    }
-
     private final static List<PkgH> ARCH_PACKAGES;
-
     private final static List<PkgH> DEB_PACKAGES;
 
     static {
@@ -168,7 +146,7 @@ public class Packages {
                                         "i386d3ecfd4ccbb47688b47fedb0c9e68d2092e03a30bc2ac1a1f950306da357288e")),
                         new PkgH("core/os/%s/gcc-libs-5.3.0-3",
                                 Arrays.asList("amd64e89168e2c0dbed78e6292b4fd8dc6d25ae05e9a5aee9408edfe595767de06327",
-                                        "i3869fc442b39218e6034ae919a3eeb22b67630fe0b5b2c68a257f5f3cced536bde3" )),
+                                        "i3869fc442b39218e6034ae919a3eeb22b67630fe0b5b2c68a257f5f3cced536bde3")),
                         new PkgH("core/os/%s/db-5.3.28-3",
                                 Arrays.asList("amd64cf6c0b4599cf34e137c68a2b760a75c5110eb44fd707d8085673efaf604d9bee",
                                         "i38637376a77cbf4958738deabf7b207c015cc04670563ae11e55ad46773fdb37c56")),
@@ -187,7 +165,28 @@ public class Packages {
                         new PkgH("community/os/%s/bitcoin-daemon-0.11.2-3",
                                 Arrays.asList("amd64b74a28dffd945ed809bfdf2f8592507d8cc6058576b6ea02c02e93be0d02af55",
                                         "i386677fa9aa585514be1f052ba1cf263e367661fbf5a693d3efb013e944e28ba424"))
-                        ));
+                ));
+    }
+
+    private static List<PkgH> getPackages(final String arch, final List<Packages.PkgH> static_pkgs) {
+        final List<PkgH> pkgs = new ArrayList<>();
+        for (final PkgH d : static_pkgs) {
+            for (final String s : d.archHash) {
+                if (s.startsWith(arch)) {
+                    pkgs.add(d);
+                    break;
+                }
+            }
+        }
+        return pkgs;
+    }
+
+    public static List<PkgH> getDebPackages(final String arch) {
+        return getPackages(arch, DEB_PACKAGES);
+    }
+
+    public static List<PkgH> getArchPackages(final String arch) {
+        return getPackages(arch, ARCH_PACKAGES);
     }
 
     public static class PkgH {

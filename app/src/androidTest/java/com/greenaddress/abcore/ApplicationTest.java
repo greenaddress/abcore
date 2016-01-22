@@ -1,7 +1,6 @@
 package com.greenaddress.abcore;
 
 import android.app.Application;
-
 import android.test.ApplicationTestCase;
 
 import java.io.File;
@@ -33,7 +32,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
                 }
             });
 
-            for (final String a: pkg.archHash) {
+            for (final String a : pkg.archHash) {
                 if (a.startsWith(arch)) {
                     Utils.validateSha256sum(arch, a, filePath);
                     break;
