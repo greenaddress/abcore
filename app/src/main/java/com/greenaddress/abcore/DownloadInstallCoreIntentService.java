@@ -164,7 +164,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
         final boolean isArchLinux = prefs.getBoolean("archisenabled", false);
 
-        final String url = Utils.getPackageUrl(pkg, this, arch, isArchLinux);
+        final String url = Packages.getPackageUrl(pkg, this, arch, isArchLinux);
         final String filePath = Utils.getFilePathFromUrl(this, url);
 
         // Download file

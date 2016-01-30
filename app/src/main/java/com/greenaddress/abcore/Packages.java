@@ -1,5 +1,9 @@
 package com.greenaddress.abcore;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -179,6 +183,34 @@ public class Packages {
             }
         }
         return pkgs;
+    }
+
+    static String getRepo(final Context c, final String arch, final boolean isArchEnabled) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+        if (isArchEnabled) {
+            if (arch.equals("amd64") || arch.equals("i386")) {
+                return prefs.getString("archi386Repo", "archlinux.openlabto.org/archlinux");
+            } else {
+                return prefs.getString("archarmRepo", "eu.mirror.archlinuxarm.org");
+            }
+        } else {
+            return prefs.getString("debianRepo", "ftp.us.debian.org/debian");
+        }
+    }
+
+    static String getPackageUrl(final Packages.PkgH pkg, final Context c, final String arch, final boolean isArchLinux) {
+
+        final String osArch = Utils.getArchLinuxArchitecture(arch);
+
+        final boolean isArmArchitecture = !arch.equals("amd64") && !arch.equals("i386");
+        final String repo = getRepo(c, arch, isArchLinux);
+
+        final String fileArch = arch.equals("armhf") ? "armv7h" : osArch;
+
+        final String template = isArchLinux ?
+                (isArmArchitecture ? "http://%s/%s-" + fileArch : "http://%s/%s-" + osArch) + ".pkg.tar.xz" : "http://%s/pool/main/%s_%s.deb";
+
+        return isArchLinux ? String.format(template, repo, String.format(pkg.pkg, fileArch)) : String.format(template, repo, pkg.pkg, arch);
     }
 
     public static List<PkgH> getDebPackages(final String arch) {
