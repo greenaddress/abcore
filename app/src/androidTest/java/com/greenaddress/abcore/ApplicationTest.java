@@ -21,7 +21,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     private void downloadAndValidatePackages(final List<Packages.PkgH> pkgs, final String arch, final boolean isArchLinux) throws IOException, NoSuchAlgorithmException {
         for (final Packages.PkgH pkg : pkgs) {
 
-            final String url = Utils.getPackageUrl(pkg, getContext(), arch, isArchLinux);
+            final String url = Packages.getPackageUrl(pkg, getContext(), arch, isArchLinux);
 
             final String filePath = Utils.getFilePathFromUrl(getContext(), url);
 
