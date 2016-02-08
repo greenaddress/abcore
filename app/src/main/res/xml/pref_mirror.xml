@@ -4,7 +4,7 @@
         android:id="@+id/debianonoff"
         android:key="debianisenabled"
         android:defaultValue="true"
-        android:title="Use Debian packages (0.11.1)"
+        android:title="Use Debian packages (0.11.2)"
         android:summaryOn="Using Debian, switch this Off for Arch"
         android:summaryOff="Using Arch, switch this On for Debian"
     />
