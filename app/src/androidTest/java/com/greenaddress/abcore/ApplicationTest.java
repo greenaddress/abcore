@@ -43,24 +43,43 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         }
     }
 
-    private void downloadAndValidatePackages(final String arch) throws IOException, NoSuchAlgorithmException {
+    private void downloadAndValidateDebianPackages(final String arch) throws IOException, NoSuchAlgorithmException {
         downloadAndValidatePackages(Packages.getDebPackages(arch), arch, false);
+    }
+
+    private void downloadAndValidateArchPackages(final String arch) throws IOException, NoSuchAlgorithmException {
         downloadAndValidatePackages(Packages.getArchPackages(arch), arch, true);
     }
 
-    public void testArm64Packages() throws IOException, NoSuchAlgorithmException {
-        downloadAndValidatePackages("arm64");
+    public void testDebianArm64Packages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateDebianPackages("arm64");
     }
 
-    public void testAmd64Packages() throws IOException, NoSuchAlgorithmException {
-        downloadAndValidatePackages("amd64");
+    public void testDebianAmd64Packages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateDebianPackages("amd64");
     }
 
-    public void testi386Packages() throws IOException, NoSuchAlgorithmException {
-        downloadAndValidatePackages("i386");
+    public void testDebiani386Packages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateDebianPackages("i386");
     }
 
-    public void testArmHfPackages() throws IOException, NoSuchAlgorithmException {
-        downloadAndValidatePackages("armhf");
+    public void testDebianArmHfPackages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateDebianPackages("armhf");
+    }
+
+    public void testArchArm64Packages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateArchPackages("arm64");
+    }
+
+    public void testArchAmd64Packages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateArchPackages("amd64");
+    }
+
+    public void testArchi386Packages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateArchPackages("i386");
+    }
+
+    public void testArchArmHfPackages() throws IOException, NoSuchAlgorithmException {
+        downloadAndValidateArchPackages("armhf");
     }
 }

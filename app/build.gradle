@@ -12,8 +12,8 @@ android {
         applicationId "com.greenaddress.abcore"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 24
-        versionName "0.24"
+        versionCode 25
+        versionName "0.25"
     }
     buildTypes {
         release {
@@ -31,7 +31,6 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'org.apache.commons:commons-compress:1.10'
