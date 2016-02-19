@@ -117,9 +117,9 @@ public class Packages {
 
                         /*arm64 and armhf only*/
 
-                        new PkgH("%s/core/glibc-2.22-3",
-                                Arrays.asList("arm642474b51260cd169835f248389a09b177c91ae9e037d91ddad0738ac6288f3e87",
-                                        "armhfc205bf3e96c73e7ad2b287e2c0c0d6c229997e5011756511b718753da9efb253")),
+                        new PkgH("%s/core/glibc-2.22-4.1",
+                                Arrays.asList("arm64b931b006c75b607bddd8b0a3cb92cac2a51d9b8d3ba399f3a0451a33d773ea6a",
+                                        "armhf0ecbbf58c0f85a24cffd863c0d0e536ccb55d5a6ae0dcf68c3565ffdd44f69c4")),
                         new PkgH("%s/core/gcc-libs-5.3.0-4",
                                 Arrays.asList("arm643ed0fb4f252536ab8534b58fc96f43989920b00cc146894bea99a793132fcf58",
                                         "armhf3cad82a087c196af7dd73d874fa487cc07ff24eb86c2c43c8071b8332f56415f")),
@@ -145,9 +145,9 @@ public class Packages {
 
                         /*686 and  x86_64 only*/
 
-                        new PkgH("core/os/%s/glibc-2.22-3",
-                                Arrays.asList("amd64a16e087a9ab7b71a68f07e027f2929b78e5c251a88a57a4bcd1948961cf7a86d",
-                                        "i386d3ecfd4ccbb47688b47fedb0c9e68d2092e03a30bc2ac1a1f950306da357288e")),
+                        new PkgH("core/os/%s/glibc-2.22-4",
+                                Arrays.asList("amd644edc81a41fcaae8fdf14d1617055d13a1ea508ae4d239a8d9d95b8fe1e5e68c7",
+                                        "i38615ccdc4ea06043c81847398a6f90b3aa793874e3c89b092262c1d7b326343261")),
                         new PkgH("core/os/%s/gcc-libs-5.3.0-4",
                                 Arrays.asList("amd64e64325d08cf0242990b5991f93e75e44a4c4861c7175f87e075d4c4434f1b03c",
                                         "i38638ba0ea2bce361579ee10ca5e6f9c2edcb434a07ab2e9a32595ef198357eac6f")),
