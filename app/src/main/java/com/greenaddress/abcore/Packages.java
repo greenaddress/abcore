@@ -98,11 +98,11 @@ public class Packages {
                                         "amd6438021e5e4adaccaf38933358ff87ec8eb243d5bf516bef5cffdc56dd1f182d8e",
                                         "armhfaeb63f1b5c8611a3c4180e819987eb3b5ce9f95a64927d31c1740995d4ed81c8")),
 
-                        new PkgH("g/glibc/libc6_2.21-7",
-                                Arrays.asList("i386b0d72a5253e18e41f5294537a95f01cc64c1a8c4a47007a66c656dc00e62c0f1",
-                                        "arm64db499513199b36d37947a17f908622c0a3b2a22df157bf0be759956d88daf3f0",
-                                        "amd64df601e94884bcf57725db1a17ba85bed10ef4d59c180cc674a1d0c42b6712ac2",
-                                        "armhf90a0ab83f55150fb3879a340b56946f777568c84d69b2afd3709437c21ee8ec0")),
+                        new PkgH("g/glibc/libc6_2.21-8",
+                                Arrays.asList("i3868bb511766dceb500a6702745b192177c2ad91f9d53757bb4cef51bae5aeea649",
+                                        "arm64731b8ce543a27b4a8a2484e7a4894581d9022470e667736b77deb8b5dea397d1",
+                                        "amd643b28c9baca0ec6c11bb4753dd6f3b52303c91f0ad21c9158e340fb2c7ce1f56b",
+                                        "armhfb7b9d33958eca3ac5606f3d15c07ffc602752c7a5c7accbb55a50c40574a948f")),
 
                         new PkgH("b/bitcoin/bitcoind_0.11.2-1",
                                 Arrays.asList("i386347449b94112686dc31d86e4dbc026a30d0352a60edf58365ae33e0117b90b0b",
@@ -166,9 +166,9 @@ public class Packages {
                         new PkgH("community/os/%s/miniupnpc-1.9.20151026-1",
                                 Arrays.asList("amd64f306957369f4190a211f66f8023b50ef4dc3afb9351fe4bd3ab958482358252e",
                                         "i38655aaf73bc45be53cd6be0341e064c79a8c1b0b4856b1ae4c3bc89cc01b494817")),
-                        new PkgH("community/os/%s/bitcoin-daemon-0.11.2-3",
-                                Arrays.asList("amd64b74a28dffd945ed809bfdf2f8592507d8cc6058576b6ea02c02e93be0d02af55",
-                                        "i386677fa9aa585514be1f052ba1cf263e367661fbf5a693d3efb013e944e28ba424"))
+                        new PkgH("community/os/%s/bitcoin-daemon-0.12.0-1",
+                                Arrays.asList("amd64621e0202c7e816ae25f35ada0506de2e728b8417e30b77488def54dec95d79c3",
+                                        "i386fe74d56094e5c22d33294ede36a7a35b3f14bdbd2f0583c9f948facad9916789"))
                 ));
     }
 
