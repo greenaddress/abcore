@@ -139,9 +139,9 @@ public class Packages {
                         new PkgH("%s/community/miniupnpc-1.9.20151026-1",
                                 Arrays.asList("arm6418dc4485f357788247ad1b1db107f27e01ad4543fbb09e331a8d6fe99e5ef064",
                                         "armhfe675dbba4104fe0b3eef2c4bc87afd9bd60d547e01052ba7ce19997a282b0467")),
-                        new PkgH("%s/community/bitcoin-daemon-0.12.0-1",
-                                Arrays.asList("arm6480db38ca77e8bbcd6567684433f5f76997747a16423ad8b8f11ff5120866a668",
-                                        "armhf0bf34af5d36d80d1945f7f88c35d6de8fd1a4cb3d6d24ee919d3cab5cefe5565")),
+                        new PkgH("%s/community/bitcoin-daemon-0.12.0-2",
+                                Arrays.asList("arm647635720bad1586a188520c2d5c1fb1a8593a67866a09a32f19fad4774270d649",
+                                        "armhf4dcfe602ac6b9acd82ad10739f8892632733df616f9359443bfb44144389dadf")),
 
                         /*686 and  x86_64 only*/
 
@@ -166,9 +166,9 @@ public class Packages {
                         new PkgH("community/os/%s/miniupnpc-1.9.20151026-1",
                                 Arrays.asList("amd64f306957369f4190a211f66f8023b50ef4dc3afb9351fe4bd3ab958482358252e",
                                         "i38655aaf73bc45be53cd6be0341e064c79a8c1b0b4856b1ae4c3bc89cc01b494817")),
-                        new PkgH("community/os/%s/bitcoin-daemon-0.12.0-1",
-                                Arrays.asList("amd64621e0202c7e816ae25f35ada0506de2e728b8417e30b77488def54dec95d79c3",
-                                        "i386fe74d56094e5c22d33294ede36a7a35b3f14bdbd2f0583c9f948facad9916789"))
+                        new PkgH("community/os/%s/bitcoin-daemon-0.12.0-2",
+                                Arrays.asList("amd64e43e7136f91daf252fc96affcfab01473321187de8b6c5e0245f9b2fc4554380",
+                                        "i386362f1f7c7add7fce9e8448f517260099c731b81ed85e6d9f1a3a4377f9873e13"))
                 ));
     }
 
