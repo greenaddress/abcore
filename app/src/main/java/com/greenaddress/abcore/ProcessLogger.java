@@ -14,7 +14,7 @@ class ProcessLogger extends Thread {
     final static String TAG = ProcessLogger.class.getName();
     final InputStream is;
 
-    ProcessLogger(InputStream is) {
+    ProcessLogger(final InputStream is) {
         super();
         this.is = is;
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
@@ -29,7 +29,7 @@ class ProcessLogger extends Thread {
             while ((line = br.readLine()) != null) {
                 Log.v(TAG, line);
             }
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             ioe.printStackTrace();
         } finally {
             IOUtils.closeQuietly(is);

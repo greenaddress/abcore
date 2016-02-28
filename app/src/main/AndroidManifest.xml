@@ -7,13 +7,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        tools:replace="android:icon,android:label,android:theme"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.greenaddress.abcore.MainActivity">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:label,android:theme">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -45,19 +45,20 @@
             android:label="@string/title_activity_settings">
         </activity>
         <activity
-            android:name="com.greenaddress.abcore.PeerActivity"
+            android:name=".PeerActivity"
             android:label="@string/title_activity_peer"
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name="com.greenaddress.abcore.ProgressActivity"
+            android:name=".ProgressActivity"
             android:label="@string/title_activity_progress"
             android:theme="@style/AppTheme">
         </activity>
         <activity android:name=".LogActivity">
         </activity>
-        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity" />
-
+        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity"/>
+        <activity android:name=".ConsoleActivity">
+        </activity>
     </application>
 
 </manifest>

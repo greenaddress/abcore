@@ -84,8 +84,6 @@ public class ABCoreService extends Service {
                             String.format("%s/usr/lib/arm-linux-gnueabihf", dir.getAbsolutePath())
                     ));
 
-            // env.put("PATH", String.format("%s/lib/%s-linux-%s", dir.getAbsolutePath(), aarch, gnu));
-
             pb.directory(new File(Utils.getDataDir(this)));
 
             mProcess = pb.start();

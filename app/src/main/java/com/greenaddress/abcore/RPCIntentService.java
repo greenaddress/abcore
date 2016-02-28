@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -39,8 +40,7 @@ public class RPCIntentService extends IntentService {
         return p;
     }
 
-    BitcoindRpcClient getRpc() throws IOException {
-
+    String getRpcUrl() throws IOException {
         final Properties p = getBitcoinConf();
         final String user = p.getProperty("rpcuser", "bitcoinrpc");
         final String password = p.getProperty("rpcpassword");
@@ -54,7 +54,11 @@ public class RPCIntentService extends IntentService {
         final String url = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "8332" : port) + "/";
         final String testUrl = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "18332" : port) + "/";
 
-        return new BitcoinJSONRPCClient(nonMainnet == null || !nonMainnet.equals("1") ? url : testUrl);
+        return nonMainnet == null || !nonMainnet.equals("1") ? url : testUrl;
+    }
+
+    BitcoindRpcClient getRpc() throws IOException {
+        return new BitcoinJSONRPCClient(getRpcUrl());
     }
 
     private void broadcastPeerlist() throws IOException {
@@ -121,6 +125,43 @@ public class RPCIntentService extends IntentService {
             } catch (final BitcoinRPCException | IOException e) {
                 broadcastError(e);
             }
+            return;
+        }
+
+
+        final String console_request = intent.getStringExtra("CONSOLE_REQUEST");
+
+        if (console_request != null) {
+            final Intent broadcastIntent = new Intent();
+            broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
+            broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+            broadcastIntent.putExtra(PARAM_OUT_MSG, "CONSOLE_REQUEST");
+            try {
+                final BitcoinJSONRPCClient bitcoin = new BitcoinJSONRPCClient(getRpcUrl());
+
+                Log.v(TAG, console_request);
+
+                try {
+
+                    final String[] array = console_request.split(" ");
+                    if (array.length > 1) {
+                        broadcastIntent.putExtra("res", bitcoin.query(array[0], Arrays.copyOfRange(array, 1, array.length)).toString());
+
+                    } else {
+                        broadcastIntent.putExtra("res", bitcoin.query(console_request).toString());
+                    }
+                } catch (final BitcoinRPCException e) {
+                    broadcastIntent.putExtra("res", "Failed, Verifying blocks?");
+
+                }
+
+                sendBroadcast(broadcastIntent);
+            } catch (final IOException e) {
+                broadcastIntent.putExtra("res", "Failed");
+            } catch (final NullPointerException e) {
+                broadcastIntent.putExtra("res", "No value");
+            }
+
             return;
         }
 

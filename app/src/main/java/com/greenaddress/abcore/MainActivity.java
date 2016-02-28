@@ -186,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.debug:
                 startActivity(new Intent(this, LogActivity.class));
                 return true;
+            case R.id.console:
+                startActivity(new Intent(this, ConsoleActivity.class));
+                return true;
             case R.id.about:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
