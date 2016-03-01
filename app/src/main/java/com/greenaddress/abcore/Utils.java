@@ -186,7 +186,9 @@ class Utils {
 
         return sb.toString();
     }
-
+    static void downloadFile(final String url, final String filePath) throws IOException {
+        downloadFile(url, filePath, null);
+    }
     static void downloadFile(final String url, final String filePath, final OnDownloadSpeedChange odsc) throws IOException {
 
         final FileOutputStream fos = new FileOutputStream(filePath);
@@ -201,20 +203,23 @@ class Utils {
 
         int totalBytesDownloaded = 0, currentRate = 0;
         while ((length = dis.read(buffer)) > 0) {
-            totalBytesDownloaded += length;
             fos.write(buffer, 0, length);
-            final long currentTime = System.currentTimeMillis();
-            final long ms = currentTime - start_download_time;
-            if (ms > 200) {
-                final int rate = (int) (totalBytesDownloaded / (ms / 1000.0));
-                if (rate != currentRate) {
-                    if (currentTime - lastUpdate > 200) {
-                        odsc.bytesPerSecondUpdate(rate);
-                        lastUpdate = currentTime;
+            if (odsc != null) {
+                totalBytesDownloaded += length;
+                final long currentTime = System.currentTimeMillis();
+                final long ms = currentTime - start_download_time;
+                if (ms > 200) {
+                    final int rate = (int) (totalBytesDownloaded / (ms / 1000.0));
+                    if (rate != currentRate) {
+                        if (currentTime - lastUpdate > 200) {
+                            odsc.bytesPerSecondUpdate(rate);
+                            lastUpdate = currentTime;
+                        }
+                        currentRate = rate;
                     }
-                    currentRate = rate;
                 }
             }
+
         }
 
         IOUtils.closeQuietly(fos);
