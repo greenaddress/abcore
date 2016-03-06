@@ -103,7 +103,7 @@ public class Packages {
 
                         new PkgH("libs/libselinux/libselinux1_2.4-3+b1",
                                 Arrays.asList(
-                                        "i386888f8030910dd202ef9c5cc653c0eaea5c5b32f41d236cd7c6e2222c4a06c218",
+                                        "i3860fd6131da4659e44c8ddebf0604447e7f6743d0cf9c24a7ca7f5b532efa26be3",
                                         "arm643ec9dfc281df3c9868f3986f0bf70cb01df9009fb0d3af7fbc673c04cb79cd2a",
                                         "amd6419af5899a3179dbf2978cc27f07c7b56ae4fef4e09567e18feba7638feddd853",
                                         "armhff49b6e02281467a3f62f0a5d310566ca5d07bd2910cc308f7efc8f3f3b4c3593")),
