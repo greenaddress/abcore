@@ -101,12 +101,12 @@ public class Packages {
                                         "amd64ebe8b6a4c62b88db772f05c05b50d8b9f66f4d46488c547bda5042ae36865d88",
                                         "armhf34761c1df4f6f9ffe823cccb412ec11bd6b7906565ab2a9abad024d3efee1e19")),
 
-                        new PkgH("libs/libselinux/libselinux1_2.4-3",
+                        new PkgH("libs/libselinux/libselinux1_2.4-3+b1",
                                 Arrays.asList(
                                         "i386888f8030910dd202ef9c5cc653c0eaea5c5b32f41d236cd7c6e2222c4a06c218",
-                                        "arm6412835d300ea8d3a2b14555868cac5233fd208c790a72d019d75ca13d3b029242",
-                                        "amd644f7f8c11735ea4f2dafa1d5a74427882c362abd59519249a92926183e02d750e",
-                                        "armhf0734589bfd94cc0eb9a6d46303949f07cff3ec8b550ee19e66ede12c841a790c")),
+                                        "arm643ec9dfc281df3c9868f3986f0bf70cb01df9009fb0d3af7fbc673c04cb79cd2a",
+                                        "amd6419af5899a3179dbf2978cc27f07c7b56ae4fef4e09567e18feba7638feddd853",
+                                        "armhff49b6e02281467a3f62f0a5d310566ca5d07bd2910cc308f7efc8f3f3b4c3593")),
 
                         new PkgH("g/gcc-5/libgcc1_5.3.1-8",
                                 Arrays.asList(
@@ -212,10 +212,10 @@ public class Packages {
                                         "amd6418b76944a0470685f012f56e397d63a2700365fb8e1e8204239517462c2f696e",
                                         "i386a4e7f7adf197493f0c47c272949baa2bbb3fe6e32db26722b293337162e023f4")),
 
-                        new PkgH("core/os/%s/openssl-1.0.2.f-1",
+                        new PkgH("core/os/%s/openssl-1.0.2.g-3",
                                 Arrays.asList(
-                                        "amd6481b8f59754f283f222ddccd5cd1fb0afe5b9ef7d81f6b58e3bc8544f08c9f460",
-                                        "i3862806ea56b446ed536d45d96974891e1cf29533bf6fc2efd3942cff884f18a180")),
+                                        "amd64de51ec48b56fda0206c05d4ef6c0d86c96bec02ccc44861968ae8d4863e3c3cd",
+                                        "i386defc8e3c3996c82f7ed37add41b74e48021789b3c9c6f45bcab20633cadb836a")),
 
                         new PkgH("extra/os/%s/boost-libs-1.60.0-2",
                                 Arrays.asList(
