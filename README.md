@@ -20,7 +20,7 @@ What is Android Bitcoin Core?
 Android Bitcoin Core is an Android app that fetches bitcoin core daemon and dependencies and is meant to make it easier 
 to run Bitcoin Core daemon node on always on Android set top box devices and home appliances.
 
-The dependencies are fetched from either a Debian or Arch mirror (Arch providing 0.12 while Debian providing 0.11.2) and the node is meant to be used as a personal node when on the go.
+The dependencies are fetched from either a Debian or Arch mirror (Arch providing 0.12 while Debian providing 0.11.2) and the node is meant to be used as a personal node when on the go (either by using a mobile wallet that allows to connect to a remote and specific node or even directly on your mobile device).
 
 ABCore works on x86, x86_64, armhf and arm64 Android (any version from 4.0.0 onwards - sdk 16). Mips is not supported.
 
