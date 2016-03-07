@@ -13,7 +13,7 @@
         android:id="@+id/archonoff"
         android:key="archisenabled"
         android:defaultValue="false"
-        android:title="Use Arch packages (0.11.2)"
+        android:title="Use Arch packages (0.12)"
         android:summaryOn="Using Arch, switch this Off for Debian"
         android:summaryOff="Using Debian, switch this On for Arch"
     />
