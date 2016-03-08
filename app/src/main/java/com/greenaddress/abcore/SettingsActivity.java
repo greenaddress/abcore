@@ -271,7 +271,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 e.putBoolean("testnet", p.getProperty("testnet", "0").equals("1"));
                 e.putBoolean("upnp", p.getProperty("upnp", "0").equals("1"));
-                e.putBoolean("disablewallet", p.getProperty("disablewallet", "1").equals("1"));
+                e.putBoolean("disablewallet", p.getProperty("disablewallet", "0").equals("1"));
 
                 e.putString("datadir", p.getProperty("datadir", Utils.getDataDir(getActivity())));
                 e.apply();

@@ -54,7 +54,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             outputStream.write("listen=1\n".getBytes());
 
             //outputStream.write("bind=127.0.0.1\n".getBytes());
-            outputStream.write("disablewallet=1\n".getBytes());
+            outputStream.write("disablewallet=0\n".getBytes());
             outputStream.write("testnet=0\n".getBytes());
             //outputStream.write("testnet=1\n".getBytes());
             //outputStream.write("addnode=192.168.2.47\n".getBytes());
