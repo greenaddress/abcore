@@ -175,6 +175,11 @@ public class Packages {
                                         "arm64e7fc10fd2d73f6d5fe2980174ab7717c388bdd61d88216339f4fb42a65c7a31e",
                                         "armhf79012fb8dd55595930f5813d5be27c3c50748047446b7398fb9c968320dac4bd")),
 
+                        new PkgH("%s/core/libevent-2.0.22-2",
+                                Arrays.asList(
+                                        "arm6437d50ef86bcc553ab3110cbffd13094ceb7774fe8954d0b6d5629a812bae400a",
+                                        "armhff173ef8111c1b28a3ab71817f45c38a62e91c50eff430ab6b4bd3b0f8095d0e7")),
+
                         new PkgH("%s/extra/boost-libs-1.60.0-2",
                                 Arrays.asList(
                                         "arm64b0b2fe712893d94739d0b61179e144e61b3a1d4062509833c2764511f28d7452",
@@ -216,6 +221,11 @@ public class Packages {
                                 Arrays.asList(
                                         "amd64de51ec48b56fda0206c05d4ef6c0d86c96bec02ccc44861968ae8d4863e3c3cd",
                                         "i386defc8e3c3996c82f7ed37add41b74e48021789b3c9c6f45bcab20633cadb836a")),
+
+                        new PkgH("core/os/%s/libevent-2.0.22-2",
+                                Arrays.asList(
+                                        "i386622509ff4df583be77e3c5a57f6c930adc1bdc73c2b92737574b4bac4d6f969d",
+                                        "amd64044cbe2d2611966a5a8e05dfc1defadce58e5295b42ef82d52c85c9c2f4f9120")),
 
                         new PkgH("extra/os/%s/boost-libs-1.60.0-2",
                                 Arrays.asList(
