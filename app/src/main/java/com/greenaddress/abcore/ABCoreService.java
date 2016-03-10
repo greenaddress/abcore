@@ -87,8 +87,26 @@ public class ABCoreService extends Service {
             pb.directory(new File(Utils.getDataDir(this)));
 
             mProcess = pb.start();
-            final ProcessLogger errorGobbler = new ProcessLogger(mProcess.getErrorStream());
-            final ProcessLogger outputGobbler = new ProcessLogger(mProcess.getInputStream());
+            final ProcessLogger.OnError er = new ProcessLogger.OnError() {
+                @Override
+                public void OnError(final String[] error) {
+                    final StringBuffer bf = new StringBuffer();
+                    for (final String e : error) {
+                        if (e != null && !e.isEmpty()) {
+                            bf.append(String.format("%s%s", e, System.getProperty("line.separator")));
+                        }
+                    }
+                    final Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
+                    broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                    broadcastIntent.putExtra("abtcore", "exception");
+                    broadcastIntent.putExtra("exception", bf.toString());
+
+                    sendBroadcast(broadcastIntent);
+                }
+            };
+            final ProcessLogger errorGobbler = new ProcessLogger(mProcess.getErrorStream(), er);
+            final ProcessLogger outputGobbler = new ProcessLogger(mProcess.getInputStream(), er);
 
             errorGobbler.start();
             outputGobbler.start();

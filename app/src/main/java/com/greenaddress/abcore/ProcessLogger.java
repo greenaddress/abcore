@@ -13,10 +13,15 @@ class ProcessLogger extends Thread {
 
     final static String TAG = ProcessLogger.class.getName();
     final InputStream is;
+    final OnError er;
+    interface OnError {
+        void OnError(String[] error);
+    }
 
-    ProcessLogger(final InputStream is) {
+    ProcessLogger(final InputStream is, OnError er) {
         super();
         this.is = is;
+        this.er = er;
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
     }
 
@@ -26,9 +31,17 @@ class ProcessLogger extends Thread {
             final InputStreamReader isr = new InputStreamReader(is);
             final BufferedReader br = new BufferedReader(isr);
             String line;
+            final String[] errors = new String[3];
+
+            int counter = 0;
             while ((line = br.readLine()) != null) {
                 Log.v(TAG, line);
+                errors[counter++ % 3] = line;
             }
+            if (er != null) {
+                er.OnError(errors);
+            }
+
         } catch (final IOException ioe) {
             ioe.printStackTrace();
         } finally {
