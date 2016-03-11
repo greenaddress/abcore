@@ -1,6 +1,7 @@
 package com.greenaddress.abcore;
 
 import android.app.IntentService;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.util.Log;
 
@@ -124,6 +125,9 @@ public class RPCIntentService extends IntentService {
                 getRpc().stop();
             } catch (final BitcoinRPCException | IOException e) {
                 broadcastError(e);
+            }
+            finally {
+                ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(ABCoreService.NOTIFICATION_ID);
             }
             return;
         }

@@ -1,6 +1,9 @@
 package com.greenaddress.abcore;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,12 +20,29 @@ public class ABCoreService extends Service {
 
     final static String TAG = ABCoreService.class.getName();
     private Process mProcess;
+    final static int NOTIFICATION_ID = 922430164;
 
     @Override
     public IBinder onBind(final Intent intent) {
         return null;
     }
+    private void setupNotification() {
+        final Intent myIntent = new Intent(this, MainActivity.class);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                myIntent, PendingIntent.FLAG_ONE_SHOT);
+        final NotificationManager nMN = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        final Notification n = new Notification.Builder(this)
+                .setContentTitle("Abcore is running")
+                .setContentIntent(pendingIntent)
+                .setContentText("Currently started")
+                .setSmallIcon(R.drawable.ic_info_black_24dp)
+                .setOngoing(true)
+                .build();
 
+        nMN.notify(NOTIFICATION_ID, n);
+    }
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
 
@@ -90,6 +110,7 @@ public class ABCoreService extends Service {
             final ProcessLogger.OnError er = new ProcessLogger.OnError() {
                 @Override
                 public void OnError(final String[] error) {
+                    ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
                     final StringBuffer bf = new StringBuffer();
                     for (final String e : error) {
                         if (e != null && !e.isEmpty()) {
@@ -110,6 +131,8 @@ public class ABCoreService extends Service {
 
             errorGobbler.start();
             outputGobbler.start();
+
+            setupNotification();
 
         } catch (final IOException e) {
             Log.i(TAG, "Native exception!");

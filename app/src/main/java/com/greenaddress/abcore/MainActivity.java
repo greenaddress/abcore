@@ -103,14 +103,22 @@ public class MainActivity extends AppCompatActivity {
 
             final String msg = String.format("Architeture %s is unsupported", e.arch);
             status.setText(msg);
-
-            Snackbar.make(findViewById(android.R.id.content),
-                    msg, Snackbar.LENGTH_INDEFINITE).show();
+            showSnackMsg(msg, Snackbar.LENGTH_INDEFINITE);
             return;
         }
 
         // rpc check to see if core is already running!
         startService(new Intent(this, RPCIntentService.class));
+    }
+
+    private void showSnackMsg(final String msg) {
+        showSnackMsg(msg, Snackbar.LENGTH_LONG);
+    }
+    private void showSnackMsg(final String msg, final int length) {
+        if (msg != null && !msg.trim().isEmpty()) {
+            Snackbar.make(findViewById(android.R.id.content),
+                    msg, length).show();
+        }
     }
 
     @Override
@@ -216,8 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 case "exception": {
                     String exe = intent.getStringExtra("exception");
                     Log.i(TAG, exe);
-                    Snackbar.make(findViewById(android.R.id.content),
-                            exe, Snackbar.LENGTH_LONG).show();
+                    showSnackMsg(exe);
                     final Button button = (Button) findViewById(R.id.button);
                     final TextView status = (TextView) findViewById(R.id.textView);
                     final ProgressBar pb = (ProgressBar) MainActivity.this.findViewById(R.id.progressBar);
@@ -302,8 +309,7 @@ public class MainActivity extends AppCompatActivity {
                             status.setText(msg);
 
                             button.setVisibility(View.GONE);
-                            Snackbar.make(findViewById(android.R.id.content),
-                                    msg, Snackbar.LENGTH_INDEFINITE).show();
+                            showSnackMsg(msg, Snackbar.LENGTH_INDEFINITE);
                         }
 
                         if (external < 70000) {
@@ -311,8 +317,8 @@ public class MainActivity extends AppCompatActivity {
                             status.setText(msg);
 
                             // button.setVisibility(View.GONE);
-                            Snackbar.make(findViewById(android.R.id.content),
-                                    msg, Snackbar.LENGTH_LONG).show();
+                            showSnackMsg(msg);
+
                         }
 
 
