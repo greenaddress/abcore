@@ -52,11 +52,12 @@ public class LogActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         } finally {
-            if (fileHandler != null)
+            if (fileHandler != null) {
                 try {
                     fileHandler.close();
                 } catch (final IOException e) {
                 }
+            }
         }
     }
 
@@ -78,7 +79,12 @@ public class LogActivity extends AppCompatActivity {
                 et.getText().clearSpans();
                 et.getText().clear();
                 et.setText(txt);
-                et.setSelection(txt.length());
+                try {
+                    et.setSelection(txt.length());
+                } catch (final IndexOutOfBoundsException e) {
+                    // pass
+                    // FIXME: Scroll to bottom doesn't work for some mobile (LG)
+                }
                 et.setKeyListener(null);
                 return;
             }
