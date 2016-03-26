@@ -108,19 +108,19 @@ public class Packages {
                                         "amd6419af5899a3179dbf2978cc27f07c7b56ae4fef4e09567e18feba7638feddd853",
                                         "armhff49b6e02281467a3f62f0a5d310566ca5d07bd2910cc308f7efc8f3f3b4c3593")),
 
-                        new PkgH("g/gcc-5/libgcc1_5.3.1-11",
+                        new PkgH("g/gcc-5/libgcc1_5.3.1-13",
                                 Arrays.asList(
-                                        "i38644c8ec068f1e2d060ef5acbada27efcec5cfeb26462f7067b728e5623da7c4f9",
-                                        "arm640d1cf4670e36badf66eb9c82a26f03063caaf4e4d86a40884ac6537857c946ca",
-                                        "amd64ad502ef34e7a52fb74e38c69e30abcd5c24740aa7fe0068e31e2d2618404487f",
-                                        "armhf97d1110536f214c9ebcc8aef14341e383d0b17a1be3860f24467453b3e5b590b")),
+                                        "i38638ab1da4fb6cb3195ec6add4186d376d381c7a18425e125d435e3160c1dfd004",
+                                        "arm643fac3b5e667e91697235ef4db69c5f7dab84d5e684c225788525a944ac528a09",
+                                        "amd64edbc739227a7cfbcaf767d8c967ec4d486264ca79e0ca933fbfdbf3c8bab3c7c",
+                                        "armhf336dc924a8b09c344374f6dc02fa8ae934aa2ec91dc787c4ab8eb9cd7afefd3c")),
 
-                        new PkgH("g/gcc-5/libstdc++6_5.3.1-11",
+                        new PkgH("g/gcc-5/libstdc++6_5.3.1-13",
                                 Arrays.asList(
-                                        "i3869359f4eef2d007d95c8160664f310d79c4b669409b5196840fec1654c9dfce79",
-                                        "arm643d35ca760064720c413a42ae36f68abd5686d6481479d2846e2b7d33ec994901",
-                                        "amd641347cd0d9d8f7a297b380c083057e2817761f81b7d0e84dfbf24d990e927e5a9",
-                                        "armhfc2b9ad35ef295484c99084d94e23c641522ebc4a3261993433b1d3681bdd62aa")),
+                                        "i386d2e05716dc93aeebf98c44afbf5c819d69d3508110b599d2be091509f468c6b9",
+                                        "arm64f3732f3f160ec6d9a8c581a6a468acb7d0495953c5d85ed100ece8b57e07438e",
+                                        "amd648cf5af95324f05317e4432a18a91852042fd3997a42357a8618703756e802bbd",
+                                        "armhf44f3b052f577a2dfefc98be8d490d7e66e778976b42aef962d039cf05cb6c39a")),
 
                         new PkgH("d/db5.3/libdb5.3++_5.3.28-11",
                                 Arrays.asList(
