@@ -129,12 +129,12 @@ public class Packages {
                                         "amd6438021e5e4adaccaf38933358ff87ec8eb243d5bf516bef5cffdc56dd1f182d8e",
                                         "armhfaeb63f1b5c8611a3c4180e819987eb3b5ce9f95a64927d31c1740995d4ed81c8")),
 
-                        new PkgH("g/glibc/libc6_2.22-3",
+                        new PkgH("g/glibc/libc6_2.22-5",
                                 Arrays.asList(
-                                        "i386c875a427409c9431fa8223626308e7bf87fe59cf4deafe2a013273ad7bd4fb4d",
-                                        "arm64aff0cc2b29d3b6af68c532d2ed725b66c550b6d2eb5cb5662155423315d8c8ce",
-                                        "amd64d5191eece163c2e5d0fedf631af2f20a0b34eefd2c0a32761c15d0834090ed63",
-                                        "armhfeec0049be1c30ccd42af7577601eff0d4a398c9982e4ae0b06d0fe1f1f172144")),
+                                        "i386b4a1394a02ed756cadb47e24c9424d181a42209cfda0a2ff5fe10fec1cfa9146",
+                                        "arm64c962c150291ad7a9898fbd4bb8f5f7484fbd6b84411c686bc24af1e8e0b00bdd",
+                                        "amd646254ebc1900be95306d2a044c94808b63d2e2564d96dacd13f7825f29c80d523",
+                                        "armhfcded9204afabdaa92f84e6c2eff190720d46a5eaa74d67edc0b6af2f1777f84e")),
 
                         new PkgH("b/bitcoin/bitcoind_0.11.2-1",
                                 Arrays.asList(
