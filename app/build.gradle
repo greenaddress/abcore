@@ -6,7 +6,7 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.greenaddress.abcore"
