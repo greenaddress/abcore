@@ -180,10 +180,10 @@ public class Packages {
                                         "arm6437d50ef86bcc553ab3110cbffd13094ceb7774fe8954d0b6d5629a812bae400a",
                                         "armhff173ef8111c1b28a3ab71817f45c38a62e91c50eff430ab6b4bd3b0f8095d0e7")),
 
-                        new PkgH("%s/extra/boost-libs-1.60.0-2",
+                        new PkgH("%s/extra/boost-libs-1.60.0-4",
                                 Arrays.asList(
-                                        "arm64b0b2fe712893d94739d0b61179e144e61b3a1d4062509833c2764511f28d7452",
-                                        "armhfd9ba5b0fadcbbc6984e3c211cb25c5d02563eaa5eb4ac13c287df8eb361c5469")),
+                                        "arm64c16aca8c1d6b255221b926e4e1ae96f5754087ccc14e56cf455316ce6260014d",
+                                        "armhfbb474bcf4022ed01f7d4b29a778999f5c534c350e064196eceb3999f225398d1")),
 
                         new PkgH("%s/community/miniupnpc-1.9.20151026-1",
                                 Arrays.asList(
@@ -227,10 +227,10 @@ public class Packages {
                                         "i386622509ff4df583be77e3c5a57f6c930adc1bdc73c2b92737574b4bac4d6f969d",
                                         "amd64044cbe2d2611966a5a8e05dfc1defadce58e5295b42ef82d52c85c9c2f4f9120")),
 
-                        new PkgH("extra/os/%s/boost-libs-1.60.0-2",
+                        new PkgH("extra/os/%s/boost-libs-1.60.0-4",
                                 Arrays.asList(
-                                        "amd64baf54905cb70828ff1dc7ee43f5d3bac1d25de1e82e49e0758050cdc595482f1",
-                                        "i386ea991bcd5d98928e794571aa708cb25943009a80ddbd9af6f49543299ce9a921")),
+                                        "amd642e8d23f8e9c36ba04c662c3e3b2b975b582e85bf8849ddb6cbc74373386fd92c",
+                                        "i3868200666f4811427e98760f7df193820ce534ea11efc712ae2dab85ae45e298f1")),
 
                         new PkgH("community/os/%s/miniupnpc-1.9.20151026-1",
                                 Arrays.asList(
