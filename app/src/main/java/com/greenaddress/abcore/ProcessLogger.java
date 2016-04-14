@@ -11,12 +11,9 @@ import java.io.InputStreamReader;
 
 class ProcessLogger extends Thread {
 
-    final static String TAG = ProcessLogger.class.getName();
-    final InputStream is;
-    final OnError er;
-    interface OnError {
-        void OnError(String[] error);
-    }
+    private final static String TAG = ProcessLogger.class.getName();
+    private final InputStream is;
+    private final OnError er;
 
     ProcessLogger(final InputStream is, OnError er) {
         super();
@@ -47,5 +44,9 @@ class ProcessLogger extends Thread {
         } finally {
             IOUtils.closeQuietly(is);
         }
+    }
+
+    interface OnError {
+        void OnError(String[] error);
     }
 }

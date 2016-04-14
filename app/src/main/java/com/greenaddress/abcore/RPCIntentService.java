@@ -30,7 +30,7 @@ public class RPCIntentService extends IntentService {
         super(RPCIntentService.class.getName());
     }
 
-    Properties getBitcoinConf() throws IOException {
+    private Properties getBitcoinConf() throws IOException {
         final Properties p = new Properties();
         final InputStream i = new BufferedInputStream(new FileInputStream(Utils.getBitcoinConf(this)));
         try {
@@ -41,7 +41,7 @@ public class RPCIntentService extends IntentService {
         return p;
     }
 
-    String getRpcUrl() throws IOException {
+    private String getRpcUrl() throws IOException {
         final Properties p = getBitcoinConf();
         final String user = p.getProperty("rpcuser", "bitcoinrpc");
         final String password = p.getProperty("rpcpassword");
@@ -58,7 +58,7 @@ public class RPCIntentService extends IntentService {
         return nonMainnet == null || !nonMainnet.equals("1") ? url : testUrl;
     }
 
-    BitcoindRpcClient getRpc() throws IOException {
+    private BitcoindRpcClient getRpc() throws IOException {
         return new BitcoinJSONRPCClient(getRpcUrl());
     }
 
@@ -125,8 +125,7 @@ public class RPCIntentService extends IntentService {
                 getRpc().stop();
             } catch (final BitcoinRPCException | IOException e) {
                 broadcastError(e);
-            }
-            finally {
+            } finally {
                 ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(ABCoreService.NOTIFICATION_ID);
             }
             return;

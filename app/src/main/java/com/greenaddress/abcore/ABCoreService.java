@@ -18,14 +18,15 @@ import java.util.Map;
 
 public class ABCoreService extends Service {
 
-    final static String TAG = ABCoreService.class.getName();
-    private Process mProcess;
+    private final static String TAG = ABCoreService.class.getName();
     final static int NOTIFICATION_ID = 922430164;
+    private Process mProcess;
 
     @Override
     public IBinder onBind(final Intent intent) {
         return null;
     }
+
     private void setupNotification() {
         final Intent myIntent = new Intent(this, MainActivity.class);
         final PendingIntent pendingIntent = PendingIntent.getActivity(
@@ -43,6 +44,7 @@ public class ABCoreService extends Service {
 
         nMN.notify(NOTIFICATION_ID, n);
     }
+
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
 
@@ -111,7 +113,7 @@ public class ABCoreService extends Service {
                 @Override
                 public void OnError(final String[] error) {
                     ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
-                    final StringBuffer bf = new StringBuffer();
+                    final StringBuilder bf = new StringBuilder();
                     for (final String e : error) {
                         if (e != null && !e.isEmpty()) {
                             bf.append(String.format("%s%s", e, System.getProperty("line.separator")));

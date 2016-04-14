@@ -257,7 +257,7 @@ public class Packages {
         return pkgs;
     }
 
-    static String getRepo(final Context c, final String arch, final boolean isArchEnabled) {
+    private static String getRepo(final Context c, final String arch, final boolean isArchEnabled) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
         if (isArchEnabled) {
             if (arch.equals("amd64") || arch.equals("i386")) {

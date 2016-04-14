@@ -186,9 +186,11 @@ class Utils {
 
         return sb.toString();
     }
+
     static void downloadFile(final String url, final String filePath) throws IOException {
         downloadFile(url, filePath, null);
     }
+
     static void downloadFile(final String url, final String filePath, final OnDownloadSpeedChange odsc) throws IOException {
 
         final FileOutputStream fos = new FileOutputStream(filePath);
@@ -369,16 +371,17 @@ class Utils {
 
 
     static String getArchLinuxArchitecture(final String arch) {
-        if (arch.equals("amd64")) {
-            return "x86_64";
-        } else if (arch.equals("i386")) {
-            return "i686";
-        } else if (arch.equals("armhf")) {
-            return "armv7h";
-        } else if (arch.equals("arm64")) {
-            return "aarch64";
-        } else {
-            throw new UnsupportedArch(arch);
+        switch (arch) {
+            case "amd64":
+                return "x86_64";
+            case "i386":
+                return "i686";
+            case "armhf":
+                return "armv7h";
+            case "arm64":
+                return "aarch64";
+            default:
+                throw new UnsupportedArch(arch);
         }
     }
 

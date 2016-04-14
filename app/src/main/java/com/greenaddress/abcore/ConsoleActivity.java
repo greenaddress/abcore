@@ -78,7 +78,7 @@ public class ConsoleActivity extends AppCompatActivity {
                     final EditText console = (EditText) findViewById(R.id.editText2);
                     final String res = intent.getStringExtra("res");
 
-                    history.setText(console.getText().toString() + " -> " + res);
+                    history.setText(String.format("%s -> %s", console.getText().toString(), res));
                     console.setText("");
                     break;
                 }

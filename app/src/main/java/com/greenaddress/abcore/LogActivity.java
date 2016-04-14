@@ -17,7 +17,7 @@ public class LogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_log);
     }
 
-    public String getLastLines(final File file, final int lines) {
+    private String getLastLines(final File file, final int lines) {
         RandomAccessFile fileHandler = null;
         try {
             fileHandler = new RandomAccessFile(file, "r");
@@ -55,7 +55,7 @@ public class LogActivity extends AppCompatActivity {
             if (fileHandler != null) {
                 try {
                     fileHandler.close();
-                } catch (final IOException e) {
+                } catch (final IOException ignored) {
                 }
             }
         }

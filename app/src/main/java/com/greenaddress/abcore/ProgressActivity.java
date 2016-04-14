@@ -17,7 +17,7 @@ import java.util.TimerTask;
 
 public class ProgressActivity extends AppCompatActivity {
 
-    Timer timer;
+    private Timer timer;
     private RPCResponseReceiver rpcResponseReceiver;
 
     @Override

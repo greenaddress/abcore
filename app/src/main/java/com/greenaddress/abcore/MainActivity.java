@@ -23,7 +23,7 @@ import android.widget.TextView;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
-    final static String TAG = MainActivity.class.getName();
+    private final static String TAG = MainActivity.class.getName();
     private DownloadInstallCoreResponseReceiver downloadInstallCoreResponseReceiver;
     private RPCResponseReceiver rpcResponseReceiver;
 
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     private void showSnackMsg(final String msg) {
         showSnackMsg(msg, Snackbar.LENGTH_LONG);
     }
+
     private void showSnackMsg(final String msg, final int length) {
         if (msg != null && !msg.trim().isEmpty()) {
             Snackbar.make(findViewById(android.R.id.content),

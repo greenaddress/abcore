@@ -17,8 +17,8 @@ import java.util.List;
 
 public class PeerActivity extends ListActivity {
 
-    final List<String> listItems = new ArrayList<>();
-    ArrayAdapter<String> adapter;
+    private final List<String> listItems = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
     private RPCResponseReceiver rpcResponseReceiver;
 
     @Override

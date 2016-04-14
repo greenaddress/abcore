@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class BitcoinConfEditActivity extends AppCompatActivity {
-    final static String TAG = BitcoinConfEditActivity.class.getName();
+    private final static String TAG = BitcoinConfEditActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
