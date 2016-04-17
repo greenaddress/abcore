@@ -108,19 +108,19 @@ public class Packages {
                                         "amd6419af5899a3179dbf2978cc27f07c7b56ae4fef4e09567e18feba7638feddd853",
                                         "armhff49b6e02281467a3f62f0a5d310566ca5d07bd2910cc308f7efc8f3f3b4c3593")),
 
-                        new PkgH("g/gcc-5/libgcc1_5.3.1-13",
+                        new PkgH("g/gcc-5/libgcc1_5.3.1-14",
                                 Arrays.asList(
-                                        "i38638ab1da4fb6cb3195ec6add4186d376d381c7a18425e125d435e3160c1dfd004",
-                                        "arm643fac3b5e667e91697235ef4db69c5f7dab84d5e684c225788525a944ac528a09",
-                                        "amd64edbc739227a7cfbcaf767d8c967ec4d486264ca79e0ca933fbfdbf3c8bab3c7c",
-                                        "armhf336dc924a8b09c344374f6dc02fa8ae934aa2ec91dc787c4ab8eb9cd7afefd3c")),
+                                        "i386736c688d7821df61a6ed1ad367ef54d364913d738440fd257f84b7df0b6b0014",
+                                        "arm640f81279f43b73a740ca39ea673c89e7aaa3f22f965a627b23747d93c2f117e3a",
+                                        "amd647dbd839deaafd69bf6eeac2bfd3371595d23bce7ff2326bd19011cfc875d0fb6",
+                                        "armhf89442fda81b5b3664957201cf2a931b3e2c1a4eaf992eb9cb25e9f4e0fbbb3ed")),
 
-                        new PkgH("g/gcc-5/libstdc++6_5.3.1-13",
+                        new PkgH("g/gcc-5/libstdc++6_5.3.1-14",
                                 Arrays.asList(
-                                        "i386d2e05716dc93aeebf98c44afbf5c819d69d3508110b599d2be091509f468c6b9",
-                                        "arm64f3732f3f160ec6d9a8c581a6a468acb7d0495953c5d85ed100ece8b57e07438e",
-                                        "amd648cf5af95324f05317e4432a18a91852042fd3997a42357a8618703756e802bbd",
-                                        "armhf44f3b052f577a2dfefc98be8d490d7e66e778976b42aef962d039cf05cb6c39a")),
+                                        "i386d1ff2c2ac83819ef0f4d587d91891c904861bf4d30a3d7f1622644a41582e301",
+                                        "arm6474c45a8b9ccb51060e067e6d03f6af4c42e39e296fdfca9809ac8484972fc303",
+                                        "amd64cbdf67b77ee394995ec5e5a037484b21af45d2709eda9f158c629cd6eb150a99",
+                                        "armhfb23aa5afc511151f5249c61ed3928192a5d7d18007c783ccf9c4878aff12f365")),
 
                         new PkgH("d/db5.3/libdb5.3++_5.3.28-11",
                                 Arrays.asList(
@@ -129,12 +129,12 @@ public class Packages {
                                         "amd6438021e5e4adaccaf38933358ff87ec8eb243d5bf516bef5cffdc56dd1f182d8e",
                                         "armhfaeb63f1b5c8611a3c4180e819987eb3b5ce9f95a64927d31c1740995d4ed81c8")),
 
-                        new PkgH("g/glibc/libc6_2.22-5",
+                        new PkgH("g/glibc/libc6_2.22-6",
                                 Arrays.asList(
-                                        "i386b4a1394a02ed756cadb47e24c9424d181a42209cfda0a2ff5fe10fec1cfa9146",
-                                        "arm64c962c150291ad7a9898fbd4bb8f5f7484fbd6b84411c686bc24af1e8e0b00bdd",
-                                        "amd646254ebc1900be95306d2a044c94808b63d2e2564d96dacd13f7825f29c80d523",
-                                        "armhfcded9204afabdaa92f84e6c2eff190720d46a5eaa74d67edc0b6af2f1777f84e")),
+                                        "i38649a53a2f09595afcd79d74403f71e17d239eae1ef12f1f318faf41cbb313bf3f",
+                                        "arm64bfd9ef04d446a0b518fad62e4729e52b57c43e321a797e81369b926b0569b9cb",
+                                        "amd647deef84ae1b298eed9c95540dd78adfaeefd47aba55726236834697dfd883a39",
+                                        "armhf49cd2e3eb874d6386582fa6457c5a80bbe48295fa47e69ce69cb42ef71d9f51b")),
 
                         new PkgH("b/bitcoin/bitcoind_0.11.2-1",
                                 Arrays.asList(
