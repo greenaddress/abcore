@@ -148,7 +148,8 @@ public class RPCIntentService extends IntentService {
 
                     final String[] array = console_request.split(" ");
                     if (array.length > 1) {
-                        broadcastIntent.putExtra("res", bitcoin.query(array[0], Arrays.copyOfRange(array, 1, array.length)).toString());
+                        broadcastIntent.putExtra("res", bitcoin.query(array[0],
+                                (Object[])Arrays.copyOfRange(array, 1, array.length)).toString());
 
                     } else {
                         broadcastIntent.putExtra("res", bitcoin.query(console_request).toString());
