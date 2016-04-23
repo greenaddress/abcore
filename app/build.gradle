@@ -12,8 +12,8 @@ android {
         applicationId "com.greenaddress.abcore"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 42
-        versionName "0.42"
+        versionCode 43
+        versionName "0.43"
     }
     buildTypes {
         release {
@@ -25,6 +25,16 @@ android {
     dexOptions {
         maxProcessCount 4
         javaMaxHeapSize "2g"
+    }
+
+    productFlavors {
+        prod {
+            versionCode Integer.parseInt(String.format("%s%s", 16, defaultConfig.getProperty("versionCode")))
+        }
+        prod_21 {
+            minSdkVersion 21
+            versionCode Integer.parseInt(String.format("%s%s", 21, defaultConfig.getProperty("versionCode")))
+        }
     }
 }
 
