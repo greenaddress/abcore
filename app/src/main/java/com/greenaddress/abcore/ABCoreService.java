@@ -72,7 +72,7 @@ public class ABCoreService extends Service {
             if (archEnabled) {
                 ld_linux = String.format("%s/usr/lib/ld-2.23.so", dir.getAbsoluteFile());
             } else if ("amd64".equals(arch) || "arm64".equals(arch)) {
-                ld_linux = String.format("%s/lib/%s-linux-gnu/ld-2.21.so", dir.getAbsolutePath(), aarch);
+                ld_linux = String.format("%s/lib/%s-linux-gnu/ld-2.22.so", dir.getAbsolutePath(), aarch);
             } else if ("armhf".equals(arch)) {
                 ld_linux = String.format("%s/lib/ld-linux-armhf.so.3", dir.getAbsolutePath());
             } else {
