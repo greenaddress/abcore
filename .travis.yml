@@ -3,7 +3,7 @@ language: android
 android:
     components:
         - tools
-        - build-tools-23.0.2
+        - build-tools-23.0.3
         - android-23
         - platform-tools-23
         - extra-android-support
@@ -18,5 +18,5 @@ before_script:
     - android-wait-for-emulator
 
 script:
-    - "./gradlew assembleDebug"
+    - "./gradlew clean assembleRelease"
     - "./gradlew cAT"
