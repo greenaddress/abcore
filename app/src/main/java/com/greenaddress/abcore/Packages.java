@@ -73,12 +73,12 @@ public class Packages {
                                         "arm646005a147386e1aa61c56889a4d545ab75bf826abcd8fa505825b3cad774a00a5",
                                         "armhf7ea3951210eb664e8d2f3f1a8547da42a7c9a9984f2e5839c8d1ba28b429ec5d")),
                         /*common**/
-                        new PkgH("o/openssl/libssl1.0.2_1.0.2g-1",
+                        new PkgH("o/openssl/libssl1.0.2_1.0.2g-2",
                                 Arrays.asList(
-                                        "i38622a0203b53a5b053efb2a57fa175dc363ada9f9a6fe4e9c5604be23527c49c64",
-                                        "arm64dc529be71940bad29414c06df38026701e0b92b99e4e9a2629b07822ff70f1ea",
-                                        "amd64e97a67a47e1c50fb39bd75cdbb9ec8b81adf0ae727676889207571d437e4ce24",
-                                        "armhffe882ff51b631db7179e14f6475b6f74b0bcc5405e89a70464d949d2f0e2b9ef")),
+                                        "i3865b41ce89a2cf1bcca6439f9aa3a8b982b5e58aab39a106c7d048f1016b8f08d6",
+                                        "arm64982288bd02005ba22aa74ceee09c6cbfebbfc315d626be98e2d4966d7c41e995",
+                                        "amd642ff9a50ce3410851a29afdac612911b5f60c218fef4742df2b890b5ffe7b6204",
+                                        "armhf7bd489e7ea95b9068254155416ea4b02dc5f211214ec54abe3028a93045f8107")),
 
                         new PkgH("m/miniupnpc/libminiupnpc10_1.9.20140610-2.1",
                                 Arrays.asList(
@@ -101,12 +101,12 @@ public class Packages {
                                         "amd64ebe8b6a4c62b88db772f05c05b50d8b9f66f4d46488c547bda5042ae36865d88",
                                         "armhf34761c1df4f6f9ffe823cccb412ec11bd6b7906565ab2a9abad024d3efee1e19")),
 
-                        new PkgH("libs/libselinux/libselinux1_2.4-3+b1",
+                        new PkgH("libs/libselinux/libselinux1_2.5-1",
                                 Arrays.asList(
-                                        "i3860fd6131da4659e44c8ddebf0604447e7f6743d0cf9c24a7ca7f5b532efa26be3",
-                                        "arm643ec9dfc281df3c9868f3986f0bf70cb01df9009fb0d3af7fbc673c04cb79cd2a",
-                                        "amd6419af5899a3179dbf2978cc27f07c7b56ae4fef4e09567e18feba7638feddd853",
-                                        "armhff49b6e02281467a3f62f0a5d310566ca5d07bd2910cc308f7efc8f3f3b4c3593")),
+                                        "i38682f965830a53d3dc51e31886567f29328d11a0e8b23ce319524497440b29968c",
+                                        "arm64858b729597076220c4e93b64890a140a3e86caeee7cc29d2562d4ca4fc1126ae",
+                                        "amd64ca46da23c569041dab92a218624854546379e4c53cb8151396e3fb4eab7869aa",
+                                        "armhf308b40ecc7b77ec73818245bb1f8f8f4937d4ec8af6a0aaeb945d7b757504499")),
 
                         new PkgH("g/gcc-5/libgcc1_5.3.1-14",
                                 Arrays.asList(
