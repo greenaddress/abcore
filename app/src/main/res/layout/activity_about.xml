@@ -32,7 +32,7 @@
             android:layout_alignParentEnd="true" android:linksClickable="true" android:autoLink="web"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:textAppearance="?android:attr/textAppearanceMedium"
-                  android:text="Development\n\tLawrence Nahum\n\ttwitter.com/LarryBitcoin\n\nIcon design\n\tOttavio Fontolan\n\totta88.box@gmail.com\n\nSpecial thanks to the Bitcoin Core Dev Team github.com/bitcoin and the Debian.org team"
+                  android:text="Development\n\tLawrence Nahum\n\ttwitter.com/LarryBitcoin\n\nIcon design\n\tOttavio Fontolan\n\totta88.box@gmail.com\n\nSpecial thanks to the Bitcoin Core Dev Team github.com/bitcoin"
                   android:id="@+id/textViewContrib"
                   android:linksClickable="true"
                   android:autoLink="web|email"

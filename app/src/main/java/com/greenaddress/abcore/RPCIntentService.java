@@ -73,9 +73,8 @@ public class RPCIntentService extends IntentService {
         final List<BitcoindRpcClient.PeerInfoResult> pir = bitcoin.getPeerInfo();
         final ArrayList<String> peers = new ArrayList<>();
         // find the most common blockchain height that is higher than hardcoded constant
-        for (final BitcoindRpcClient.PeerInfoResult r : pir) {
+        for (final BitcoindRpcClient.PeerInfoResult r : pir)
             peers.add(String.format("%s - %s - %s", r.getAddr(), r.getSubVer(), r.getStartingHeight()));
-        }
         broadcastIntent.putStringArrayListExtra("peerlist", peers);
 
         sendBroadcast(broadcastIntent);
@@ -94,9 +93,8 @@ public class RPCIntentService extends IntentService {
         int max = -1;
         for (final BitcoindRpcClient.PeerInfoResult r : pir) {
             final int h = r.getStartingHeight();
-            if (h > max && h != 0) {
+            if (h > max && h != 0)
                 max = h;
-            }
         }
 
         broadcastIntent.putExtra("max", max);
@@ -147,13 +145,13 @@ public class RPCIntentService extends IntentService {
                 try {
 
                     final String[] array = console_request.split(" ");
-                    if (array.length > 1) {
+                    if (array.length > 1)
                         broadcastIntent.putExtra("res", bitcoin.query(array[0],
                                 (Object[])Arrays.copyOfRange(array, 1, array.length)).toString());
 
-                    } else {
+                    else
                         broadcastIntent.putExtra("res", bitcoin.query(console_request).toString());
-                    }
+
                 } catch (final BitcoinRPCException e) {
                     broadcastIntent.putExtra("res", "Failed, Verifying blocks?");
 
@@ -171,10 +169,9 @@ public class RPCIntentService extends IntentService {
 
         final String request = intent.getStringExtra("REQUEST");
 
-
         try {
 
-            if (request != null) {
+            if (request != null)
                 if (request.equals("peerlist")) {
                     broadcastPeerlist();
                     return;
@@ -182,7 +179,6 @@ public class RPCIntentService extends IntentService {
                     broadcastProgress();
                     return;
                 }
-            }
 
             final BitcoindRpcClient bitcoin = getRpc();
 

@@ -43,9 +43,8 @@ public class ProgressActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         final IntentFilter filter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
-        if (rpcResponseReceiver == null) {
+        if (rpcResponseReceiver == null)
             rpcResponseReceiver = new RPCResponseReceiver();
-        }
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(rpcResponseReceiver, filter);
         refresh();
@@ -75,17 +74,17 @@ public class ProgressActivity extends AppCompatActivity {
                         timer.cancel();
                         timer.purge();
                     }
-                    if (max == -1) {
+                    if (max == -1)
                         Snackbar.make(findViewById(android.R.id.content),
                                 "There are no peers yet", Snackbar.LENGTH_LONG).show();
-                    } else {
+                    else {
                         pb.setMax(max);
                         pb.setProgress(sync);
-                        if (max == sync) {
+                        if (max == sync)
                             textStatus.setText(String.format("Up to date (block height %s)", sync));
-                        } else {
+                        else
                             textStatus.setText(String.format("Processed %s%s (%s out of %s)", new DecimalFormat("#.##").format(((double) sync / max) * 100.0), "%", sync, max));
-                        }
+
 
                         timer = new Timer();
                         timer.schedule(new TimerTask() {

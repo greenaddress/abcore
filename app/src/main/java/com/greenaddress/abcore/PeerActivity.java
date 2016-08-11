@@ -34,7 +34,7 @@ public class PeerActivity extends ListActivity {
         fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 refresh();
                 Snackbar.make(findViewById(android.R.id.content),
                         "Refreshed", Snackbar.LENGTH_LONG).show();
@@ -53,9 +53,8 @@ public class PeerActivity extends ListActivity {
     protected void onResume() {
         super.onResume();
         final IntentFilter filter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
-        if (rpcResponseReceiver == null) {
+        if (rpcResponseReceiver == null)
             rpcResponseReceiver = new RPCResponseReceiver();
-        }
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(rpcResponseReceiver, filter);
         refresh();
@@ -88,10 +87,10 @@ public class PeerActivity extends ListActivity {
             switch (text) {
                 case "peerlist": {
                     final ArrayList<String> peers = intent.getStringArrayListExtra(text);
-                    if (peers.isEmpty()) {
+                    if (peers.isEmpty())
                         Snackbar.make(findViewById(android.R.id.content),
                                 "There are no peers yet", Snackbar.LENGTH_LONG).show();
-                    } else {
+                    else {
                         adapter.clear();
                         adapter.addAll(peers);
                         adapter.notifyDataSetChanged();

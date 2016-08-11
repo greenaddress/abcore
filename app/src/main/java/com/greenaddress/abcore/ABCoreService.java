@@ -1,20 +1,16 @@
 package com.greenaddress.abcore;
 
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
 
 public class ABCoreService extends Service {
 
@@ -65,19 +61,8 @@ public class ABCoreService extends Service {
 
             final String ld_linux;
 
-            // on arch linux it is usr/lib/ld-linux-x86-64.so.2
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            final Boolean archEnabled = prefs.getBoolean("archisenabled", false);
+            ld_linux = String.format("%s/usr/lib/ld-%s.so", dir.getAbsoluteFile(), Packages.GLIBC_MAJOR);
 
-            if (archEnabled) {
-                ld_linux = String.format("%s/usr/lib/ld-2.23.so", dir.getAbsoluteFile());
-            } else if ("amd64".equals(arch) || "arm64".equals(arch)) {
-                ld_linux = String.format("%s/lib/%s-linux-gnu/ld-2.22.so", dir.getAbsolutePath(), aarch);
-            } else if ("armhf".equals(arch)) {
-                ld_linux = String.format("%s/lib/ld-linux-armhf.so.3", dir.getAbsolutePath());
-            } else {
-                ld_linux = String.format("%s/lib/ld-linux.so.2", dir.getAbsoluteFile());
-            }
 
             // allow to pass in a different datadir directory
 
@@ -85,7 +70,7 @@ public class ABCoreService extends Service {
             // used
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
             final ProcessBuilder pb = new ProcessBuilder(ld_linux,
-                    String.format("%s/usr/bin/bitcoind", dir.getAbsolutePath()),
+                    String.format("%s/bitcoin-%s/bin/bitcoind", dir.getAbsolutePath(), Packages.CORE_V),
                     "-server=1",
                     String.format("-datadir=%s", Utils.getDataDir(this)),
                     String.format("-conf=%s", Utils.getBitcoinConf(this)));
@@ -145,7 +130,6 @@ public class ABCoreService extends Service {
             e.printStackTrace();
         }
         Log.i(TAG, "background Task finished");
-
 
         return START_STICKY;
     }

@@ -18,7 +18,7 @@ public class BitcoinConfEditActivity extends AppCompatActivity {
     private final static String TAG = BitcoinConfEditActivity.class.getName();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bitcoin_conf_edit);
     }
@@ -33,7 +33,7 @@ public class BitcoinConfEditActivity extends AppCompatActivity {
             IOUtils.copy(new ByteArrayInputStream(((EditText) findViewById(R.id.editText))
                     .getText().toString().getBytes("UTF-8")), f);
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             Log.i(TAG, e.getMessage());
         } finally {
             IOUtils.closeQuietly(f);
@@ -51,7 +51,7 @@ public class BitcoinConfEditActivity extends AppCompatActivity {
                     .setText(new String(IOUtils.toByteArray(
                             f)));
             IOUtils.closeQuietly(f);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             Log.i(TAG, e.getMessage());
         }
     }

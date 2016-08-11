@@ -38,29 +38,22 @@
                 <action android:name="com.greenaddress.abcore.BitcoinConfEditActivity"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity">
-        </activity>
+        <activity android:name=".AboutActivity"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:noHistory="true"
-        >
-        </activity>
+            android:noHistory="true"/>
         <activity
             android:name=".PeerActivity"
             android:label="@string/title_activity_peer"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ProgressActivity"
             android:label="@string/title_activity_progress"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".LogActivity">
-        </activity>
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".LogActivity"/>
         <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity"/>
-        <activity android:name=".ConsoleActivity">
-        </activity>
+        <activity android:name=".ConsoleActivity"/>
     </application>
 
 </manifest>

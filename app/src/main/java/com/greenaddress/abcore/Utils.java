@@ -6,11 +6,9 @@ import android.os.StatFs;
 import android.util.Log;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.ArchiveException;
-import org.apache.commons.compress.archivers.ArchiveStreamFactory;
-import org.apache.commons.compress.archivers.ar.ArArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
@@ -37,25 +35,27 @@ class Utils {
 
     @SuppressWarnings("deprecation")
     static float megabytesAvailable(final File f) {
-        if (f == null || !f.exists()) {
+        if (f == null || !f.exists())
             return 0;
-        }
         final StatFs stat = new StatFs(f.getPath());
         final long bytesAvailable;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
             bytesAvailable = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
-        } else {
+        else
             bytesAvailable = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
-        }
 
         return bytesAvailable / (1024.f * 1024.f);
     }
 
-    static void extractTarXz(final File input, final File outputDir) throws IOException {
+    static void extractTarXz(final File input, final File outputDir, final boolean xz) throws IOException {
         TarArchiveInputStream in = null;
         List<FileToCopy> toCopy = new ArrayList<>();
         try {
-            in = new TarArchiveInputStream(new BufferedInputStream(new XZCompressorInputStream(new BufferedInputStream(new FileInputStream(input)))));
+            if (xz)
+                in = new TarArchiveInputStream(new BufferedInputStream(new XZCompressorInputStream(new BufferedInputStream(new FileInputStream(input)))));
+            else
+                in = new TarArchiveInputStream(new BufferedInputStream(new GzipCompressorInputStream(new BufferedInputStream(new FileInputStream(input)))));
+
             ArchiveEntry entry;
 
             while ((entry = in.getNextEntry()) != null) {
@@ -109,9 +109,9 @@ class Utils {
 
                 final File f = new File(outputDir, entry.getName());
 
-                if (entry.isDirectory()) {
+                if (entry.isDirectory())
                     f.mkdirs();
-                } else {
+                else {
                     f.getParentFile().mkdirs();
                     OutputStream out = null;
                     try {
@@ -134,19 +134,17 @@ class Utils {
                 }
                 final int mode = ((TarArchiveEntry) entry).getMode();
 
-                if ((mode & 64) > 0) {
+                if ((mode & 64) > 0)
                     f.setExecutable(true, (mode & 1) == 0);
-                }
             }
 
-            for (final FileToCopy f : toCopy) {
+            for (final FileToCopy f : toCopy)
                 try {
                     copyFile(f.src, f.dst, outputDir);
                 } catch (final IOException e1) {
                     // usr share only
                     Log.v(TAG, "MISSING NAME " + f.src + " LINKS (" + f.dst + ")");
                 }
-            }
         } finally {
             IOUtils.closeQuietly(in);
         }
@@ -159,9 +157,8 @@ class Utils {
 
         final byte[] buf = new byte[1024];
         int len;
-        while ((len = linked.read(buf)) > 0) {
+        while ((len = linked.read(buf)) > 0)
             out.write(buf, 0, len);
-        }
 
         IOUtils.closeQuietly(linked);
         IOUtils.closeQuietly(out);
@@ -174,15 +171,13 @@ class Utils {
         final byte[] dataBytes = new byte[1024];
 
         int nread;
-        while ((nread = fis.read(dataBytes)) != -1) {
+        while ((nread = fis.read(dataBytes)) != -1)
             md.update(dataBytes, 0, nread);
-        }
         final byte[] mdbytes = md.digest();
 
         final StringBuilder sb = new StringBuilder();
-        for (final byte b : mdbytes) {
+        for (final byte b : mdbytes)
             sb.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-        }
 
         return sb.toString();
     }
@@ -228,52 +223,40 @@ class Utils {
         IOUtils.closeQuietly(dis);
     }
 
-    static void extractDataTarXzFromDeb(final File filePath, final File outputDir) throws IOException, ArchiveException {
-        final ArArchiveInputStream debInputStream = (ArArchiveInputStream) new ArchiveStreamFactory()
-                .createArchiveInputStream("ar", new BufferedInputStream(new FileInputStream(filePath)));
-
-        ArchiveEntry arEntry;
-
-        while ((arEntry = debInputStream.getNextEntry()) != null) {
-            if ("data.tar.xz".equals(arEntry.getName())) {
-
-                final File curfile = new File(outputDir, "data.tar.xz");
-                final OutputStream out = new FileOutputStream(curfile);
-                IOUtils.copy(new BufferedInputStream(debInputStream), out);
-                IOUtils.closeQuietly(out);
-
-                extractTarXz(curfile, outputDir);
-            }
-        }
-        IOUtils.closeQuietly(debInputStream);
-        filePath.delete();
+    static String getCorePkgsName() {
+        final String arch = System.getProperty("os.arch");
+        if (arch.endsWith("86"))
+            return "i686-pc-linux-gnu";
+        else if (arch.startsWith("armv7"))
+            return "arm-linux-gnueabihf";
+        else if (arch.endsWith("86_64"))
+            return "x86_64-linux-gnu";
+        else if ("aarch64".equals(arch))
+            return "aarch64-linux-gnu";
+        throw new UnsupportedArch(arch);
     }
 
     static String getArch() {
         final String arch = System.getProperty("os.arch");
-        Log.v(TAG, arch);
-        if (arch.endsWith("86")) {
+        if (arch.endsWith("86"))
             return "i386";
-        } else if (arch.startsWith("armv7")) {
+        else if (arch.startsWith("armv7"))
             return "armhf";
-        } else if (arch.endsWith("86_64")) {
+        else if (arch.endsWith("86_64"))
             return "amd64";
-        } else if ("aarch64".equals(arch)) {
+        else if ("aarch64".equals(arch))
             return "arm64";
-        }
         throw new UnsupportedArch(arch);
     }
 
     static File getDir(final Context c) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             return c.getNoBackupFilesDir();
-        } else {
+        else
             return c.getFilesDir();
-        }
     }
 
     static String getBitcoinConf(final Context c) {
-
         return String.format("%s/.bitcoin/bitcoin.conf", getDir(c).getAbsolutePath());
     }
 
@@ -393,9 +376,8 @@ class Utils {
         final String hash = Utils.sha256Hex(filePath);
         final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
 
-        if (!sha256hash.equals(hash)) {
+        if (!sha256hash.equals(hash))
             throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s, expected %s", filePath, hash, sha256hash));
-        }
     }
 
     interface OnDownloadSpeedChange {

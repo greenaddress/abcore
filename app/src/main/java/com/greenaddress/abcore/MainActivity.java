@@ -37,9 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         coreSwitch.setVisibility(View.VISIBLE);
         coreSwitch.setText("Switch Core off");
-        if (!coreSwitch.isChecked()) {
+        if (!coreSwitch.isChecked())
             coreSwitch.setChecked(true);
-        }
 
         setSwitch(activity);
     }
@@ -116,35 +115,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSnackMsg(final String msg, final int length) {
-        if (msg != null && !msg.trim().isEmpty()) {
+        if (msg != null && !msg.trim().isEmpty())
             Snackbar.make(findViewById(android.R.id.content),
                     msg, length).show();
-        }
     }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         reset();
     }
 
     private String getSpeed(final int bytesPerSec) {
-        if (bytesPerSec == 0) {
+        if (bytesPerSec == 0)
             return "";
-        } else if (bytesPerSec > 1024 * 1024 * 1024) {
+        else if (bytesPerSec > 1024 * 1024 * 1024)
             return String.format("%s MB/s", bytesPerSec / (1024 * 1024 * 1024));
-        } else if (bytesPerSec > 1024 * 1024) {
+        else if (bytesPerSec > 1024 * 1024)
             return String.format("%s KB/s", bytesPerSec / (1024 * 1024));
-        } else if (bytesPerSec > 1024) {
+        else if (bytesPerSec > 1024)
             return String.format("%s KB/s", bytesPerSec / 1024);
-        } else {
+        else
             return String.format("%s B/s", bytesPerSec);
-        }
     }
 
     @Override
@@ -161,17 +156,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         final IntentFilter downloadFilter = new IntentFilter(DownloadInstallCoreResponseReceiver.ACTION_RESP);
-        if (downloadInstallCoreResponseReceiver == null) {
+        if (downloadInstallCoreResponseReceiver == null)
             downloadInstallCoreResponseReceiver = new DownloadInstallCoreResponseReceiver();
-        }
         downloadFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(downloadInstallCoreResponseReceiver, downloadFilter);
 
 
         final IntentFilter rpcFilter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
-        if (rpcResponseReceiver == null) {
+        if (rpcResponseReceiver == null)
             rpcResponseReceiver = new RPCResponseReceiver();
-        }
         rpcFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(rpcResponseReceiver, rpcFilter);
     }
@@ -236,9 +229,8 @@ public class MainActivity extends AppCompatActivity {
                     status.setText("Please select SETUP BITCOIN CORE to download and configure Core");
                     final Switch coreSwitch = (Switch) MainActivity.this.findViewById(R.id.switchCore);
 
-                    if (coreSwitch.isChecked()) {
+                    if (coreSwitch.isChecked())
                         coreSwitch.setChecked(false);
-                    }
 
                     reset();
                     break;
@@ -274,13 +266,12 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(final Context context, final Intent intent) {
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
             switch (text) {
-                case "OK": {
+                case "OK":
                     postStart(MainActivity.this);
                     break;
-                }
                 case "exception":
-
-                    final boolean requiresDownload = !new File(Utils.getDir(context).getAbsolutePath() + "/usr/bin", "bitcoind").exists();
+                    final String relative = String.format("/bitcoin-%s/bin", "bitcoind", Packages.CORE_V);
+                    final boolean requiresDownload = !new File(Utils.getDir(context).getAbsolutePath() + relative).exists();
                     final TextView status = (TextView) findViewById(R.id.textView);
                     final Button button = (Button) findViewById(R.id.button);
                     final ProgressBar pb = (ProgressBar) MainActivity.this.findViewById(R.id.progressBar);
@@ -323,11 +314,9 @@ public class MainActivity extends AppCompatActivity {
                         }
 
 
-                    } else {
+                    } else
                         postConfigure(MainActivity.this);
-                    }
                     break;
-
             }
         }
     }

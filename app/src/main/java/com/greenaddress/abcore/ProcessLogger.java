@@ -35,9 +35,8 @@ class ProcessLogger extends Thread {
                 Log.v(TAG, line);
                 errors[counter++ % 3] = line;
             }
-            if (er != null) {
+            if (er != null)
                 er.OnError(errors);
-            }
 
         } catch (final IOException ioe) {
             ioe.printStackTrace();
