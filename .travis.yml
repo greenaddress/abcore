@@ -3,9 +3,9 @@ language: android
 android:
     components:
         - tools
-        - build-tools-23.0.3
-        - android-23
-        - platform-tools-23
+        - build-tools-24.0.1
+        - android-24
+        - platform-tools-24
         - extra-android-support
         - extra-android-m2repository
         - extra-google-m2repository
@@ -16,6 +16,9 @@ before_script:
     - echo no | android create avd --force -n test -t android-19 --abi armeabi-v7a
     - emulator -avd test -no-audio -no-window &
     - android-wait-for-emulator
+
+jdk:
+    - oraclejdk8
 
 script:
     - "./gradlew clean assembleRelease"
