@@ -34,9 +34,9 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     private void downloadAndValidatePackages(final String arch) throws IOException, NoSuchAlgorithmException {
-        /*for (final Packages.PkgH pkg : Packages.ARCH_PACKAGES)
+        for (final Packages.PkgH pkg : Packages.ARCH_PACKAGES)
             downloadPackage(pkg, arch, Packages.getPackageUrl(pkg, getContext(), arch));
-        */downloadCorePackage(arch);
+        downloadCorePackage(arch);
     }
 
     private void downloadCorePackage(final String arch) throws IOException, NoSuchAlgorithmException {
