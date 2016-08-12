@@ -15,10 +15,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import net.rdrei.android.dirchooser.DirectoryChooserActivity;
-import net.rdrei.android.dirchooser.DirectoryChooserConfig;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -99,44 +95,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public static class CorePreferenceFragment extends PreferenceFragment {
 
         @Override
-        public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == 21) {
-                if (resultCode == DirectoryChooserActivity.RESULT_CODE_DIR_SELECTED) {
-                    final String directory = data
-                            .getStringExtra(DirectoryChooserActivity.RESULT_SELECTED_DIR);
-
-                    final Properties p = new Properties();
-                    try {
-                        DownloadInstallCoreIntentService.configureCore(getActivity());
-
-                        p.load(new FileInputStream(Utils.getBitcoinConf(getActivity())));
-                        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                        final SharedPreferences.Editor e = prefs.edit();
-
-                        p.setProperty("datadir", directory);
-                        e.putString("datadir", directory);
-                        e.apply();
-
-                    } catch (final IOException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    try {
-                        p.store(new FileOutputStream(Utils.getBitcoinConf(getActivity())), "");
-                    } catch (final IOException e) {
-                        e.printStackTrace();
-                    }
-                    findPreference("datadir").setSummary(directory);
-                    new File(directory).mkdir();
-
-                }
-            }
-        }
-
-        @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setHasOptionsMenu(true);
@@ -177,24 +135,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             findPreference("upnp").setOnPreferenceChangeListener(ps);
             findPreference("disablewallet").setOnPreferenceChangeListener(ps);
             findPreference("datadir").setSummary(p.getProperty("datadir", Utils.getDataDir(getActivity())));
-            findPreference("datadir").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(final Preference preference) {
-                    final Intent chooserIntent = new Intent(getActivity(), DirectoryChooserActivity.class);
-                    final DirectoryChooserConfig config = DirectoryChooserConfig.builder()
-                            .initialDirectory(Utils.getLargestFilesDir(getActivity()).getAbsolutePath())
-                            .newDirectoryName("./bitcoin")
-                            .allowReadOnlyDirectory(true)
-                            .allowNewDirectoryNameModification(true)
-                            .build();
-
-                    chooserIntent.putExtra(DirectoryChooserActivity.EXTRA_CONFIG, config);
-
-                    startActivityForResult(chooserIntent, 21);
-                    return false;
-                }
-            });
-
         }
 
         @Override

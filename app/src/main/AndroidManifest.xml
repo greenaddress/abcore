@@ -52,7 +52,6 @@
             android:label="@string/title_activity_progress"
             android:theme="@style/AppTheme"/>
         <activity android:name=".LogActivity"/>
-        <activity android:name="net.rdrei.android.dirchooser.DirectoryChooserActivity"/>
         <activity android:name=".ConsoleActivity"/>
     </application>
 
