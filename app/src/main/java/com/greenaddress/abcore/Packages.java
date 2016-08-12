@@ -25,7 +25,7 @@ class Packages {
         // FIXME: some deps are not needed, ideally we just build what we need with a static binary, built with the NDK
         // This works for now
 
-        CORE_PACKAGE = new PkgH(String.format("test.%s/bitcoin-%s-%s", CORE_MINOR, CORE_V_FULL, "%s"),
+        CORE_PACKAGE = new PkgH(String.format("test.%s/bitcoin-%s", CORE_MINOR, CORE_V_FULL),
                 Arrays.asList(
                         "armhf2ee49d791e4a9fb4dea7873c2e2a6273aafd3fc1ff72bcf7e1a875266d2107d1",
                         "arm644a6159548241fff91be527cb070f64f7ba15a57dff63bf5fe704f15245e76ca6",
@@ -71,7 +71,7 @@ class Packages {
 
     static String getCorePackageUrl(final String arch) {
         final String packageName = arch == null ? Utils.getCorePkgsName(): Utils.getCorePkgsArch(arch);
-        final String path = String.format(CORE_PACKAGE.pkg, String.format("%s.tar.gz", packageName));
+        final String path = String.format("%s-%s.tar.gz", CORE_PACKAGE.pkg, packageName);
         return String.format(Packages.CORE_URL, CORE_V, path);
     }
 
