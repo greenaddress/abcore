@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "ABCOREUPDATE":
 
-                    mTvStatus.setText(String.format("%s %s", getSpeed(intent.getIntExtra("ABCOREUPDATESPEED", 0)), intent.getStringExtra("ABCOREUPDATETXT")));
+                    mTvDetails.setText(String.format("%s %s", getSpeed(intent.getIntExtra("ABCOREUPDATESPEED", 0)), intent.getStringExtra("ABCOREUPDATETXT")));
 
                     mPB.setVisibility(View.VISIBLE);
                     mPB.setMax(intent.getIntExtra("ABCOREUPDATEMAX", 100));
@@ -274,14 +274,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                         } else {
-                            final String msg = String.format("You have %sMB but need about 70MB available in the internal memory", internal);
+                            final String msg = String.format("You have %sMB but need about 70MB available in the internal memory unless you enable pruning", internal);
                             mTvStatus.setText(msg);
                             mButton.setVisibility(View.GONE);
                             showSnackMsg(msg, Snackbar.LENGTH_INDEFINITE);
                         }
 
                         if (external < 70000) {
-                            final String msg = String.format("You have %sMB but need about 70GB available in the external memory", external);
+                            final String msg = String.format("You have %sMB but need about 70GB available in the external memory unless you enable pruning", external);
                             mTvStatus.setText(msg);
                             // button.setVisibility(View.GONE);
                             showSnackMsg(msg);

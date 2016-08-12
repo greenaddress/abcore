@@ -59,53 +59,6 @@ class Utils {
             ArchiveEntry entry;
 
             while ((entry = in.getNextEntry()) != null) {
-                final String entryName = entry.getName();
-
-                // we don't need these files so may as well skip them
-                if (entryName.contains("usr/share/")
-                        || entryName.contains("bitcoin-cli")
-                        || entryName.contains("usr/include")
-                        || entryName.contains("etc/")
-                        || entryName.contains("python")
-                        || entryName.contains("fortran")
-                        || entryName.contains("libgo")
-                        || entryName.contains("libitm")
-                        || entryName.contains("liblsan")
-                        || entryName.contains("libubsan")
-                        || entryName.contains("libtsan")
-                        || entryName.contains("libdb_stl")
-                        || entryName.contains("libquadmath")
-                        || entryName.contains("libcilkrts")
-                        || entryName.contains("libobjc")
-                        || entryName.contains("libatomic")
-                        || entryName.contains("libcidn")
-                        || entryName.contains("libmvec")
-                        || entryName.contains("libmpx")
-                        || entryName.contains("libnsl")
-                        || entryName.contains("libutil")
-                        || entryName.contains("libvtv")
-                        || entryName.contains("libdb-5")
-                        || entryName.contains("libBrokenLocale")
-                        || entryName.contains("libmemusage")
-                        || entryName.contains("libnss")
-                        || entryName.contains("libresolv")
-                        || entryName.contains("libSegFault")
-                        || entryName.contains("libpcprofile")
-                        || entryName.contains("usr/lib/engines")
-                        || entryName.contains("mpi.so")
-                        || entryName.endsWith(".a")
-                        || (entryName.contains("usr/bin") && !entryName.contains("bitcoind"))
-                        || entryName.contains("libasan")
-                        || (entryName.contains("libboost") && (
-                        !entryName.contains("system")
-                                && !entryName.contains("program")
-                                && !entryName.contains("thread")
-                                && !entryName.contains("chrono")))
-                        || (entryName.contains("usr/lib/") && entryName.contains("/gconv/"))) {
-                    continue;
-                }
-
-                Log.v(TAG, "Entry in tar " + entry.getName() + " is " + ((TarArchiveEntry) entry).isSymbolicLink());
 
                 final File f = new File(outputDir, entry.getName());
 
