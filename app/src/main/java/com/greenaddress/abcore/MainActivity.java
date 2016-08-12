@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private void postStart() {
         // SHOW FEE AND OTHER NODE INFO
         mButton.setVisibility(View.GONE);
-        mTvStatus.setText("Bitcoin Core is running, please switch Core OFF to stop it.");
+        mTvStatus.setText(String.format("Bitcoin Core %s is running, please switch Core OFF to stop it.", Packages.CORE_V_FULL));
 
         mSwitchCore.setVisibility(View.VISIBLE);
         mSwitchCore.setText("Switch Core off");
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private void postConfigure() {
 
         mPB.setVisibility(View.GONE);
-        mTvDetails.setText("Bitcoin core fetched and configured");
-        mTvStatus.setText("Bitcoin Core is not running, please switch Core ON to start it");
+        mTvDetails.setText(String.format("Bitcoin core %s fetched and configured", Packages.CORE_V_FULL));
+        mTvStatus.setText(String.format("Bitcoin Core %s is not running, please switch Core ON to start it", Packages.CORE_V_FULL));
         mButton.setVisibility(View.GONE);
         setSwitch();
     }

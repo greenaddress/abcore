@@ -17,7 +17,7 @@ class Packages {
     private final static String GLIBC_MINOR = "5";
     private final static String CORE_URL = "https://bitcoin.org/bin/bitcoin-core-%s/%s";
     private final static String CORE_MINOR = "rc2";
-    private final static String CORE_V_FULL = String.format("%s%s", CORE_V, CORE_MINOR);
+    public final static String CORE_V_FULL = String.format("%s%s", CORE_V, CORE_MINOR);
 
 
     static {
