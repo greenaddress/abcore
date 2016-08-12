@@ -13,22 +13,25 @@ class Packages {
     public final static List<PkgH> ARCH_PACKAGES;
     public final static PkgH CORE_PACKAGE;
     public final static String GLIBC_MAJOR = "2.23";
-    private final static String GLIBC_MINOR = "5";
-
     public final static String CORE_V = "0.13.0";
+    private final static String GLIBC_MINOR = "5";
+    private final static String CORE_URL = "https://bitcoin.org/bin/bitcoin-core-%s/%s";
+    private final static String CORE_MINOR = "rc2";
+    private final static String CORE_V_FULL = String.format("%s%s", CORE_V, CORE_MINOR);
+
 
     static {
 
         // FIXME: some deps are not needed, ideally we just build what we need with a static binary, built with the NDK
         // This works for now
 
-        CORE_PACKAGE = new PkgH(String.format("https://bitcoin.org/bin/bitcoin-core-%s/test.rc2/bitcoin-%src2-%s.tar.gz", CORE_V, CORE_V, "%s"),
-                                Arrays.asList(
-                                        "armhf2ee49d791e4a9fb4dea7873c2e2a6273aafd3fc1ff72bcf7e1a875266d2107d1",
-                                        "arm644a6159548241fff91be527cb070f64f7ba15a57dff63bf5fe704f15245e76ca6",
-                                        "amd642110d28093a922144efcad651e140c30c89bc113b72a43f8fe0e6c365796efb7",
-                                        "i386dd93395710af8ff02af7f52aa8cd02484d51cfe6e19b6b6b65930051c70e7707"
-                                ));
+        CORE_PACKAGE = new PkgH(String.format("test.%s/bitcoin-%s-%s", CORE_MINOR, CORE_V_FULL, "%s"),
+                Arrays.asList(
+                        "armhf2ee49d791e4a9fb4dea7873c2e2a6273aafd3fc1ff72bcf7e1a875266d2107d1",
+                        "arm644a6159548241fff91be527cb070f64f7ba15a57dff63bf5fe704f15245e76ca6",
+                        "amd642110d28093a922144efcad651e140c30c89bc113b72a43f8fe0e6c365796efb7",
+                        "i386dd93395710af8ff02af7f52aa8cd02484d51cfe6e19b6b6b65930051c70e7707"
+                ));
 
         ARCH_PACKAGES = new ArrayList<>(
                 Arrays.asList(
@@ -64,6 +67,12 @@ class Packages {
         final String template = "http://%s/%s/%s-" + (isArmArchitecture ? fileArch : osArch) + ".pkg.tar.xz";
         final String repo = getRepo(c, arch);
         return String.format(template, repo, pkg.pkg.charAt(0), pkg.pkg);
+    }
+
+    static String getCorePackageUrl(final String arch) {
+        final String packageName = arch == null ? Utils.getCorePkgsName(): Utils.getCorePkgsArch(arch);
+        final String path = String.format(CORE_PACKAGE.pkg, String.format("%s.tar.gz", packageName));
+        return String.format(Packages.CORE_URL, CORE_V, path);
     }
 
     public static class PkgH {

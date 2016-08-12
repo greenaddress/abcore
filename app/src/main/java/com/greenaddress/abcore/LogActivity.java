@@ -29,12 +29,13 @@ public class LogActivity extends AppCompatActivity {
                 fileHandler.seek(filePointer);
                 int readByte = fileHandler.readByte();
 
-                if (readByte == 0xA)
+                if (readByte == 0xA) {
                     if (filePointer < fileLength)
                         ++line;
-                else if (readByte == 0xD)
+                } else if (readByte == 0xD) {
                     if (filePointer < fileLength - 1)
                         ++line;
+                }
 
                 if (line >= lines)
                     break;

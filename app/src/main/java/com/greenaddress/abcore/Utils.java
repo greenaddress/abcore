@@ -236,6 +236,19 @@ class Utils {
         throw new UnsupportedArch(arch);
     }
 
+    public static String getCorePkgsArch(final String arch) {
+        if (arch.endsWith("i386"))
+            return "i686-pc-linux-gnu";
+        else if (arch.startsWith("armhf"))
+            return "arm-linux-gnueabihf";
+        else if (arch.endsWith("amd64"))
+            return "x86_64-linux-gnu";
+        else if ("arm64".equals(arch))
+            return "aarch64-linux-gnu";
+
+        return null;
+    }
+
     static String getArch() {
         final String arch = System.getProperty("os.arch");
         if (arch.endsWith("86"))

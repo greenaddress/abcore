@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
@@ -24,21 +25,19 @@ public class ABCoreService extends Service {
     }
 
     private void setupNotification() {
-        final Intent myIntent = new Intent(this, MainActivity.class);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(
-                this,
-                0,
-                myIntent, PendingIntent.FLAG_ONE_SHOT);
-        final NotificationManager nMN = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        final Intent i = new Intent(this, MainActivity.class);
+        final PendingIntent pI;
+        pI = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
+        final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final Notification n = new Notification.Builder(this)
                 .setContentTitle("Abcore is running")
-                .setContentIntent(pendingIntent)
+                .setContentIntent(pI)
                 .setContentText("Currently started")
                 .setSmallIcon(R.drawable.ic_info_black_24dp)
                 .setOngoing(true)
                 .build();
 
-        nMN.notify(NOTIFICATION_ID, n);
+        nM.notify(NOTIFICATION_ID, n);
     }
 
     @Override
@@ -50,7 +49,8 @@ public class ABCoreService extends Service {
 
         // start core
         try {
-            final String aarch = arch.equals("arm64") ? "aarch64" : arch.equals("amd64") ? "x86_64" : arch;
+            final String tmpArch = arch.equals("amd64") ? "x86_64" : arch;
+            final String aarch = arch.equals("arm64") ? "aarch64" : tmpArch;
             final String gnu;
 
             if (arch.equals("armhf")) {
@@ -59,9 +59,9 @@ public class ABCoreService extends Service {
                 gnu = "gnu";
             }
 
-            final String ld_linux;
+            final String ld;
 
-            ld_linux = String.format("%s/usr/lib/ld-%s.so", dir.getAbsoluteFile(), Packages.GLIBC_MAJOR);
+            ld = String.format("%s/usr/lib/ld-%s.so", dir.getAbsoluteFile(), Packages.GLIBC_MAJOR);
 
 
             // allow to pass in a different datadir directory
@@ -69,7 +69,7 @@ public class ABCoreService extends Service {
             // HACK: if user sets a datadir in the bitcoin.conf file that should then be the one
             // used
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-            final ProcessBuilder pb = new ProcessBuilder(ld_linux,
+            final ProcessBuilder pb = new ProcessBuilder(ld,
                     String.format("%s/bitcoin-%s/bin/bitcoind", dir.getAbsolutePath(), Packages.CORE_V),
                     "-server=1",
                     String.format("-datadir=%s", Utils.getDataDir(this)),
@@ -96,14 +96,13 @@ public class ABCoreService extends Service {
             mProcess = pb.start();
             final ProcessLogger.OnError er = new ProcessLogger.OnError() {
                 @Override
-                public void OnError(final String[] error) {
+                public void onError(final String[] error) {
                     ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
                     final StringBuilder bf = new StringBuilder();
-                    for (final String e : error) {
-                        if (e != null && !e.isEmpty()) {
+                    for (final String e : error)
+                        if (!TextUtils.isEmpty(e))
                             bf.append(String.format("%s%s", e, System.getProperty("line.separator")));
-                        }
-                    }
+
                     final Intent broadcastIntent = new Intent();
                     broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
                     broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);

@@ -40,21 +40,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     private void downloadCorePackage(final String arch) throws IOException, NoSuchAlgorithmException {
-        final String url = String.format(Packages.CORE_PACKAGE.pkg, getCorePkgsName(arch));
+        final String url = Packages.getCorePackageUrl(arch);
         downloadPackage(Packages.CORE_PACKAGE, arch, url);
-    }
-
-    private static String getCorePkgsName(final String arch) {
-        if (arch.endsWith("i386"))
-            return "i686-pc-linux-gnu";
-        else if (arch.startsWith("armhf"))
-            return "arm-linux-gnueabihf";
-        else if (arch.endsWith("amd64"))
-            return "x86_64-linux-gnu";
-        else if ("arm64".equals(arch))
-            return "aarch64-linux-gnu";
-
-        return null;
     }
 
     public void testArm64Packages() throws IOException, NoSuchAlgorithmException {

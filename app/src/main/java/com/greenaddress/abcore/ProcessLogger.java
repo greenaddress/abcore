@@ -36,7 +36,7 @@ class ProcessLogger extends Thread {
                 errors[counter++ % 3] = line;
             }
             if (er != null)
-                er.OnError(errors);
+                er.onError(errors);
 
         } catch (final IOException ioe) {
             ioe.printStackTrace();
@@ -46,6 +46,6 @@ class ProcessLogger extends Thread {
     }
 
     interface OnError {
-        void OnError(String[] error);
+        void onError(String[] error);
     }
 }

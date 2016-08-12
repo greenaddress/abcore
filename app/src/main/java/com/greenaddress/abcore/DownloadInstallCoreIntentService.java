@@ -102,17 +102,17 @@ public class DownloadInstallCoreIntentService extends IntentService {
             final Utils.OnDownloadSpeedChange odsc = new Utils.OnDownloadSpeedChange() {
                 @Override
                 public void bytesPerSecondUpdate(final int bytes) {
-                    sendUpdate("Downloading", null, bytes);
+                    sendUpdate("Downloading", Packages.CORE_PACKAGE, bytes);
                 }
             };
 
-            final String url = String.format(Packages.CORE_PACKAGE.pkg, Utils.getCorePkgsName());
+            final String url = Packages.getCorePackageUrl(null);
             final String filePath = Utils.getFilePathFromUrl(this, url);
-            sendUpdate("Downloading", null);
+            sendUpdate("Downloading", Packages.CORE_PACKAGE);
             Utils.downloadFile(url, filePath, odsc);
 
             // Verify sha256sum
-            sendUpdate("Verifying", null);
+            sendUpdate("Verifying", Packages.CORE_PACKAGE);
             for (final String hash : Packages.CORE_PACKAGE.archHash)
                 if (hash.startsWith(arch)) {
                     Utils.validateSha256sum(arch, hash, filePath);
@@ -120,7 +120,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 }
 
             // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
-            sendUpdate("Unpacking", null);
+            sendUpdate("Unpacking", Packages.CORE_PACKAGE);
 
             Utils.extractTarXz(new File(filePath), dir, false);
 
@@ -161,7 +161,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "ABCOREUPDATE");
-        if (pkg != null)
+        if (Packages.ARCH_PACKAGES.contains(pkg))
             broadcastIntent.putExtra("ABCOREUPDATE", Packages.ARCH_PACKAGES.indexOf(pkg) + 1);
         else
             broadcastIntent.putExtra("ABCOREUPDATE", Packages.ARCH_PACKAGES.size() + 1);
@@ -169,10 +169,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         if (bytesPerSec != null)
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
 
-        if (pkg != null)
-            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
-        else
-            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s bitcoin-core-%src2", upd, Packages.CORE_V));
+        broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
 
         sendBroadcast(broadcastIntent);
     }
