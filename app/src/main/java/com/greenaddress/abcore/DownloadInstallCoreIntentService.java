@@ -174,8 +174,18 @@ public class DownloadInstallCoreIntentService extends IntentService {
         sendBroadcast(broadcastIntent);
     }
 
-    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw, final Utils.OnDownloadSpeedChange odsc) throws IOException, NoSuchAlgorithmException {
+    private void markAsDone(final String sha) throws IOException {
+        if (!new File(Utils.getDir(this), sha).createNewFile())
+            throw new IOException();
+    }
 
+    private boolean isUnpacked(final String sha) {
+        return new File(Utils.getDir(this), sha).exists();
+    }
+
+    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw, final Utils.OnDownloadSpeedChange odsc) throws IOException, NoSuchAlgorithmException {
+        if (isUnpacked(sha256raw))
+            return;
         final String url = Packages.getPackageUrl(pkg, this, arch);
         final String filePath = Utils.getFilePathFromUrl(this, url);
 
@@ -191,6 +201,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
         sendUpdate("Unpacking", pkg);
 
         Utils.extractTarXz(new File(filePath), outputDir, true);
-
+        markAsDone(sha256raw);
     }
 }
