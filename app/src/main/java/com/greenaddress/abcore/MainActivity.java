@@ -1,5 +1,6 @@
 package com.greenaddress.abcore;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void postConfigure() {
-
         mTvDetails.setText(String.format("Bitcoin core %s fetched and configured", Packages.CORE_V_FULL));
         mTvStatus.setText(String.format("Bitcoin Core %s is not running, please switch Core ON to start it", Packages.CORE_V_FULL));
         setSwitch();
+        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(ABCoreService.NOTIFICATION_ID);
     }
 
     private void setSwitch() {
@@ -61,32 +62,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void reset() {
-
-        mSwitchCore.setText("Switch Core on");
-
-        mTvStatus.setText("");
-
-        try {
-            Utils.getArch();
-        } catch (final Utils.UnsupportedArch e) {
-            final String msg = String.format("Architeture %s is unsupported", e.arch);
-            mTvStatus.setText(msg);
-            showSnackMsg(msg, Snackbar.LENGTH_INDEFINITE);
-            return;
-        }
-
-        // rpc check to see if core is already running!
-        startService(new Intent(this, RPCIntentService.class));
-    }
-
     private void showSnackMsg(final String msg) {
-        showSnackMsg(msg, Snackbar.LENGTH_LONG);
-    }
-
-    private void showSnackMsg(final String msg, final int length) {
         if (msg != null && !msg.trim().isEmpty())
-            Snackbar.make(mContent, msg, length).show();
+            Snackbar.make(mContent, msg, Snackbar.LENGTH_INDEFINITE).show();
     }
 
     @Override
@@ -100,10 +78,13 @@ public class MainActivity extends AppCompatActivity {
         mContent = findViewById(android.R.id.content);
         setSupportActionBar(toolbar);
 
-        reset();
-        if (!Utils.isBitcoinCoreConfigured(this))
-            startActivity(new Intent(this, DownloadActivity.class));
-        postConfigure();
+        try {
+            Utils.getArch();
+        } catch (final Utils.UnsupportedArch e) {
+            final String msg = String.format("Architeture %s is unsupported", e.arch);
+            mTvStatus.setText(msg);
+            showSnackMsg(msg);
+        }
     }
 
     @Override
@@ -122,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
             mRpcResponseReceiver = new RPCResponseReceiver();
         rpcFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(mRpcResponseReceiver, rpcFilter);
+
+        if (Utils.isBitcoinCoreConfigured(this))
+            startService(new Intent(this, RPCIntentService.class));
+        else
+            startActivity(new Intent(this, DownloadActivity.class));
+
     }
 
     @Override
@@ -172,28 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 case "exception":
                     final String exe = intent.getStringExtra("exception");
                     Log.i(TAG, exe);
-
-                    if (!Utils.isBitcoinCoreConfigured(MainActivity.this)) {
-                        final float internal = Utils.megabytesAvailable(Utils.getDir(MainActivity.this));
-                        final float external = Utils.megabytesAvailable(Utils.getLargestFilesDir(MainActivity.this));
-
-                        if (internal > 70) {
-                            mTvStatus.setText("Please select SETUP BITCOIN CORE to download and configure Core");
-                        } else {
-                            final String msg = String.format("You have %sMB but need about 70MB available in the internal memory", internal);
-                            mTvStatus.setText(msg);
-                            showSnackMsg(msg, Snackbar.LENGTH_INDEFINITE);
-                        }
-
-                        if (external < 70000) {
-                            final String msg = String.format("You have %sMB but need about 70GB available memory unless you enable pruning", external);
-                            mTvStatus.setText(msg);
-                            // button.setVisibility(View.GONE);
-                            showSnackMsg(msg);
-                        }
-                    } else
-                        postConfigure();
-                    break;
+                    postConfigure();
             }
         }
     }

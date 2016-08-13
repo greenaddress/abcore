@@ -34,7 +34,7 @@ public class ABCoreService extends Service {
         final Notification n = new Notification.Builder(this)
                 .setContentTitle("Abcore is running")
                 .setContentIntent(pI)
-                .setContentText("Currently started")
+                .setContentText(String.format("Version %s",Packages.CORE_V_FULL))
                 .setSmallIcon(R.drawable.ic_info_black_24dp)
                 .setOngoing(true)
                 .build();

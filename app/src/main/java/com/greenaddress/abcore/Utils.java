@@ -34,7 +34,7 @@ class Utils {
     private final static String TAG = Utils.class.getSimpleName();
 
     @SuppressWarnings("deprecation")
-    static float megabytesAvailable(final File f) {
+    private static float megabytesAvailable(final File f) {
         if (f == null || !f.exists())
             return 0;
         final StatFs stat = new StatFs(f.getPath());
@@ -47,9 +47,9 @@ class Utils {
         return bytesAvailable / (1024.f * 1024.f);
     }
 
-    static void extractTarXz(final File input, final File outputDir, final boolean xz) throws IOException {
+    static void extractTarXz(final File input, final File outputDir, final boolean xz, final OnFileNewFileUnpacked ofnfu) throws IOException {
         TarArchiveInputStream in = null;
-        List<FileToCopy> toCopy = new ArrayList<>();
+        final List<FileToCopy> toCopy = new ArrayList<>();
         try {
             if (xz)
                 in = new TarArchiveInputStream(new BufferedInputStream(new XZCompressorInputStream(new BufferedInputStream(new FileInputStream(input)))));
@@ -70,6 +70,7 @@ class Utils {
                     try {
                         out = new FileOutputStream(f);
                         IOUtils.copy(in, out);
+                        ofnfu.fileUnpackedUpdate(f.getName());
                     } finally {
                         IOUtils.closeQuietly(out);
                     }
@@ -348,6 +349,10 @@ class Utils {
 
     interface OnDownloadSpeedChange {
         void bytesPerSecondUpdate(final int bytes);
+    }
+
+    interface OnFileNewFileUnpacked {
+        void fileUnpackedUpdate(final String file);
     }
 
     static class FileToCopy {

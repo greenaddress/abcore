@@ -33,7 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/switchCore"
-        android:layout_below="@+id/textView" android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"/>
+        android:text="Switch Core on"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -86,12 +86,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 for (final String a : d.archHash)
                     try {
                         if (a.startsWith(arch)) {
-                            unpack(d, arch, dir, a, new Utils.OnDownloadSpeedChange() {
-                                @Override
-                                public void bytesPerSecondUpdate(final int bytes) {
-                                    sendUpdate("Downloading", d, bytes);
-                                }
-                            });
+                            unpack(d, arch, dir, a);
                             break;
                         }
                     } catch (final FileNotFoundException e) {
@@ -105,7 +100,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             final Utils.OnDownloadSpeedChange odsc = new Utils.OnDownloadSpeedChange() {
                 @Override
                 public void bytesPerSecondUpdate(final int bytes) {
-                    sendUpdate("Downloading", Packages.CORE_PACKAGE, bytes);
+                    sendUpdate("Downloading", Packages.CORE_PACKAGE, bytes, null);
                 }
             };
 
@@ -125,7 +120,12 @@ public class DownloadInstallCoreIntentService extends IntentService {
             // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
             sendUpdate("Unpacking", Packages.CORE_PACKAGE);
 
-            Utils.extractTarXz(new File(filePath), dir, false);
+            Utils.extractTarXz(new File(filePath), dir, false, new Utils.OnFileNewFileUnpacked() {
+                @Override
+                public void fileUnpackedUpdate(final String file) {
+                    sendUpdate("Unpacking", Packages.CORE_PACKAGE, 0, file);
+                }
+            });
 
             // bitcoin core & deps installed, configure it now
             configureCore(this);
@@ -155,10 +155,10 @@ public class DownloadInstallCoreIntentService extends IntentService {
     }
 
     private void sendUpdate(final String upd, final Packages.PkgH pkg) {
-        sendUpdate(upd, pkg, null);
+        sendUpdate(upd, pkg, null, null);
     }
 
-    private void sendUpdate(final String upd, final Packages.PkgH pkg, final Integer bytesPerSec) {
+    private void sendUpdate(final String upd, final Packages.PkgH pkg, final Integer bytesPerSec, final String fileExtracted) {
         final Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -170,8 +170,10 @@ public class DownloadInstallCoreIntentService extends IntentService {
         broadcastIntent.putExtra("ABCOREUPDATEMAX", Packages.ARCH_PACKAGES.size() + 1);
         if (bytesPerSec != null)
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
-
-        broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
+        if (fileExtracted != null)
+            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, fileExtracted));
+        else
+            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
 
         sendBroadcast(broadcastIntent);
     }
@@ -185,15 +187,22 @@ public class DownloadInstallCoreIntentService extends IntentService {
         return new File(Utils.getDir(this), sha).exists();
     }
 
-    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw, final Utils.OnDownloadSpeedChange odsc) throws IOException, NoSuchAlgorithmException {
+    private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw) throws IOException, NoSuchAlgorithmException {
         if (isUnpacked(sha256raw))
             return;
+
         final String url = Packages.getPackageUrl(pkg, this, arch);
         final String filePath = Utils.getFilePathFromUrl(this, url);
 
+
         // Download file
         sendUpdate("Downloading", pkg);
-        Utils.downloadFile(url, filePath, odsc);
+        Utils.downloadFile(url, filePath, new Utils.OnDownloadSpeedChange() {
+            @Override
+            public void bytesPerSecondUpdate(final int bytes) {
+                sendUpdate("Downloading", pkg, bytes, null);
+            }
+        });
 
         // Verify sha256sum
         sendUpdate("Verifying", pkg);
@@ -202,7 +211,13 @@ public class DownloadInstallCoreIntentService extends IntentService {
         // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
         sendUpdate("Unpacking", pkg);
 
-        Utils.extractTarXz(new File(filePath), outputDir, true);
+        Utils.extractTarXz(new File(filePath), outputDir, true, new Utils.OnFileNewFileUnpacked() {
+
+            @Override
+            public void fileUnpackedUpdate(final String file) {
+                sendUpdate("Unpacking", pkg, null, file);
+            }
+        });
         markAsDone(sha256raw);
     }
 }
