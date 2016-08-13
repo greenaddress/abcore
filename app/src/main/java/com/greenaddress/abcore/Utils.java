@@ -373,4 +373,9 @@ class Utils {
             super(s);
         }
     }
+
+    static boolean isBitcoinCoreConfigured(final Context c) {
+        final String relative = String.format("/bitcoin-%s/bin/%s", Packages.CORE_V, "bitcoind");
+        return new File(Utils.getDir(c).getAbsolutePath() + relative).exists();
+    }
 }

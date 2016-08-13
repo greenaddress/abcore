@@ -26,6 +26,8 @@ public class ABCoreService extends Service {
 
     private void setupNotification() {
         final Intent i = new Intent(this, MainActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK);
         final PendingIntent pI;
         pI = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
         final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -104,7 +106,7 @@ public class ABCoreService extends Service {
                             bf.append(String.format("%s%s", e, System.getProperty("line.separator")));
 
                     final Intent broadcastIntent = new Intent();
-                    broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
+                    broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
                     broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
                     broadcastIntent.putExtra("abtcore", "exception");
                     broadcastIntent.putExtra("exception", bf.toString());

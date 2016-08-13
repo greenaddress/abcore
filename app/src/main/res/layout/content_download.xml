@@ -16,10 +16,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please select SETUP BITCOIN CORE" android:id="@+id/textView"
+        android:text="Click on the button to start downloading and configuring Bitcoin Core" android:id="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
+    <ProgressBar
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+
+        android:indeterminate="false" android:progress="0"
+        android:layout_above="@+id/textViewDetails" android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:id="@+id/button"
+        android:layout_marginTop="25dp" android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,12 +45,5 @@
         android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" android:maxLines="1" android:minLines="1"/>
-
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switchCore"
-        android:layout_below="@+id/textView" android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"/>
 
 </RelativeLayout>

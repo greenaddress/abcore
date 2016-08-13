@@ -1,0 +1,145 @@
+package com.greenaddress.abcore;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import java.util.Locale;
+
+public class DownloadActivity extends AppCompatActivity {
+    private final static String TAG = DownloadActivity.class.getName();
+    private DownloadInstallCoreResponseReceiver mDownloadInstallCoreResponseReceiver;
+    private ProgressBar mPB;
+    private Button mButton;
+    private TextView mTvStatus;
+    private TextView mTvDetails;
+    private View mContent;
+
+    private void showSnackMsg(final String msg) {
+        if (msg != null && !msg.trim().isEmpty())
+            Snackbar.make(mContent, msg, Snackbar.LENGTH_INDEFINITE).show();
+    }
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_download);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mPB = (ProgressBar) findViewById(R.id.progressBar);
+        mTvStatus = (TextView) findViewById(R.id.textView);
+        mButton = (Button) findViewById(R.id.button);
+        mTvDetails = (TextView) findViewById(R.id.textViewDetails);
+        mContent = findViewById(android.R.id.content);
+        setSupportActionBar(toolbar);
+
+        try {
+            Utils.getArch();
+        } catch (final Utils.UnsupportedArch e) {
+            mButton.setEnabled(false);
+            final String msg = String.format("Architeture %s is unsupported", e.arch);
+            mTvStatus.setText(msg);
+            showSnackMsg(msg);
+        }
+    }
+
+    private static String niceFlat(final float f, final String s) {
+        if ((int) f == f)
+            return String.format("@ %s %s", f, s);
+        return String.format(Locale.US, "@ %.2f %s", f, s);
+    }
+
+    private static String getSpeed(final int bytesPerSec) {
+        if (bytesPerSec == 0)
+            return "";
+
+        if (bytesPerSec >= 1024 * 1024 * 1024)
+            return niceFlat((float) bytesPerSec / (1024 * 1024 * 1024), "GB/s");
+
+        if (bytesPerSec >= 1024 * 1024)
+            return niceFlat((float) bytesPerSec / (1024 * 1024 ), "MB/s");
+
+        if (bytesPerSec >= 1024)
+            return String.format("@ %s KB/s", bytesPerSec / 1024);
+
+        return String.format("@ %s B/s", bytesPerSec);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(mDownloadInstallCoreResponseReceiver);
+        mDownloadInstallCoreResponseReceiver = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (Utils.isBitcoinCoreConfigured(this))
+            finish();
+
+        final IntentFilter downloadFilter = new IntentFilter(DownloadInstallCoreResponseReceiver.ACTION_RESP);
+        if (mDownloadInstallCoreResponseReceiver == null)
+            mDownloadInstallCoreResponseReceiver = new DownloadInstallCoreResponseReceiver();
+        downloadFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        registerReceiver(mDownloadInstallCoreResponseReceiver, downloadFilter);
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                startService(new Intent(DownloadActivity.this, DownloadInstallCoreIntentService.class));
+                mButton.setEnabled(false);
+                disableWhileDownloading();
+            }
+        });
+
+        if (DownloadInstallCoreIntentService.HAS_BEEN_STARTED)
+            disableWhileDownloading();
+    }
+
+    private void disableWhileDownloading() {
+        mButton.setEnabled(false);
+        mTvStatus.setText("Please wait. Fetching, unpacking and configuring bitcoin core...");
+    }
+
+    public class DownloadInstallCoreResponseReceiver extends BroadcastReceiver {
+        public static final String ACTION_RESP =
+                "com.greenaddress.intent.action.MESSAGE_PROCESSED";
+
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            final String text = intent.getStringExtra(DownloadInstallCoreIntentService.PARAM_OUT_MSG);
+            switch (text) {
+                case "OK":
+                    finish();
+                    break;
+                case "exception":
+                    final String exe = intent.getStringExtra("exception");
+                    Log.i(TAG, exe);
+                    mPB.setProgress(0);
+                    mTvDetails.setText(exe);
+                    mButton.setEnabled(true);
+                    mTvStatus.setText("Failure, want to retry?");
+                    break;
+                case "ABCOREUPDATE":
+
+                    mTvDetails.setText(String.format("%s %s", intent.getStringExtra("ABCOREUPDATETXT"), getSpeed(intent.getIntExtra("ABCOREUPDATESPEED", 0))));
+
+                    mPB.setMax(intent.getIntExtra("ABCOREUPDATEMAX", 100));
+                    mPB.setProgress(intent.getIntExtra("ABCOREUPDATE", 0));
+
+                    break;
+            }
+        }
+    }
+}

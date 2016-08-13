@@ -53,6 +53,8 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".LogActivity"/>
         <activity android:name=".ConsoleActivity"/>
+        <activity android:name=".DownloadActivity"/>
+
     </application>
 
 </manifest>

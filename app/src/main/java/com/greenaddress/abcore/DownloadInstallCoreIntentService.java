@@ -22,6 +22,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
     public static final String PARAM_OUT_MSG = "abtcore";
     private static final String TAG = DownloadInstallCoreIntentService.class.getName();
 
+    public static boolean HAS_BEEN_STARTED = false;
+
     public DownloadInstallCoreIntentService() {
         super(DownloadInstallCoreIntentService.class.getName());
     }
@@ -72,6 +74,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(final Intent intent) {
+        HAS_BEEN_STARTED = true;
         // this already runs in its own thread but no reasons the pkgs couldn't be handle concurrently.
         final File dir = Utils.getDir(DownloadInstallCoreIntentService.this);
         final String arch = Utils.getArch();
@@ -131,7 +134,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             // processing done here….
             final Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
+            broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
             broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
             broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
             sendBroadcast(broadcastIntent);
@@ -141,14 +144,13 @@ public class DownloadInstallCoreIntentService extends IntentService {
             Log.i(TAG, e.getMessage());
             e.printStackTrace();
             final Intent broadcastIntent = new Intent();
-            broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
+            broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
             broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
             broadcastIntent.putExtra(PARAM_OUT_MSG, "exception");
             broadcastIntent.putExtra("exception", e.getMessage());
 
             sendBroadcast(broadcastIntent);
         }
-
         Log.v(TAG, "onHandleIntent END");
     }
 
@@ -158,7 +160,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
     private void sendUpdate(final String upd, final Packages.PkgH pkg, final Integer bytesPerSec) {
         final Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(MainActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
+        broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "ABCOREUPDATE");
         if (Packages.ARCH_PACKAGES.contains(pkg))
