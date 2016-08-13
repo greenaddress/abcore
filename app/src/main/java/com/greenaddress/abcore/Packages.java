@@ -16,7 +16,7 @@ class Packages {
     public final static String CORE_V = "0.13.0";
     private final static String GLIBC_MINOR = "5";
     private final static String CORE_URL = "https://bitcoin.org/bin/bitcoin-core-%s/%s";
-    private final static String CORE_MINOR = "rc2";
+    private final static String CORE_MINOR = "rc3";
     public final static String CORE_V_FULL = String.format("%s%s", CORE_V, CORE_MINOR);
 
 
@@ -27,10 +27,10 @@ class Packages {
 
         CORE_PACKAGE = new PkgH(String.format("test.%s/bitcoin-%s", CORE_MINOR, CORE_V_FULL),
                 Arrays.asList(
-                        "armhf2ee49d791e4a9fb4dea7873c2e2a6273aafd3fc1ff72bcf7e1a875266d2107d1",
-                        "arm644a6159548241fff91be527cb070f64f7ba15a57dff63bf5fe704f15245e76ca6",
-                        "amd642110d28093a922144efcad651e140c30c89bc113b72a43f8fe0e6c365796efb7",
-                        "i386dd93395710af8ff02af7f52aa8cd02484d51cfe6e19b6b6b65930051c70e7707"
+                        "armhfa78ffa0566acc75464954360d48729404d5f2ff446519c75c39271ddbece23a2",
+                        "arm645e9a8394ec8883a6b145dc194f6e2319f6fb896cbcadafafc64fbfe9ae440529",
+                        "amd641e29c3972223d4062823e063bc4881b085a28fddcbfef68c96fd439457e94649",
+                        "i38605f12c411fd03aa0fdc0ab6409dca11e3b2a3b7f05076ac6b983f74771028d21"
                 ));
 
         ARCH_PACKAGES = new ArrayList<>(
