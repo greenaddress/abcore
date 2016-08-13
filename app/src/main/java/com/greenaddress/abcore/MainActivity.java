@@ -20,6 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getName();
@@ -122,17 +123,26 @@ public class MainActivity extends AppCompatActivity {
         reset();
     }
 
-    private String getSpeed(final int bytesPerSec) {
+    private static String niceFlat(final Locale l, final float f, final String s) {
+        if ((int) f == f)
+            return String.format("%s %s", f, s);
+        return String.format(l, "%.2f %s", f, s);
+    }
+
+    private static String getSpeed(final int bytesPerSec) {
         if (bytesPerSec == 0)
             return "";
-        else if (bytesPerSec > 1024 * 1024 * 1024)
-            return String.format("%s MB/s", bytesPerSec / (1024 * 1024 * 1024));
-        else if (bytesPerSec > 1024 * 1024)
-            return String.format("%s KB/s", bytesPerSec / (1024 * 1024));
-        else if (bytesPerSec > 1024)
+
+        if (bytesPerSec >= 1024 * 1024 * 1024)
+            return niceFlat(java.util.Locale.US, (float) bytesPerSec / (1024 * 1024 * 1024), "GB/s");
+
+        if (bytesPerSec >= 1024 * 1024)
+            return niceFlat(java.util.Locale.US, (float) bytesPerSec / (1024 * 1024 ), "MB/s");
+
+        if (bytesPerSec >= 1024)
             return String.format("%s KB/s", bytesPerSec / 1024);
-        else
-            return String.format("%s B/s", bytesPerSec);
+
+        return String.format("%s B/s", bytesPerSec);
     }
 
     @Override
