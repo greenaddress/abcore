@@ -171,7 +171,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         if (bytesPerSec != null)
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
         if (fileExtracted != null)
-            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, fileExtracted));
+            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s/%s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1), fileExtracted));
         else
             broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
 
