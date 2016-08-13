@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         mSwitchCore.setText("Switch Core on");
 
         mTvStatus.setText("");
-        mTvDetails.setText("");
         mPB.setVisibility(View.GONE);
 
         try {
@@ -125,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static String niceFlat(final Locale l, final float f, final String s) {
         if ((int) f == f)
-            return String.format("%s %s", f, s);
-        return String.format(l, "%.2f %s", f, s);
+            return String.format("@ %s %s", f, s);
+        return String.format(l, "@ %.2f %s", f, s);
     }
 
     private static String getSpeed(final int bytesPerSec) {
@@ -140,9 +139,9 @@ public class MainActivity extends AppCompatActivity {
             return niceFlat(java.util.Locale.US, (float) bytesPerSec / (1024 * 1024 ), "MB/s");
 
         if (bytesPerSec >= 1024)
-            return String.format("%s KB/s", bytesPerSec / 1024);
+            return String.format("@ %s KB/s", bytesPerSec / 1024);
 
-        return String.format("%s B/s", bytesPerSec);
+        return String.format("@ %s B/s", bytesPerSec);
     }
 
     @Override
@@ -220,13 +219,12 @@ public class MainActivity extends AppCompatActivity {
                 case "exception":
                     final String exe = intent.getStringExtra("exception");
                     Log.i(TAG, exe);
-                    showSnackMsg(exe);
 
                     mButton.setEnabled(true);
                     mPB.setVisibility(View.GONE);
                     mPB.setProgress(0);
                     mTvStatus.setText("Please select SETUP BITCOIN CORE to download and configure Core");
-
+                    mTvDetails.setText(exe);
                     if (mSwitchCore.isChecked())
                         mSwitchCore.setChecked(false);
 
@@ -234,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "ABCOREUPDATE":
 
-                    mTvDetails.setText(String.format("%s %s", getSpeed(intent.getIntExtra("ABCOREUPDATESPEED", 0)), intent.getStringExtra("ABCOREUPDATETXT")));
+                    mTvDetails.setText(String.format("%s %s", intent.getStringExtra("ABCOREUPDATETXT"), getSpeed(intent.getIntExtra("ABCOREUPDATESPEED", 0))));
 
                     mPB.setVisibility(View.VISIBLE);
                     mPB.setMax(intent.getIntExtra("ABCOREUPDATEMAX", 100));
