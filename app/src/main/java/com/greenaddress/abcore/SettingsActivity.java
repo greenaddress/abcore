@@ -110,9 +110,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 e.putBoolean("upnp", p.getProperty("upnp", "0").equals("1"));
                 e.putBoolean("disablewallet", p.getProperty("disablewallet", "0").equals("1"));
                 e.putString("datadir", p.getProperty("datadir", Utils.getDataDir(getActivity())));
-                final int prune = Integer.parseInt(p.getProperty("pruning", "0"));
-                if (prune != 0)
-                    e.putInt("prune", prune);
+                if (p.containsKey("prune")) {
+                    e.putString("prune", p.getProperty("prune"));
+                    e.putBoolean("pruning", true);
+                } else
+                    e.putBoolean("pruning", false);
+
                 e.apply();
 
             } catch (final IOException e) {
@@ -129,7 +132,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         e.printStackTrace();
                     }
                     return true;
-
                 }
             };
             addPreferencesFromResource(R.xml.pref_conf);
