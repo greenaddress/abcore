@@ -4,6 +4,10 @@
     <CheckBoxPreference android:title="Disable Wallet" android:key="disablewallet" android:defaultValue="false"/>
     <CheckBoxPreference android:title="Upnp" android:key="upnp" android:defaultValue="false"/>
 
+    <CheckBoxPreference android:title="Pruning" android:key="pruning" android:defaultValue="true"/>
+
+    <EditTextPreference android:inputType="number" android:title="Pruning MB" android:key="prune" android:defaultValue="1000" android:dependency="pruning"/>
+
     <Preference android:title="Datadir" android:key="datadir"/>
 
     <Preference android:title="@string/pref_title_edit_bitcoin_conf">

@@ -109,8 +109,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 e.putBoolean("testnet", p.getProperty("testnet", "0").equals("1"));
                 e.putBoolean("upnp", p.getProperty("upnp", "0").equals("1"));
                 e.putBoolean("disablewallet", p.getProperty("disablewallet", "0").equals("1"));
-
                 e.putString("datadir", p.getProperty("datadir", Utils.getDataDir(getActivity())));
+                final int prune = Integer.parseInt(p.getProperty("pruning", "0"));
+                if (prune != 0)
+                    e.putInt("prune", prune);
                 e.apply();
 
             } catch (final IOException e) {
@@ -135,6 +137,41 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             findPreference("upnp").setOnPreferenceChangeListener(ps);
             findPreference("disablewallet").setOnPreferenceChangeListener(ps);
             findPreference("datadir").setSummary(p.getProperty("datadir", Utils.getDataDir(getActivity())));
+            findPreference("prune").setSummary(p.getProperty("prune", "1000"));
+            findPreference("prune").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(final Preference preference, final Object o) {
+                    p.setProperty("prune", o.toString());
+                    preference.setSummary(o.toString());
+                    try {
+
+                        p.store(new FileOutputStream(Utils.getBitcoinConf(getActivity())), "");
+                    } catch (final IOException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                    return true;
+                }
+            });
+            findPreference("pruning").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(final Preference preference, final Object o) {
+                    if (!(Boolean) o)
+                        p.remove("prune");
+                    else {
+                        p.setProperty("prune", p.getProperty("prune", "1000"));
+                        findPreference("prune").setSummary(p.getProperty("prune", "1000"));
+                    }
+
+                    try {
+                        p.store(new FileOutputStream(Utils.getBitcoinConf(getActivity())), "");
+                    } catch (final IOException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                    return true;
+                }
+            });
         }
 
         @Override

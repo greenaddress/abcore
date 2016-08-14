@@ -56,6 +56,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             outputStream.write("testnet=0\n".getBytes());
             //outputStream.write("testnet=1\n".getBytes());
             //outputStream.write("addnode=192.168.2.47\n".getBytes());
+            outputStream.write("prune=1000\n".getBytes());
             //outputStream.write("regtest=1\n".getBytes());
             outputStream.write("upnp=0\n".getBytes());
             // don't attempt onion connections by default
