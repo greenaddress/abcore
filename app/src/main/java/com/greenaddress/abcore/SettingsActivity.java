@@ -111,6 +111,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                 e.putBoolean("testnet", p.getProperty("testnet", "0").equals("1"));
                 e.putBoolean("upnp", p.getProperty("upnp", "0").equals("1"));
+                e.putBoolean("blocksonly", p.getProperty("blocksonly", "1").equals("1"));
                 e.putBoolean("disablewallet", p.getProperty("disablewallet", "0").equals("1"));
                 e.putString("datadir", p.getProperty("datadir", Utils.getDataDir(getActivity())));
                 if (p.containsKey("prune")) {
@@ -140,6 +141,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             addPreferencesFromResource(R.xml.pref_conf);
             findPreference("testnet").setOnPreferenceChangeListener(ps);
             findPreference("upnp").setOnPreferenceChangeListener(ps);
+            findPreference("blocksonly").setOnPreferenceChangeListener(ps);
             findPreference("disablewallet").setOnPreferenceChangeListener(ps);
             findPreference("datadir").setSummary(p.getProperty("datadir", Utils.getDataDir(getActivity())));
             findPreference("prune").setSummary(p.getProperty("prune", "1000"));

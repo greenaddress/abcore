@@ -5,6 +5,7 @@
     <CheckBoxPreference android:title="Upnp" android:key="upnp" android:defaultValue="false"/>
 
     <CheckBoxPreference android:title="Pruning" android:key="pruning" android:defaultValue="true"/>
+    <CheckBoxPreference android:title="Blocks only" android:key="blocksonly" android:defaultValue="true"/>
 
     <EditTextPreference android:inputType="number" android:title="Pruning MB" android:key="prune" android:defaultValue="1000" android:dependency="pruning"/>
 

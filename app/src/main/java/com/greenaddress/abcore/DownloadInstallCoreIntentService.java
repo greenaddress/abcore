@@ -60,6 +60,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             outputStream.write("upnp=0\n".getBytes());
             // don't attempt onion connections by default
             outputStream.write("onlynet=ipv4\n".getBytes());
+            outputStream.write("blocksonly=1\n".getBytes());
 
             // Afaik ipv6 is broken on android, disable by default, user can change this
             // outputStream.write("onlynet=ipv6\n".getBytes());
