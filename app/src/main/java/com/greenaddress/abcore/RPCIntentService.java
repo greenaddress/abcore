@@ -1,7 +1,6 @@
 package com.greenaddress.abcore;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.util.Log;
 
@@ -119,12 +118,17 @@ public class RPCIntentService extends IntentService {
     protected void onHandleIntent(final Intent intent) {
 
         if (intent.getStringExtra("stop") != null) {
-            try {
-                getRpc().stop();
-            } catch (final BitcoinRPCException | IOException e) {
-                broadcastError(e);
-            } finally {
-                ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(ABCoreService.NOTIFICATION_ID);
+            while (true) {
+                try {
+                    getRpc().stop();
+                    break;
+                } catch (final BitcoinRPCException | IOException e) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (final InterruptedException e1) {
+                        break;
+                    }
+                }
             }
             return;
         }
@@ -206,6 +210,17 @@ public class RPCIntentService extends IntentService {
             sendBroadcast(broadcastIntent);
 
         } catch (final BitcoinRPCException | IOException i) {
+            Log.i(TAG, "EXE", i);
+
+            if (i instanceof BitcoinRPCException && (((BitcoinRPCException) i).getResponseCode() == 500)) {
+                    final Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
+                    broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                    broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
+                    sendBroadcast(broadcastIntent);
+                    return;
+            }
+
             broadcastError(i);
         }
     }

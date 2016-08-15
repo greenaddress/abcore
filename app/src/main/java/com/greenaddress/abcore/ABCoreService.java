@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.text.TextUtils;
@@ -16,8 +17,19 @@ import java.util.Map;
 public class ABCoreService extends Service {
 
     private final static String TAG = ABCoreService.class.getName();
-    final static int NOTIFICATION_ID = 922430164;
+    private final static int NOTIFICATION_ID = 922430164;
     private Process mProcess;
+    private static final String PARAM_OUT_MSG = "rpccore";
+
+    private static void removeNotification(final Context c) {
+        ((NotificationManager) c.getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
+        final Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
+        broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        broadcastIntent.putExtra(PARAM_OUT_MSG, "exception");
+        broadcastIntent.putExtra("exception", "");
+        c.sendBroadcast(broadcastIntent);
+    }
 
     @Override
     public IBinder onBind(final Intent intent) {
@@ -32,7 +44,7 @@ public class ABCoreService extends Service {
         pI = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
         final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final Notification n = new Notification.Builder(this)
-                .setContentTitle("Abcore is running")
+                .setContentTitle("ABCore is running")
                 .setContentIntent(pI)
                 .setContentText(String.format("Version %s",Packages.CORE_V_FULL))
                 .setSmallIcon(R.drawable.ic_info_black_24dp)
@@ -40,11 +52,18 @@ public class ABCoreService extends Service {
                 .build();
 
         nM.notify(NOTIFICATION_ID, n);
+
+        final Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
+        broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
+        sendBroadcast(broadcastIntent);
     }
 
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
-
+        if (mProcess != null)
+            return START_STICKY;
         final String arch = Utils.getArch();
         final File dir = Utils.getDir(this);
         Log.i(TAG, "Core service msg");
@@ -99,19 +118,14 @@ public class ABCoreService extends Service {
             final ProcessLogger.OnError er = new ProcessLogger.OnError() {
                 @Override
                 public void onError(final String[] error) {
-                    ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);
+                    removeNotification(ABCoreService.this);
+                    mProcess = null;
                     final StringBuilder bf = new StringBuilder();
                     for (final String e : error)
                         if (!TextUtils.isEmpty(e))
                             bf.append(String.format("%s%s", e, System.getProperty("line.separator")));
 
-                    final Intent broadcastIntent = new Intent();
-                    broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
-                    broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                    broadcastIntent.putExtra("abtcore", "exception");
-                    broadcastIntent.putExtra("exception", bf.toString());
-
-                    sendBroadcast(broadcastIntent);
+                    Log.i(TAG, bf.toString());
                 }
             };
             final ProcessLogger errorGobbler = new ProcessLogger(mProcess.getErrorStream(), er);
@@ -127,7 +141,8 @@ public class ABCoreService extends Service {
             Log.i(TAG, e.getMessage());
 
             Log.i(TAG, e.getLocalizedMessage());
-
+            removeNotification(this);
+            mProcess = null;
             e.printStackTrace();
         }
         Log.i(TAG, "background Task finished");
@@ -138,8 +153,11 @@ public class ABCoreService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.i(TAG, "destroying core service");
+
         if (mProcess != null) {
             mProcess.destroy();
+            mProcess = null;
         }
     }
 }

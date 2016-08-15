@@ -60,7 +60,63 @@ class Utils {
 
             while ((entry = in.getNextEntry()) != null) {
 
-                final File f = new File(outputDir, entry.getName());
+                final String name = entry.getName();
+
+                // we don't need these files so may as well skip them
+                if (name.endsWith(".conf")
+                        || name.startsWith(".")
+                        || name.contains("usr/share/")
+                        || name.contains("usr/include")
+                        || name.contains("/include/")
+                        || name.contains("getconf")
+                        || name.contains("audit")
+                        || name.contains("etc/")
+                        || name.contains("bitcoin-tx")
+                        || name.contains("bitcoin-cli")
+                        || name.contains("bitcoin-qt")
+                        || name.contains("test_bitcoin")
+                        || name.contains("libbitcoinconsensus.so")
+                        || name.contains("tmp")
+                        || name.contains("temp")
+                        || name.contains("python")
+                        || name.contains("fortran")
+                        || name.contains("libgo")
+                        || name.contains("libitm")
+                        || name.contains("liblsan")
+                        || name.contains("libubsan")
+                        || name.contains("libtsan")
+                        || name.contains("libdb_stl")
+                        || name.contains("libquadmath")
+                        || name.contains("libcilkrts")
+                        || name.contains("libobjc")
+                        || name.contains("libatomic")
+                        || name.contains("libcidn")
+                        || name.contains("libmvec")
+                        || name.contains("libmpx")
+                        || name.contains("libnsl")
+                        || name.contains("libutil")
+                        || name.contains("libvtv")
+                        || name.contains("libdb-5")
+                        || name.contains("libBrokenLocale")
+                        || name.contains("libmemusage")
+                        || name.contains("libnss")
+                        || name.contains("libresolv")
+                        || name.contains("libSegFault")
+                        || name.contains("libpcprofile")
+                        || name.contains("usr/lib/engines")
+                        || name.contains("usr/lib/systemd")
+                        || name.contains("mpi.so")
+                        || name.contains("var/")
+                        || name.endsWith(".a")
+                        || name.contains("usr/bin")
+                        || name.contains("libasan")
+                        || (name.contains("usr/lib/") && name.contains("/gconv/"))) {
+                    continue;
+                }
+
+                Log.v(TAG, "Extracting " + name);
+
+                final File f = new File(outputDir, name);
 
                 if (entry.isDirectory())
                     f.mkdirs();
@@ -70,7 +126,7 @@ class Utils {
                     try {
                         out = new FileOutputStream(f);
                         IOUtils.copy(in, out);
-                        ofnfu.fileUnpackedUpdate(f.getName());
+                        ofnfu.fileUnpackedUpdate(name);
                     } finally {
                         IOUtils.closeQuietly(out);
                     }
@@ -79,7 +135,6 @@ class Utils {
                 f.setLastModified(entry.getLastModifiedDate().getTime());
 
                 if (((TarArchiveEntry) entry).isSymbolicLink() && !entry.isDirectory()) {
-                    final String name = entry.getName();
                     final String linkName = ((TarArchiveEntry) entry).getLinkName();
                     final String linkedFile = linkName.startsWith("/") ? linkName : name.substring(0, name.lastIndexOf("/")) + "/" + linkName;
 
@@ -94,6 +149,7 @@ class Utils {
 
             for (final FileToCopy f : toCopy)
                 try {
+                    Log.v(TAG, "f src " + f.src + " f dst " + f.dst);
                     copyFile(f.src, f.dst, outputDir);
                 } catch (final IOException e1) {
                     // usr share only
@@ -339,12 +395,16 @@ class Utils {
         return getLargestFilesDir(c).getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
     }
 
-    static void validateSha256sum(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
+    static boolean isSha256Different(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
         final String hash = Utils.sha256Hex(filePath);
         final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
 
-        if (!sha256hash.equals(hash))
-            throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s, expected %s", filePath, hash, sha256hash));
+        return !sha256hash.equals(hash);
+    }
+
+    static void validateSha256sum(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
+        if (isSha256Different(arch, sha256raw, filePath))
+            throw new ValidationFailure(String.format("File %s doesn't match sha256sum", filePath));
     }
 
     interface OnDownloadSpeedChange {

@@ -21,7 +21,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
     public static final String PARAM_OUT_MSG = "abtcore";
     private static final String TAG = DownloadInstallCoreIntentService.class.getName();
-
     public static boolean HAS_BEEN_STARTED = false;
 
     public DownloadInstallCoreIntentService() {
@@ -64,7 +63,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             // Afaik ipv6 is broken on android, disable by default, user can change this
             // outputStream.write("onlynet=ipv6\n".getBytes());
-            outputStream.write(String.format("datadir=%s\n", Utils.getLargestFilesDir(c)).getBytes());
+            outputStream.write(String.format("datadir=%s\n", String.format("%s/.bitcoin", Utils.getLargestFilesDir(c).getAbsolutePath())).getBytes());
 
             IOUtils.closeQuietly(outputStream);
         } catch (final IOException e) {
@@ -78,7 +77,9 @@ public class DownloadInstallCoreIntentService extends IntentService {
         HAS_BEEN_STARTED = true;
         // this already runs in its own thread but no reasons the pkgs couldn't be handle concurrently.
         final File dir = Utils.getDir(DownloadInstallCoreIntentService.this);
+        Log.d(TAG, dir.getAbsolutePath());
         final String arch = Utils.getArch();
+        Log.d(TAG, arch);
 
         final List<Packages.PkgH> pkgs = Packages.ARCH_PACKAGES;
 
@@ -107,24 +108,31 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             final String url = Packages.getCorePackageUrl(null);
             final String filePath = Utils.getFilePathFromUrl(this, url);
-            sendUpdate("Downloading", Packages.CORE_PACKAGE);
-            Utils.downloadFile(url, filePath, odsc);
-
-            // Verify sha256sum
-            sendUpdate("Verifying", Packages.CORE_PACKAGE);
+            String rawSha = null;
             for (final String hash : Packages.CORE_PACKAGE.archHash)
                 if (hash.startsWith(arch)) {
-                    Utils.validateSha256sum(arch, hash, filePath);
+                    rawSha = hash;
                     break;
                 }
+            if (isUnpacked(rawSha, dir))
+                return;
+            if (!new File(filePath).exists() || Utils.isSha256Different(arch, rawSha, filePath)) {
+
+                sendUpdate("Downloading", Packages.CORE_PACKAGE);
+                Utils.downloadFile(url, filePath, odsc);
+
+                // Verify sha256sum
+                sendUpdate("Verifying", Packages.CORE_PACKAGE);
+                Utils.validateSha256sum(arch, rawSha, filePath);
+            }
 
             // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
-            sendUpdate("Unpacking", Packages.CORE_PACKAGE);
+            sendUpdate("Uncompressing", Packages.CORE_PACKAGE);
 
             Utils.extractTarXz(new File(filePath), dir, false, new Utils.OnFileNewFileUnpacked() {
                 @Override
                 public void fileUnpackedUpdate(final String file) {
-                    sendUpdate("Unpacking", Packages.CORE_PACKAGE, 0, file);
+                    sendUpdate("Unpacking", Packages.CORE_PACKAGE, null, file);
                 }
             });
 
@@ -139,7 +147,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
             broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
             broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
             sendBroadcast(broadcastIntent);
-
+            HAS_BEEN_STARTED = false;
+            markAsDone(rawSha, dir);
 
         } catch (final Utils.ValidationFailure | NoSuchAlgorithmException | IOException e) {
             Log.i(TAG, e.getMessage());
@@ -172,45 +181,52 @@ public class DownloadInstallCoreIntentService extends IntentService {
         if (bytesPerSec != null)
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
         if (fileExtracted != null)
-            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s/%s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1), fileExtracted));
+            broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1), fileExtracted));
         else
             broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s", upd, pkg.pkg.substring(pkg.pkg.lastIndexOf("/") + 1)));
 
         sendBroadcast(broadcastIntent);
     }
 
-    private void markAsDone(final String sha) throws IOException {
-        if (!new File(Utils.getDir(this), sha).createNewFile())
+    private static void markAsDone(final String sha, final File outputDir) throws IOException {
+        final File shadir = new File(outputDir, "shachecks");
+        if (!shadir.exists())
+            shadir.mkdir();
+        if (!new File(shadir, sha).createNewFile())
             throw new IOException();
     }
 
-    private boolean isUnpacked(final String sha) {
-        return new File(Utils.getDir(this), sha).exists();
+    private static boolean isUnpacked(final String sha, final File outputDir) {
+        final File shadir = new File(outputDir, "shachecks");
+        return new File(shadir, sha).exists();
     }
 
     private void unpack(final Packages.PkgH pkg, final String arch, final File outputDir, final String sha256raw) throws IOException, NoSuchAlgorithmException {
-        if (isUnpacked(sha256raw))
+        if (isUnpacked(sha256raw, outputDir))
             return;
 
         final String url = Packages.getPackageUrl(pkg, this, arch);
         final String filePath = Utils.getFilePathFromUrl(this, url);
 
 
-        // Download file
-        sendUpdate("Downloading", pkg);
-        Utils.downloadFile(url, filePath, new Utils.OnDownloadSpeedChange() {
-            @Override
-            public void bytesPerSecondUpdate(final int bytes) {
-                sendUpdate("Downloading", pkg, bytes, null);
-            }
-        });
+        if (!new File(filePath).exists() || Utils.isSha256Different(arch, sha256raw, filePath)) {
 
-        // Verify sha256sum
-        sendUpdate("Verifying", pkg);
-        Utils.validateSha256sum(arch, sha256raw, filePath);
+            // Download file
+            sendUpdate("Downloading", pkg);
+            Utils.downloadFile(url, filePath, new Utils.OnDownloadSpeedChange() {
+                @Override
+                public void bytesPerSecondUpdate(final int bytes) {
+                    sendUpdate("Downloading", pkg, bytes, null);
+                }
+            });
+
+            // Verify sha256sum
+            sendUpdate("Verifying", pkg);
+            Utils.validateSha256sum(arch, sha256raw, filePath);
+        }
 
         // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
-        sendUpdate("Unpacking", pkg);
+        sendUpdate("Uncompressing", pkg);
 
         Utils.extractTarXz(new File(filePath), outputDir, true, new Utils.OnFileNewFileUnpacked() {
 
@@ -219,6 +235,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 sendUpdate("Unpacking", pkg, null, file);
             }
         });
-        markAsDone(sha256raw);
+        markAsDone(sha256raw, outputDir);
     }
 }

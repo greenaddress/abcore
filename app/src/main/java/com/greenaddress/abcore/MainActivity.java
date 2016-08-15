@@ -1,12 +1,12 @@
 package com.greenaddress.abcore;
 
-import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -22,49 +23,58 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getName();
     private RPCResponseReceiver mRpcResponseReceiver;
     private TextView mTvStatus;
-    private TextView mTvDetails;
     private Switch mSwitchCore;
-    private View mContent;
+    private ProgressBar mProgressBar;
+
+    private void postDetection() {
+        mProgressBar.setVisibility(View.GONE);
+        mSwitchCore.setVisibility(View.VISIBLE);
+    }
+
+    private void preDetection() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mSwitchCore.setVisibility(View.GONE);
+    }
 
     private void postStart() {
-        mTvStatus.setText(String.format("Bitcoin Core %s is running, please switch Core OFF to stop it.", Packages.CORE_V_FULL));
-
-        mSwitchCore.setText("Switch Core off");
+        mSwitchCore.setOnCheckedChangeListener(null);
+        postDetection();
+        mTvStatus.setText(getString(R.string.runningturnoff, Packages.CORE_V_FULL));
         if (!mSwitchCore.isChecked())
             mSwitchCore.setChecked(true);
-
+        mSwitchCore.setText(R.string.switchcoreoff);
         setSwitch();
+
     }
 
     private void postConfigure() {
-        mTvDetails.setText(String.format("Bitcoin core %s fetched and configured", Packages.CORE_V_FULL));
-        mTvStatus.setText(String.format("Bitcoin Core %s is not running, please switch Core ON to start it", Packages.CORE_V_FULL));
+        mSwitchCore.setOnCheckedChangeListener(null);
+        postDetection();
+        mTvStatus.setText(getString(R.string.stoppedturnon, Packages.CORE_V_FULL));
+        if (mSwitchCore.isChecked())
+            mSwitchCore.setChecked(false);
+        mSwitchCore.setText(R.string.switchcoreon);
         setSwitch();
-        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancel(ABCoreService.NOTIFICATION_ID);
     }
 
     private void setSwitch() {
         mSwitchCore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
+                preDetection();
                 if (isChecked) {
-                    mTvDetails.setVisibility(View.GONE);
+                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                    final SharedPreferences.Editor e = prefs.edit();
+                    e.putBoolean("magicallystarted", false);
+                    e.apply();
                     startService(new Intent(MainActivity.this, ABCoreService.class));
-                    postStart();
-                    mSwitchCore.setText("Switch Core off");
-                } else {
+                }
+                else {
                     final Intent i = new Intent(MainActivity.this, RPCIntentService.class);
                     i.putExtra("stop", "yep");
                     startService(i);
-                    postConfigure();
-                    mSwitchCore.setText("Switch Core on");
                 }
             }
         });
-    }
-
-    private void showSnackMsg(final String msg) {
-        if (msg != null && !msg.trim().isEmpty())
-            Snackbar.make(mContent, msg, Snackbar.LENGTH_INDEFINITE).show();
     }
 
     @Override
@@ -73,24 +83,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvStatus = (TextView) findViewById(R.id.textView);
-        mTvDetails = (TextView) findViewById(R.id.textViewDetails);
         mSwitchCore = (Switch) findViewById(R.id.switchCore);
-        mContent = findViewById(android.R.id.content);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         setSupportActionBar(toolbar);
-
-        try {
-            Utils.getArch();
-        } catch (final Utils.UnsupportedArch e) {
-            final String msg = String.format("Architeture %s is unsupported", e.arch);
-            mTvStatus.setText(msg);
-            showSnackMsg(msg);
-        }
+        setSwitch();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        unregisterReceiver(mRpcResponseReceiver);
+        if (mRpcResponseReceiver != null)
+            unregisterReceiver(mRpcResponseReceiver);
         mRpcResponseReceiver = null;
     }
 
@@ -98,17 +101,19 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        if (!Utils.isBitcoinCoreConfigured(this)) {
+            startActivity(new Intent(this, DownloadActivity.class));
+            return;
+        }
+
         final IntentFilter rpcFilter = new IntentFilter(RPCResponseReceiver.ACTION_RESP);
         if (mRpcResponseReceiver == null)
             mRpcResponseReceiver = new RPCResponseReceiver();
         rpcFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(mRpcResponseReceiver, rpcFilter);
 
-        if (Utils.isBitcoinCoreConfigured(this))
-            startService(new Intent(this, RPCIntentService.class));
-        else
-            startActivity(new Intent(this, DownloadActivity.class));
-
+        preDetection();
+        startService(new Intent(this, RPCIntentService.class));
     }
 
     @Override
@@ -158,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "exception":
                     final String exe = intent.getStringExtra("exception");
-                    Log.i(TAG, exe);
+                    if (exe != null)
+                        Log.i(TAG, exe);
                     postConfigure();
             }
         }

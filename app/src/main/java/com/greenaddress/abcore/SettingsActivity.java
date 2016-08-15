@@ -13,8 +13,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.MenuItem;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,7 +35,7 @@ import java.util.Properties;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
-
+    private final static String TAG = SettingsActivity.class.getName();
     /**
      * Helper method to determine if the device has an extra-large screen. For
      * example, 10" tablets are extra-large.
@@ -84,6 +86,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(final String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
+                || AndroidPreferenceFragment.class.getName().equals(fragmentName)
                 || CorePreferenceFragment.class.getName().equals(fragmentName);
     }
 
@@ -171,6 +174,63 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         e.printStackTrace();
                         return false;
                     }
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(final MenuItem item) {
+            final int id = item.getItemId();
+            if (id == android.R.id.home) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private static void deleteRF(final File f) {
+
+        Log.v(TAG, "Deleting " + f.getAbsolutePath() + "/" + f.getName());
+        if (f.isDirectory())
+            for (File child : f.listFiles())
+                deleteRF(child);
+
+        f.delete();
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class AndroidPreferenceFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setHasOptionsMenu(true);
+            addPreferencesFromResource(R.xml.pref_android);
+
+            findPreference("deletecore").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(final Preference preference) {
+                    final File dir = Utils.getDir(getActivity());
+                    deleteRF(new File(dir, "shachecks"));
+                    deleteRF(new File(dir, "usr"));
+                    deleteRF(new File(dir, String.format("bitcoin-%s", Packages.CORE_V)));
+                    getActivity().finish();
+                    return true;
+                }
+            });
+
+            findPreference("deletecoredatadir").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(final Preference preference) {
+                    deleteRF(new File(Utils.getDataDir(getActivity())));
+                    try {
+                        DownloadInstallCoreIntentService.configureCore(getActivity());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    getActivity().finish();
                     return true;
                 }
             });

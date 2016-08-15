@@ -46,7 +46,7 @@ public class DownloadActivity extends AppCompatActivity {
             Utils.getArch();
         } catch (final Utils.UnsupportedArch e) {
             mButton.setEnabled(false);
-            final String msg = String.format("Architeture %s is unsupported", e.arch);
+            final String msg = getString(R.string.archunsupported, e.arch);
             mTvStatus.setText(msg);
             showSnackMsg(msg);
         }
@@ -97,6 +97,7 @@ public class DownloadActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                mPB.setVisibility(View.VISIBLE);
                 startService(new Intent(DownloadActivity.this, DownloadInstallCoreIntentService.class));
                 mButton.setEnabled(false);
                 disableWhileDownloading();
@@ -109,7 +110,7 @@ public class DownloadActivity extends AppCompatActivity {
 
     private void disableWhileDownloading() {
         mButton.setEnabled(false);
-        mTvStatus.setText("Please wait. Fetching, unpacking and configuring bitcoin core...");
+        mTvStatus.setText(R.string.waitfetchingconfiguring);
     }
 
     public class DownloadInstallCoreResponseReceiver extends BroadcastReceiver {
@@ -127,9 +128,10 @@ public class DownloadActivity extends AppCompatActivity {
                     final String exe = intent.getStringExtra("exception");
                     Log.i(TAG, exe);
                     mPB.setProgress(0);
+                    mPB.setVisibility(View.GONE);
                     mTvDetails.setText(exe);
                     mButton.setEnabled(true);
-                    mTvStatus.setText("Failure, want to retry?");
+                    mTvStatus.setText(R.string.failedretry);
                     break;
                 case "ABCOREUPDATE":
 
@@ -137,6 +139,7 @@ public class DownloadActivity extends AppCompatActivity {
 
                     mPB.setMax(intent.getIntExtra("ABCOREUPDATEMAX", 100));
                     mPB.setProgress(intent.getIntExtra("ABCOREUPDATE", 0));
+                    mPB.setVisibility(View.VISIBLE);
 
                     break;
             }

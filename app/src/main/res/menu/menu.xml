@@ -10,7 +10,7 @@
           android:title="Synchronization progress"/>
 
     <item android:id="@+id/debug"
-          android:title="Debug"/>
+          android:title="Debug Log"/>
     <item android:id="@+id/console"
           android:title="Console"/>
     <item android:id="@+id/about"

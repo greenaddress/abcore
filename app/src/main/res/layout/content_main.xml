@@ -16,25 +16,26 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please select SETUP BITCOIN CORE" android:id="@+id/textView"
+        android:text="@string/pleasewait" android:id="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/textViewDetails"
-        android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" android:maxLines="1" android:minLines="1"/>
 
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/switchCore"
-        android:text="Switch Core on"
+        android:text="@string/switchcoreon"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:progress="50"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"/>
 
 </RelativeLayout>
