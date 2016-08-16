@@ -46,6 +46,10 @@
             android:label="@string/title_activity_settings"
             android:noHistory="true"/>
         <activity
+            android:name=".DownloadSettingsActivity"
+            android:label="@string/title_activity_download_settings"
+            android:noHistory="true"/>
+        <activity
             android:name=".PeerActivity"
             android:label="@string/title_activity_peer"
             android:theme="@style/AppTheme"/>

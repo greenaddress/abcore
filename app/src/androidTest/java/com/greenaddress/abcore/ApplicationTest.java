@@ -17,8 +17,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         super(Application.class);
     }
 
-    private void downloadPackage(final Packages.PkgH pkg, final String arch, final String url) throws IOException, NoSuchAlgorithmException {
-
+    private void downloadPackage(final Packages.PkgH pkg, final String arch, final boolean deps) throws IOException, NoSuchAlgorithmException {
+        final String url = deps ? Packages.getPackageUrl(pkg, getContext(), arch) : Packages.getCorePackageUrl(pkg, arch);
         final String filePath = Utils.getFilePathFromUrl(getContext(), url);
 
         Utils.downloadFile(url, filePath);
@@ -35,13 +35,13 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
 
     private void downloadAndValidatePackages(final String arch) throws IOException, NoSuchAlgorithmException {
         for (final Packages.PkgH pkg : Packages.ARCH_PACKAGES)
-            downloadPackage(pkg, arch, Packages.getPackageUrl(pkg, getContext(), arch));
+            downloadPackage(pkg, arch, true);
         downloadCorePackage(arch);
     }
 
     private void downloadCorePackage(final String arch) throws IOException, NoSuchAlgorithmException {
-        final String url = Packages.getCorePackageUrl(arch);
-        downloadPackage(Packages.CORE_PACKAGE, arch, url);
+        downloadPackage(Packages.CORE_PACKAGE, arch, false);
+        downloadPackage(Packages.KNOTS_CORE_PACKAGE, arch, false);
     }
 
     public void testArm64Packages() throws IOException, NoSuchAlgorithmException {

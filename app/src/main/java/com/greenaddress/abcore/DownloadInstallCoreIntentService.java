@@ -4,6 +4,8 @@ package com.greenaddress.abcore;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.compress.utils.IOUtils;
@@ -98,19 +100,22 @@ public class DownloadInstallCoreIntentService extends IntentService {
                         throw e;
                     }
 
-            // Download bitcoin core
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+            final boolean useknots = prefs.getBoolean("useknots", false);
+            final Packages.PkgH pkg = useknots ? Packages.KNOTS_CORE_PACKAGE : Packages.CORE_PACKAGE;
 
             final Utils.OnDownloadSpeedChange odsc = new Utils.OnDownloadSpeedChange() {
                 @Override
                 public void bytesPerSecondUpdate(final int bytes) {
-                    sendUpdate("Downloading", Packages.CORE_PACKAGE, bytes, null);
+                    sendUpdate("Downloading", pkg, bytes, null);
                 }
             };
 
-            final String url = Packages.getCorePackageUrl(null);
+            final String url = Packages.getCorePackageUrl(pkg, arch);
             final String filePath = Utils.getFilePathFromUrl(this, url);
             String rawSha = null;
-            for (final String hash : Packages.CORE_PACKAGE.archHash)
+            for (final String hash : pkg.archHash)
                 if (hash.startsWith(arch)) {
                     rawSha = hash;
                     break;
@@ -119,21 +124,21 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 return;
             if (!new File(filePath).exists() || Utils.isSha256Different(arch, rawSha, filePath)) {
 
-                sendUpdate("Downloading", Packages.CORE_PACKAGE);
+                sendUpdate("Downloading", pkg);
                 Utils.downloadFile(url, filePath, odsc);
 
                 // Verify sha256sum
-                sendUpdate("Verifying", Packages.CORE_PACKAGE);
+                sendUpdate("Verifying", pkg);
                 Utils.validateSha256sum(arch, rawSha, filePath);
             }
 
             // extract from deb/ar file the data.tar.xz, then uncompress via xz and untar
-            sendUpdate("Uncompressing", Packages.CORE_PACKAGE);
+            sendUpdate("Uncompressing", pkg);
 
             Utils.extractTarXz(new File(filePath), dir, false, new Utils.OnFileNewFileUnpacked() {
                 @Override
                 public void fileUnpackedUpdate(final String file) {
-                    sendUpdate("Unpacking", Packages.CORE_PACKAGE, null, file);
+                    sendUpdate("Unpacking", pkg, null, file);
                 }
             });
 

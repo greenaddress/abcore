@@ -1,0 +1,5 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference android:summary="If enabled will use Knots instead of Bitcoin Core. Knots offers a compatibility mode too." android:title="Use Bitcoin Knots" android:key="useknots" android:defaultValue="false"/>
+
+</PreferenceScreen>

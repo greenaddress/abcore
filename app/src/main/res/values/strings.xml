@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">ABCore</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_download_settings">Download Settings</string>
+
 
     <string name="pref_title_edit_bitcoin_conf">Manually edit bitcoin.conf</string>
 
     <string name="pref_header_conf">Bitcoin Core Configuration</string>
+    <string name="pref_header_conf_download">Download Configuration</string>
+
     <string name="pref_header_android">Extra Configuration</string>
 
     <string name="title_activity_peer">Peers</string>
