@@ -2,7 +2,6 @@ package com.greenaddress.abcore;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.StatFs;
 import android.util.Log;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -32,20 +31,6 @@ import java.util.Properties;
 class Utils {
 
     private final static String TAG = Utils.class.getSimpleName();
-
-    @SuppressWarnings("deprecation")
-    private static float megabytesAvailable(final File f) {
-        if (f == null || !f.exists())
-            return 0;
-        final StatFs stat = new StatFs(f.getPath());
-        final long bytesAvailable;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-            bytesAvailable = stat.getBlockSizeLong() * stat.getAvailableBlocksLong();
-        else
-            bytesAvailable = (long) stat.getBlockSize() * (long) stat.getAvailableBlocks();
-
-        return bytesAvailable / (1024.f * 1024.f);
-    }
 
     static void extractTarXz(final File input, final File outputDir, final boolean xz, final OnFileNewFileUnpacked ofnfu) throws IOException {
         TarArchiveInputStream in = null;
@@ -283,33 +268,8 @@ class Utils {
         return String.format("%s/.bitcoin/bitcoin.conf", getDir(c).getAbsolutePath());
     }
 
-    static File getLargestFilesDir(final Context c) {
-        File largest = getDir(c);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-            for (final File f : c.getExternalFilesDirs(null)) {
-                if (megabytesAvailable(f) > megabytesAvailable(largest)) {
-                    largest = f;
-                }
-            }
-            for (final File f : c.getExternalCacheDirs()) {
-                if (megabytesAvailable(f) > megabytesAvailable(largest)) {
-                    largest = f;
-                }
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                for (final File f : c.getExternalMediaDirs()) {
-                    if (megabytesAvailable(f) > megabytesAvailable(largest)) {
-                        largest = f;
-                    }
-                }
-            }
-        }
-        return largest;
-    }
-
     static String getDataDir(final Context c) {
-        final String defaultDataDir = String.format("%s/.bitcoin", getLargestFilesDir(c).getAbsolutePath());
+        final String defaultDataDir = String.format("%s/.bitcoin", getDir(c).getAbsolutePath());
         try {
             final Properties p = new Properties();
             p.load(new BufferedInputStream(new FileInputStream(getBitcoinConf(c))));
@@ -392,7 +352,7 @@ class Utils {
     }
 
     static String getFilePathFromUrl(final Context c, final String url) {
-        return getLargestFilesDir(c).getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
+        return getDir(c).getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
     }
 
     static boolean isSha256Different(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {

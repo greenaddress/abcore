@@ -64,7 +64,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             // Afaik ipv6 is broken on android, disable by default, user can change this
             // outputStream.write("onlynet=ipv6\n".getBytes());
-            outputStream.write(String.format("datadir=%s\n", String.format("%s/.bitcoin", Utils.getLargestFilesDir(c).getAbsolutePath())).getBytes());
+            outputStream.write(String.format("datadir=%s\n", String.format("%s/.bitcoin", Utils.getDir(c).getAbsolutePath())).getBytes());
 
             IOUtils.closeQuietly(outputStream);
         } catch (final IOException e) {
