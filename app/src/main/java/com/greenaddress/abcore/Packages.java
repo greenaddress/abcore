@@ -10,9 +10,9 @@ import java.util.List;
 
 class Packages {
 
-    public final static String GLIBC_MAJOR = "2.23";
+    public final static String GLIBC_MAJOR = "2.24";
     public final static String CORE_V = "0.13.0";
-    private final static String GLIBC_MINOR = "5";
+    private final static String GLIBC_MINOR = "2";
     private final static String CORE_URL = "https://bitcoin.org/bin/bitcoin-core-%s/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.13.x/%s";
     private final static String CORE_MINOR = "rc3";
@@ -22,17 +22,17 @@ class Packages {
             Arrays.asList(
                     new PkgH(String.format("glibc/glibc-%s-%s", GLIBC_MAJOR, GLIBC_MINOR),
                             Arrays.asList(
-                                    "armhfa8ed199903643d266058b07296d7cdf6680549d68c74a39caaf04cc87c841234",
-                                    "arm64ab1ff1d603f3fc3a5e2cb233884d31ed13bb600915d8ed3d3ccb01f7666adfd0",
-                                    "amd64b2b6ca0473d2b9f664a2d39217bd42e918bfb70ab66acf1eaebbf6566125ef0c",
-                                    "i386d53b4e46e2fd7a6dc39efca162b90459c753d26df2de4e3c828cb2fd8ab80053"
+                                    "armhf7e162f4ac00caa4944c5b264a67864dea29c52f22995863641d0c69e83bed042",
+                                    "arm64db24c58d9f2501ee622f631d081333fda50c020eaf2bcb043c9473198fa34d44",
+                                    "amd6487721ded792e35b8fd2110d4ac91dc229a9cbbd2fd612d21991f7d68a34e195b",
+                                    "i38657a56380c7b57f0882b659d7f44d52082c6d4428dbc51392a3fe707b31ebb82a"
                             )),
-                    new PkgH("gcc-libs/gcc-libs-6.1.1-3",
+                    new PkgH("gcc-libs/gcc-libs-6.1.1-5",
                             Arrays.asList(
-                                    "armhfc86efbc2179b6594072a062ba75aef47f562c78d3077a40fdf6ed090c3db0906",
-                                    "arm6489f9b7c16ee022e55b0bb70260185d131400c4529672d9587aadae49af800790",
-                                    "amd64ea1894cfff8677f07a070bd4a9defd85c907b694ee1a83ad5f4dd057da73831b",
-                                    "i38609f855855b560f143538da5a74fd22a5dc38d36af7b9307282240f9d11818cb0"
+                                    "armhf4f2a79d1dbc9d2c09a79b90299610ae09c9f373fcf61251228bf109ad2cf3e90",
+                                    "arm64f888d2c6b4155796aa5b89c4ba65e88fdb02e85de65d0d5702d3deef9f738e60",
+                                    "amd6480c6e151f9993bad7159f7cb758f2424b2219a0f5cf9e4856a635077898cefd6",
+                                    "i3866f7db497d6af8e2e5490f59153c3e368c38da3ee813121ed31d5d9d595486904"
                             ))
             ));
 
