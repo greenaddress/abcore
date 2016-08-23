@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private void postStart() {
         mSwitchCore.setOnCheckedChangeListener(null);
         postDetection();
-        mTvStatus.setText(getString(R.string.runningturnoff, Packages.CORE_V_FULL));
+        mTvStatus.setText(getString(R.string.runningturnoff, Packages.CORE_V));
         if (!mSwitchCore.isChecked())
             mSwitchCore.setChecked(true);
         mSwitchCore.setText(R.string.switchcoreoff);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private void postConfigure() {
         mSwitchCore.setOnCheckedChangeListener(null);
         postDetection();
-        mTvStatus.setText(getString(R.string.stoppedturnon, Packages.CORE_V_FULL));
+        mTvStatus.setText(getString(R.string.stoppedturnon, Packages.CORE_V));
         if (mSwitchCore.isChecked())
             mSwitchCore.setChecked(false);
         mSwitchCore.setText(R.string.switchcoreon);

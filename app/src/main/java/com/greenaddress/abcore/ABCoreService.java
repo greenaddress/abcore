@@ -46,7 +46,7 @@ public class ABCoreService extends Service {
         final Notification n = new Notification.Builder(this)
                 .setContentTitle("ABCore is running")
                 .setContentIntent(pI)
-                .setContentText(String.format("Version %s",Packages.CORE_V_FULL))
+                .setContentText(String.format("Version %s",Packages.CORE_V))
                 .setSmallIcon(R.drawable.ic_info_black_24dp)
                 .setOngoing(true)
                 .build();

@@ -13,10 +13,8 @@ class Packages {
     public final static String GLIBC_MAJOR = "2.24";
     public final static String CORE_V = "0.13.0";
     private final static String GLIBC_MINOR = "2";
-    private final static String CORE_URL = "https://bitcoin.org/bin/bitcoin-core-%s/%s";
+    private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.13.x/%s";
-    private final static String CORE_MINOR = "rc3";
-    public final static String CORE_V_FULL = String.format("%s%s", CORE_V, CORE_MINOR);
 
     public final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
             Arrays.asList(
@@ -36,12 +34,12 @@ class Packages {
                             ))
             ));
 
-    public final static PkgH CORE_PACKAGE = new PkgH(String.format("test.%s/bitcoin-%s", CORE_MINOR, CORE_V_FULL),
+    public final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s", CORE_V, CORE_V),
             Arrays.asList(
-                    "armhfa78ffa0566acc75464954360d48729404d5f2ff446519c75c39271ddbece23a2",
-                    "arm645e9a8394ec8883a6b145dc194f6e2319f6fb896cbcadafafc64fbfe9ae440529",
-                    "amd641e29c3972223d4062823e063bc4881b085a28fddcbfef68c96fd439457e94649",
-                    "i38605f12c411fd03aa0fdc0ab6409dca11e3b2a3b7f05076ac6b983f74771028d21"
+                    "armhf7c657ec6f6a5dbb93b9394da510d5dff8dd461df8b80a9410f994bc53c876303",
+                    "arm64f94123e37530f9de25988ff93e5568a93aa5146f689e63fb0ec1f962cf0bbfcd",
+                    "amd64bcc1e42d61f88621301bbb00512376287f9df4568255f8b98bc10547dced96c8",
+                    "i386d6da2801dd9d92183beea16d0f57edcea85fc749cdc2abec543096c8635ad244"
             ));
 
     public final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20160814/bitcoin-%s.knots20160814", CORE_V, CORE_V),
@@ -75,7 +73,7 @@ class Packages {
         if (pkg.pkg.contains("knots"))
             return String.format(Packages.KNOTS_CORE_URL, path);
         else
-            return String.format(Packages.CORE_URL, CORE_V, path);
+            return String.format(Packages.CORE_URL, path);
     }
 
     public static class PkgH {
