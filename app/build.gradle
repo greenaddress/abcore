@@ -12,8 +12,8 @@ android {
         applicationId "com.greenaddress.abcore"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 48
-        versionName "0.48"
+        versionCode 49
+        versionName "0.49"
     }
     buildTypes {
         release {
