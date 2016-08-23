@@ -62,7 +62,7 @@ public class ABCoreService extends Service {
 
     @Override
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
-        if (mProcess != null)
+        if (mProcess != null || intent == null)
             return START_STICKY;
         final String arch = Utils.getArch();
         final File dir = Utils.getDir(this);
