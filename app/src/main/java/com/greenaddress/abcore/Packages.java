@@ -1,8 +1,6 @@
 package com.greenaddress.abcore;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,11 +49,10 @@ class Packages {
             ));
 
     private static String getRepo(final Context c, final String arch) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
         if (arch.equals("amd64") || arch.equals("i386"))
-            return prefs.getString("archi386Repo", "archive.archlinux.org/packages");
+            return "archive.archlinux.org/packages";
         else
-            return prefs.getString("archarmRepo", "tardis.tiny-vps.com/aarm/packages");
+            return "tardis.tiny-vps.com/aarm/packages";
     }
 
     static String getPackageUrl(final Packages.PkgH pkg, final Context c, final String arch) {
