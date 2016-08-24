@@ -18,7 +18,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     private void downloadPackage(final Packages.PkgH pkg, final String arch, final boolean deps) throws IOException, NoSuchAlgorithmException {
-        final String url = deps ? Packages.getPackageUrl(pkg, getContext(), arch) : Packages.getCorePackageUrl(pkg, arch);
+        final String url = deps ? Packages.getPackageUrl(pkg, arch) : Packages.getCorePackageUrl(pkg, arch);
         final String filePath = Utils.getFilePathFromUrl(getContext(), url);
 
         Utils.downloadFile(url, filePath);

@@ -211,7 +211,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         if (isUnpacked(sha256raw, outputDir))
             return;
 
-        final String url = Packages.getPackageUrl(pkg, this, arch);
+        final String url = Packages.getPackageUrl(pkg, arch);
         final String filePath = Utils.getFilePathFromUrl(this, url);
 
 

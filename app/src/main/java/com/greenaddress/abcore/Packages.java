@@ -1,7 +1,5 @@
 package com.greenaddress.abcore;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -48,19 +46,19 @@ class Packages {
                     "i3866805d773fb64034bf6717eb732a5ff56a4fd71322e92280496f444c011081fc8"
             ));
 
-    private static String getRepo(final Context c, final String arch) {
+    private static String getRepo(final String arch) {
         if (arch.equals("amd64") || arch.equals("i386"))
             return "archive.archlinux.org/packages";
         else
             return "tardis.tiny-vps.com/aarm/packages";
     }
 
-    static String getPackageUrl(final Packages.PkgH pkg, final Context c, final String arch) {
+    static String getPackageUrl(final Packages.PkgH pkg, final String arch) {
         final boolean isArmArchitecture = !arch.equals("amd64") && !arch.equals("i386");
         final String osArch = Utils.getArchLinuxArchitecture(arch);
         final String fileArch = arch.equals("armhf") ? "armv7h" : osArch;
         final String template = "http://%s/%s/%s-" + (isArmArchitecture ? fileArch : osArch) + ".pkg.tar.xz";
-        final String repo = getRepo(c, arch);
+        final String repo = getRepo(arch);
         return String.format(template, repo, pkg.pkg.charAt(0), pkg.pkg);
     }
 
