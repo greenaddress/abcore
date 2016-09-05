@@ -33,6 +33,6 @@
         android:id="@+id/editText2" android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editText" android:layout_alignEnd="@+id/editText"
-        android:singleLine="true"/>
+        android:maxLines="1"/>
 
 </RelativeLayout>
