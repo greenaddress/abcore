@@ -43,10 +43,10 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     compile 'org.apache.commons:commons-compress:1.10'
     compile 'org.tukaani:xz:1.5'
     compile 'wf.bitcoin:JavaBitcoindRpcClient:0.9.9'
-    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:support-v4:24.2.1'
 }
