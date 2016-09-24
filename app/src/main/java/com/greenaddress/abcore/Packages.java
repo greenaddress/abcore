@@ -6,13 +6,13 @@ import java.util.List;
 
 class Packages {
 
-    public final static String GLIBC_MAJOR = "2.24";
-    public final static String CORE_V = "0.13.0";
+    final static String GLIBC_MAJOR = "2.24";
+    final static String CORE_V = "0.13.0";
     private final static String GLIBC_MINOR = "2";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.13.x/%s";
 
-    public final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
+    final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
             Arrays.asList(
                     new PkgH(String.format("glibc/glibc-%s-%s", GLIBC_MAJOR, GLIBC_MINOR),
                             Arrays.asList(
@@ -30,7 +30,7 @@ class Packages {
                             ))
             ));
 
-    public final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s", CORE_V, CORE_V),
+    final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s", CORE_V, CORE_V),
             Arrays.asList(
                     "armhf7c657ec6f6a5dbb93b9394da510d5dff8dd461df8b80a9410f994bc53c876303",
                     "arm64f94123e37530f9de25988ff93e5568a93aa5146f689e63fb0ec1f962cf0bbfcd",
@@ -38,7 +38,7 @@ class Packages {
                     "i386d6da2801dd9d92183beea16d0f57edcea85fc749cdc2abec543096c8635ad244"
             ));
 
-    public final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20160814/bitcoin-%s.knots20160814", CORE_V, CORE_V),
+    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20160814/bitcoin-%s.knots20160814", CORE_V, CORE_V),
             Arrays.asList(
                     "armhf6642058817c3e5762c8654986f0fde518e67be8aaec2eeab8534daf88d92f0ec",
                     "arm646b6d5d717d7e9597708b84c9dd097a69c6b940cdfaf4dfa74e330fbb58b795fe",
@@ -71,7 +71,7 @@ class Packages {
             return String.format(Packages.CORE_URL, path);
     }
 
-    public static class PkgH {
+    static class PkgH {
         final String pkg;
         final List<String> archHash;
 

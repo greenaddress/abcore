@@ -231,7 +231,7 @@ class Utils {
         throw new UnsupportedArch(arch);
     }
 
-    public static String getCorePkgsArch(final String arch) {
+    static String getCorePkgsArch(final String arch) {
         if (arch.endsWith("i386"))
             return "i686-pc-linux-gnu";
         else if (arch.startsWith("armhf"))
