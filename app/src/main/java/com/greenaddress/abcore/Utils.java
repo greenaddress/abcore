@@ -358,7 +358,7 @@ class Utils {
     static boolean isSha256Different(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
         final String hash = Utils.sha256Hex(filePath);
         final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
-
+        Log.d(TAG, hash);
         return !sha256hash.equals(hash);
     }
 
