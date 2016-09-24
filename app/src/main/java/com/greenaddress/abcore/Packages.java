@@ -21,12 +21,12 @@ class Packages {
                                     "amd6487721ded792e35b8fd2110d4ac91dc229a9cbbd2fd612d21991f7d68a34e195b",
                                     "i38657a56380c7b57f0882b659d7f44d52082c6d4428dbc51392a3fe707b31ebb82a"
                             )),
-                    new PkgH("gcc-libs/gcc-libs-6.1.1-5",
+                    new PkgH("gcc-libs/gcc-libs-6.2.1-1",
                             Arrays.asList(
-                                    "armhf4f2a79d1dbc9d2c09a79b90299610ae09c9f373fcf61251228bf109ad2cf3e90",
-                                    "arm64f888d2c6b4155796aa5b89c4ba65e88fdb02e85de65d0d5702d3deef9f738e60",
-                                    "amd6480c6e151f9993bad7159f7cb758f2424b2219a0f5cf9e4856a635077898cefd6",
-                                    "i3866f7db497d6af8e2e5490f59153c3e368c38da3ee813121ed31d5d9d595486904"
+                                    "armhf21542b9a207db719072cb33f414689cc249a894f1eb301b2d820ec79fa4190db",
+                                    "arm647865551b282990a194808fbed9bf62a57173269869e7263b33b6f63f3e8144b8",
+                                    "amd64a44edb4dfaf920c6ce5e9289e348b4de59ec98fa923ac6ea8cb68302e7a193e0",
+                                    "i38644add8cdd72b66d4c8f70ba0c704c4017c12561d2e684fc02f8d5ae6fda83534"
                             ))
             ));
 
