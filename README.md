@@ -12,7 +12,7 @@ Warning: This app is still in a very Proof of Concept/Alpha stage.
 
 <a href="https://play.google.com/apps/testing/com.greenaddress.abcore"> <img src="http://abco.re/assets/images/playstore.png" alt="Play Store" width="200" height="60"></a>
 
-If you want to try it get it from the Play Store or directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.52alphaPoC
+If you want to try it get it from the Play Store or directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.53alphaPoC
 
 or from [F-Droid](https://f-droid.org/repository/browse/?fdfilter=abcore&fdid=com.greenaddress.abcore)
 
