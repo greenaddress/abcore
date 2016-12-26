@@ -36,6 +36,9 @@ android {
             versionCode Integer.parseInt(String.format("%s%s", 21, defaultConfig.getProperty("versionCode")))
         }
     }
+    lintOptions {
+        disable 'MissingTranslation'
+    }
 }
 
 repositories {

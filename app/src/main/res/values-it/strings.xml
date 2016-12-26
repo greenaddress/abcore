@@ -1,0 +1,21 @@
+<resources>
+    <string name="title_activity_settings">Configurazione</string>
+    <string name="title_activity_download_settings">Configurazione Scaricamento</string>
+    <string name="pref_title_edit_bitcoin_conf">Modifica manualmente bitcoin.conf</string>
+    <string name="pref_header_conf">Configurazione Bitcoin Core</string>
+    <string name="pref_header_conf_download">Configuratione scaricamento</string>
+    <string name="pref_header_android">Configuratione aggiuntiva</string>
+    <string name="title_activity_peer">Nodi</string>
+    <string name="title_activity_progress">Progresso aggiornamento</string>
+    <string name="download_core">Questa app richiede Bitcoin Core e le sue dipendenze per funzionare. Tocca il bottone per far partire lo scaricamento e la configurazione di Bitcoin Core</string>
+    <string name="start">Fai partire il download</string>
+    <string name="failedretry">Fallito, vuoi riprovare?</string>
+    <string name="waitfetchingconfiguring">Per piacere aspetta. Scaricamento e configurazione di Bitcoin Core&#8230;</string>
+    <string name="archunsupported">Il dispostivo %1$s non è supportato</string>
+    <string name="runningturnoff">Bitcoin Core %1$s è partito, porta Core su OFF per fermarlo.</string>
+    <string name="stoppedturnon">"Bitcoin Core %1$s non è in funzione, porta Core su ON per farlo partire"</string>
+    <string name="switchcoreon">Porta Core ON</string>
+    <string name="switchcoreoff">Porta Core OFF</string>
+    <string name="pleasewait">"Per piacere aspetta mentre controlliamo se Core è in funzione&#8230;</string>
+</resources>
+

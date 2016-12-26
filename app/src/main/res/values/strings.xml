@@ -1,16 +1,11 @@
 <resources>
-    <string name="app_name">ABCore</string>
+    <string translatable="false" name="app_name">ABCore</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_download_settings">Download Settings</string>
-
-
     <string name="pref_title_edit_bitcoin_conf">Manually edit bitcoin.conf</string>
-
     <string name="pref_header_conf">Bitcoin Core Configuration</string>
     <string name="pref_header_conf_download">Download Configuration</string>
-
     <string name="pref_header_android">Extra Configuration</string>
-
     <string name="title_activity_peer">Peers</string>
     <string name="title_activity_progress">Synchronization progress</string>
     <string name="download_core">The app requires Bitcoin Core and its dependencies to function. Click on the button to start downloading and configuring Bitcoin Core</string>
@@ -23,5 +18,4 @@
     <string name="switchcoreon">Switch Core ON</string>
     <string name="switchcoreoff">Switch Core OFF</string>
     <string name="pleasewait">"Please wait while we detect if Core is running&#8230;</string>
-
 </resources>
