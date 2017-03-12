@@ -7,10 +7,10 @@ import java.util.List;
 class Packages {
 
     final static String GLIBC_MAJOR = "2.25";
-    final static String CORE_V = "0.13.2";
+    final static String CORE_V = "0.14.0";
     private final static String GLIBC_MINOR = "1";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
-    private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.13.x/%s";
+    private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
 
     final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
             Arrays.asList(
@@ -32,18 +32,18 @@ class Packages {
 
     final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s", CORE_V, CORE_V),
             Arrays.asList(
-                    "armhf3c460784d3ab64645d48389c467336a38da473706a69f22f39cfcce5e0f33780",
-                    "arm64eda24dcf0b9fae606eb9811f74ddba69a3287316950f3f02b3000b6b1c02b65f",
-                    "amd6429215a7fe7430224da52fc257686d2d387546eb8acd573a949128696e8761149",
-                    "i386790e4c7ebf9f4a734d1d2b6bb5e9f5fb3f613f6f93da30fd1420c5b4115dd72f"
+                    "armhf55957e2c35aa2ba836cbae7cbf945bcf489a46b243551b0f6fd86f60603032a6",
+                    "arm64466adccf7352f06de35afc1627a3ea721764268ceaf08fa3641f9b47e7df091a",
+                    "amd6406e6ceeb687e784e9aaad45e9407c7eed5f7e9c9bbe44083179287f54f0f9f2b",
+                    "i386e4bb8b52acde07788dfcf024645fe291f0deca2b7172939fb2ddb8789fe56973"
             ));
 
-    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20170102/bitcoin-%s.knots20170102", CORE_V, CORE_V),
+    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20170307/bitcoin-%s.knots20170307", CORE_V, CORE_V),
             Arrays.asList(
-                    "armhf6c28eba0a8dff111ebac6c884d37085de983ed407e88f61dc3de17d25374db0a",
-                    "arm64fd382b8550b037d9727d6857027226d783ab30fd7cbb2955da8d6c1bc6d208b8",
-                    "amd6475a26f60eee819158faa0ca561a0490a9208139f9a73a986931051089f1fbb9f",
-                    "i3865054ce09894890f5b63fe112e8adcf343a0879e760ce97c8d29ef8ffc0addca6"
+                    "armhfebcdcd00e92cba237b256fbe94d665a032a5936a8e7937fe9f558e8b37bcf20f",
+                    "arm641e812a26e9ca8a87281c485d33057105b757c02b61d29244203d8860471360eb",
+                    "amd64ef315eeaf088e8a15d2c18204869279a38fd5f65b00201dfd3ccbc4559ad705e",
+                    "i386b031deab8d7432302c1c76803336c5e06a17a448fe3c574364a83dfe6a394ba4"
             ));
 
     private static String getRepo(final String arch) {
