@@ -48,16 +48,16 @@ class Packages {
 
     private static String getRepo(final String arch) {
         if (arch.equals("amd64") || arch.equals("i386"))
-            return "archive.archlinux.org/packages";
+            return "https://archive.archlinux.org/packages";
         else
-            return "tardis.tiny-vps.com/aarm/packages";
+            return "http://tardis.tiny-vps.com/aarm/packages";
     }
 
     static String getPackageUrl(final Packages.PkgH pkg, final String arch) {
         final boolean isArmArchitecture = !arch.equals("amd64") && !arch.equals("i386");
         final String osArch = Utils.getArchLinuxArchitecture(arch);
         final String fileArch = arch.equals("armhf") ? "armv7h" : osArch;
-        final String template = "http://%s/%s/%s-" + (isArmArchitecture ? fileArch : osArch) + ".pkg.tar.xz";
+        final String template = "%s/%s/%s-" + (isArmArchitecture ? fileArch : osArch) + ".pkg.tar.xz";
         final String repo = getRepo(arch);
         return String.format(template, repo, pkg.pkg.charAt(0), pkg.pkg);
     }
