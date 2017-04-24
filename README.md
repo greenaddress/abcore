@@ -14,7 +14,7 @@ Warning: This app is still in a very Proof of Concept/Alpha stage.
 <a href="https://play.google.com/apps/testing/com.greenaddress.abcore" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="90"/></a>
 
-If you want to try it, you can also get it directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.55alphaPoC
+If you want to try it, you can also get it directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.56alphaPoC
 
 What is Android Bitcoin Core?
 -----------------------------
