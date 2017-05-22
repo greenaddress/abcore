@@ -11,6 +11,7 @@ class Packages {
     private final static String GLIBC_MINOR = "1";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
+    private final static String BIP148_URL = "http://www.uasf.co/binaries/bitcoin-0.14.1-bip148_segwit0.3-%s";
 
     final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
             Arrays.asList(
@@ -30,7 +31,7 @@ class Packages {
                             ))
             ));
 
-    final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s", CORE_V, CORE_V),
+    final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s-", CORE_V, CORE_V),
             Arrays.asList(
                     "armhfcd23ffe044b56dd56d3b9ba384e606c44000b60f44e0a74a19c313a4f30ea5c8",
                     "arm64a60d7c8dde9b77e7ff547976ce37db1fe98c71833003465befe650d6bc102b6b",
@@ -38,12 +39,20 @@ class Packages {
                     "i386ff6bf851dae036905de6272562cca4b94c4842f758b7bd68879a088fe7b0f662"
             ));
 
-    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20170420/bitcoin-%s.knots20170420", CORE_V, CORE_V),
+    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20170420/bitcoin-%s.knots20170420-", CORE_V, CORE_V),
             Arrays.asList(
                     "armhf87ad8363f32a77853871be1f81e08cb35fd720b57de4569c276376f4658238d2",
                     "arm64ecb64538774b7fcc6f2e40687f7916b4a28a9ee7559114d4d7f8eb2dfe8dfb84",
                     "amd64bab3e6bbe802eb47704d14ffd913712f6b1a8f9ee146d7d9a90979bec3fe68dc",
                     "i386887241fba263bb974072d145eecd3825657dfb0bf902acd5e45868b977e073a0"
+            ));
+
+    final static PkgH BIP148_PACKAGE = new PkgH("",
+            Arrays.asList(
+                    "armhfceca9659d1d22b5a3cb9827a268ac360f60a8d3e14ef5fadd3aa4d9089843821",
+                    "arm64a0c70faa9e2e687e4aea2b932857eaa2db089c3c41672bead400ad2268b28b18",
+                    "amd6416309ad82fad310937986a7041bdd251a7891ed1b8ccac5fa6ef869c10c89259",
+                    "i3862a7d4140e1a9ed615aa7e261d6ac161298e4b6003f9de8d3d3b87de279740ca3"
             ));
 
     private static String getRepo(final String arch) {
@@ -64,11 +73,13 @@ class Packages {
 
     static String getCorePackageUrl(final Packages.PkgH pkg, final String arch) {
         final String packageName = arch == null ? Utils.getCorePkgsName(): Utils.getCorePkgsArch(arch);
-        final String path = String.format("%s-%s.tar.gz", pkg.pkg, packageName);
-        if (pkg.pkg.contains("knots"))
+        final String path = String.format("%s%s.tar.gz", pkg.pkg, packageName);
+        if (pkg.pkg.contains("bitcoin-core"))
+            return String.format(Packages.CORE_URL, path);
+        else if (pkg.pkg.contains("knots"))
             return String.format(Packages.KNOTS_CORE_URL, path);
         else
-            return String.format(Packages.CORE_URL, path);
+            return String.format(Packages.BIP148_URL, path);
     }
 
     static class PkgH {

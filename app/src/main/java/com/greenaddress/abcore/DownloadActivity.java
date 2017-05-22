@@ -160,7 +160,7 @@ public class DownloadActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.download_knots:
+            case R.id.download_distributions:
                 startActivity(new Intent(this, DownloadSettingsActivity.class));
                 return true;
             default:

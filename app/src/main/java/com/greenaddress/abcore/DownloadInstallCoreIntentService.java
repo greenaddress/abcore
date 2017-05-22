@@ -102,8 +102,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-            final boolean useknots = prefs.getBoolean("useknots", false);
-            final Packages.PkgH pkg = useknots ? Packages.KNOTS_CORE_PACKAGE : Packages.CORE_PACKAGE;
+            final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
+            final Packages.PkgH pkg = useDistribution.equals("knots") ? Packages.KNOTS_CORE_PACKAGE : useDistribution.equals("bip148") ? Packages.BIP148_PACKAGE: Packages.CORE_PACKAGE;
 
             final Utils.OnDownloadSpeedChange odsc = new Utils.OnDownloadSpeedChange() {
                 @Override

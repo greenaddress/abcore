@@ -1,19 +1,19 @@
 <resources>
     <string name="archunsupported">Architektur %1$s wird nicht unterstützt.@</string>
-    <string name="download_core">Die App benötigt Bitcoin Core und dessen Abhängigkeiten zum Funktionieren. Betätigen Sie die Schaltfläche um den Download und die Konfigurierung von Bitcoin Core zu beginnen.</string>
+    <string name="download_core">Die App benötigt Bitcoin und dessen Abhängigkeiten zum Funktionieren. Betätigen Sie die Schaltfläche um den Download und die Konfigurierung von Bitcoin zu beginnen.</string>
     <string name="failedretry">Fehler. Erneut versuchen?</string>
     <string name="pleasewait">"Bitte haben Sie etwas Geduld, während der Kern gesucht wird…</string>
     <string name="pref_header_android">Extrakonfiguration</string>
-    <string name="pref_header_conf">Bitcoin Core Konfiguration</string>
+    <string name="pref_header_conf">Bitcoin Konfiguration</string>
     <string name="pref_header_conf_download">Konfiguration herunterladen</string>
     <string name="pref_title_edit_bitcoin_conf">Bitcoin.conf manuell editieren</string>
-    <string name="runningturnoff">Bitcoin Core %1$s läuft, bitte stellen Sie den Kern auf "OFF" zum Stoppen.</string>
+    <string name="runningturnoff">Bitcoin %1$s %2$s läuft, bitte stellen Sie den Kern auf "OFF" zum Stoppen.</string>
     <string name="start">Download beginnen</string>
-    <string name="stoppedturnon">Bitcoin Core %1$s läuft nicht, bitte stellen Sie den Kern auf "ON" zum Starten."</string>
+    <string name="stoppedturnon">Bitcoin %1$s %2$s läuft nicht, bitte stellen Sie den Kern auf "ON" zum Starten."</string>
     <string name="switchcoreoff">Kern auf OFF stellen</string>
     <string name="switchcoreon">Kern auf ON stellen</string>
     <string name="title_activity_download_settings">Einstellungen herunterladen</string>
     <string name="title_activity_progress">Synchronisationsfortschritt</string>
     <string name="title_activity_settings">Einstellungen</string>
-    <string name="waitfetchingconfiguring">Bitte haben Sie etwas Geduld&#8230; Lade und konfiguriere Bitcoin Core.</string>
+    <string name="waitfetchingconfiguring">Bitte haben Sie etwas Geduld&#8230; Lade und konfiguriere Bitcoin.</string>
 </resources>
