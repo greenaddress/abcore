@@ -149,14 +149,15 @@ class Utils {
     private static void copyFile(final String src, final String dst, final File outputDir) throws IOException {
         final InputStream linked = new BufferedInputStream(new FileInputStream(new File(outputDir, src)));
         final OutputStream out = new BufferedOutputStream(new FileOutputStream(new File(outputDir, dst)));
-
-        final byte[] buf = new byte[1024];
-        int len;
-        while ((len = linked.read(buf)) > 0)
-            out.write(buf, 0, len);
-
-        IOUtils.closeQuietly(linked);
-        IOUtils.closeQuietly(out);
+        try {
+            final byte[] buf = new byte[1024];
+            int len;
+            while ((len = linked.read(buf)) > 0)
+                out.write(buf, 0, len);
+        } finally {
+            IOUtils.closeQuietly(linked);
+            IOUtils.closeQuietly(out);
+        }
     }
 
     private static String sha256Hex(final String filePath) throws NoSuchAlgorithmException, IOException {
