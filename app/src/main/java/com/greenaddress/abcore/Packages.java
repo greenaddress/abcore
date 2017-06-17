@@ -7,7 +7,8 @@ import java.util.List;
 class Packages {
 
     final static String GLIBC_MAJOR = "2.25";
-    final static String CORE_V = "0.14.1";
+    final static String CORE_V = "0.14.2";
+    final static String KNOTS_V = "0.14.1";
     private final static String GLIBC_MINOR = "1";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
@@ -33,13 +34,13 @@ class Packages {
 
     final static PkgH CORE_PACKAGE = new PkgH(String.format("bitcoin-core-%s/bitcoin-%s-", CORE_V, CORE_V),
             Arrays.asList(
-                    "armhfcd23ffe044b56dd56d3b9ba384e606c44000b60f44e0a74a19c313a4f30ea5c8",
-                    "arm64a60d7c8dde9b77e7ff547976ce37db1fe98c71833003465befe650d6bc102b6b",
-                    "amd640c6920a9f3181a95ca029fdac5342b5702569ee441ec2128d19051f281683058",
-                    "i386ff6bf851dae036905de6272562cca4b94c4842f758b7bd68879a088fe7b0f662"
+                    "armhff273eb5e56694fe5baecdd5ee8cda9ac495541ccd9df5ca1c22a1b10dc6d89e8",
+                    "arm64dd877bc247efa4c90a34ec9ce1a497a8ae1f7eac4c688aa8c8b25ffe30c20541",
+                    "amd6420acc6d5d5e0c4140387bc3445b8b3244d74c1c509bd98f62b4ee63bec31a92b",
+                    "i3861a302092d9af75db93e2d87a9da6f1f2564a209fb8ee1d7f64ca1d2828f31c03"
             ));
 
-    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20170420/bitcoin-%s.knots20170420-", CORE_V, CORE_V),
+    final static PkgH KNOTS_CORE_PACKAGE = new PkgH(String.format("%s.knots20170420/bitcoin-%s.knots20170420-", KNOTS_V, KNOTS_V),
             Arrays.asList(
                     "armhf87ad8363f32a77853871be1f81e08cb35fd720b57de4569c276376f4658238d2",
                     "arm64ecb64538774b7fcc6f2e40687f7916b4a28a9ee7559114d4d7f8eb2dfe8dfb84",
