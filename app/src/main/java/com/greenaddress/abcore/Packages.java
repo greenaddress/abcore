@@ -9,7 +9,7 @@ class Packages {
     final static String GLIBC_MAJOR = "2.25";
     final static String CORE_V = "0.14.2";
     final static String KNOTS_V = "0.14.1";
-    private final static String GLIBC_MINOR = "1";
+    private final static String GLIBC_MINOR = "2";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
     private final static String BIP148_URL = "http://www.uasf.co/binaries/bitcoin-0.14.1-bip148_segwit0.3-%s";
@@ -18,17 +18,17 @@ class Packages {
             Arrays.asList(
                     new PkgH(String.format("glibc/glibc-%s-%s", GLIBC_MAJOR, GLIBC_MINOR),
                             Arrays.asList(
-                                    "armhf1085999a36b1004cda50a6c7bcf8e1bfa4077ac2d26f15c56c3e05c39d144632",
-                                    "arm6476532c7ceba41468d64bbccb61db84d85c8ddacb2229077c7e05aadbcd0eb091",
-                                    "amd6445b18d6cbfba5b83233782376be78f3f3d196a766775f04f21956b71045467fc",
-                                    "i3863c23a0c610ef9ce8d55ad18d77930606fa0f9ed4a5900cff135527b93754f819"
+                                    "armhfda380da65a9eb1cdd2c80af78f0a4de7981d05ad7e2428b9e7e46e94d1f49383",
+                                    "arm642845cfab38c283693949c849fa6c14928b09dec23e9ab6449fceba4bb0496f40",
+                                    "amd640573f7ddb9789154827f795a008e78753f6e71453ed97e66924d9aef8274aac8",
+                                    "i3866bc0f5222d7ced3020d4c982749c0c6353b1459ebd6b44a47fcacf19c9fc056b"
                             )),
-                    new PkgH("gcc-libs/gcc-libs-6.3.1-2",
+                    new PkgH("gcc-libs/gcc-libs-7.1.1-2",
                             Arrays.asList(
-                                    "armhfa3ecb4ec57de1ed00bd4cf21c1ce03f6072eadb219a42058930aeea96a340714",
-                                    "arm6458e1d21f07c55cf7de00b18d4cf623ff55a3d135510770e6e90bf362317c58a7",
-                                    "amd64de2409876f541df642ab1773c2cbfdf9a6266ef2ca4bad184e9a335569b6e26b",
-                                    "i386631570e8f9d6760ae315348e3a0a9cbd591c1a1068c941b5a420e2f38b5677fc"
+                                    "armhf16c07c6b81cc9b07e42356f680cdf42b3fb6cc3ffdf4ab47cfdd163e077f1882",
+                                    "arm64c81f122d275171fc1c77dd8871f6fa03ad193fd314d802fc64e7265c874cb1ed",
+                                    "amd64f9d11c0b924638a0ac4100c006997f4f0ca102750c0b4c222f19ab00942a579a",
+                                    "i386fe4832dab14c7ebdb13e49e1568538a8f3bdb2d7530e7d41265bdde2d29ce845"
                             ))
             ));
 
