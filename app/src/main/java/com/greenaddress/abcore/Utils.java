@@ -227,7 +227,7 @@ class Utils {
             return "arm-linux-gnueabihf";
         else if (arch.endsWith("86_64"))
             return "x86_64-linux-gnu";
-        else if ("aarch64".equals(arch))
+        else if ("aarch64".equals(arch) || "armv8l".equals(arch))
             return "aarch64-linux-gnu";
         throw new UnsupportedArch(arch);
     }
@@ -253,7 +253,7 @@ class Utils {
             return "armhf";
         else if (arch.endsWith("86_64"))
             return "amd64";
-        else if ("aarch64".equals(arch))
+        else if ("aarch64".equals(arch) || "armv8l".equals(arch))
             return "arm64";
         throw new UnsupportedArch(arch);
     }
