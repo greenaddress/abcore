@@ -122,7 +122,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
                 }
             if (isUnpacked(rawSha, dir))
                 return;
-            if (!new File(filePath).exists() || Utils.isSha256Different(arch, rawSha, filePath)) {
+            if (!new File(filePath).exists() || Utils.isSha256Different(arch, rawSha, filePath) != null) {
 
                 sendUpdate("Downloading", pkg);
                 Utils.downloadFile(url, filePath, odsc);
@@ -215,7 +215,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         final String filePath = Utils.getFilePathFromUrl(this, url);
 
 
-        if (!new File(filePath).exists() || Utils.isSha256Different(arch, sha256raw, filePath)) {
+        if (!new File(filePath).exists() || Utils.isSha256Different(arch, sha256raw, filePath) != null) {
 
             // Download file
             sendUpdate("Downloading", pkg);

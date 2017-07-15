@@ -356,16 +356,17 @@ class Utils {
         return getDir(c).getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
     }
 
-    static boolean isSha256Different(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
+    static String isSha256Different(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
         final String hash = Utils.sha256Hex(filePath);
         final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
         Log.d(TAG, hash);
-        return !sha256hash.equals(hash);
+        return sha256hash.equals(hash) ? null: hash;
     }
 
     static void validateSha256sum(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
-        if (isSha256Different(arch, sha256raw, filePath))
-            throw new ValidationFailure(String.format("File %s doesn't match sha256sum", filePath));
+        final String diff = isSha256Different(arch, sha256raw, filePath);
+        if (diff != null)
+            throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s", filePath, diff));
     }
 
     interface OnDownloadSpeedChange {
