@@ -8,7 +8,7 @@ class Packages {
 
     final static String GLIBC_MAJOR = "2.25";
     final static String CORE_V = "0.14.2";
-    private final static String GLIBC_MINOR = "2";
+    private final static String GLIBC_MINOR = "4";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
     private final static String BIP148_URL = "https://uasf.bitcoinreminder.com/core-%s-uasfsegwit1.0/%s";
@@ -17,10 +17,10 @@ class Packages {
             Arrays.asList(
                     new PkgH(String.format("glibc/glibc-%s-%s", GLIBC_MAJOR, GLIBC_MINOR),
                             Arrays.asList(
-                                    "armhfda380da65a9eb1cdd2c80af78f0a4de7981d05ad7e2428b9e7e46e94d1f49383",
-                                    "arm642845cfab38c283693949c849fa6c14928b09dec23e9ab6449fceba4bb0496f40",
-                                    "amd640573f7ddb9789154827f795a008e78753f6e71453ed97e66924d9aef8274aac8",
-                                    "i3866bc0f5222d7ced3020d4c982749c0c6353b1459ebd6b44a47fcacf19c9fc056b"
+                                    "armhf8c1e542e0fac554c29a57301c0daf2fde68b0425ddd9b96b029f766dc440833c",
+                                    "arm642d08aa49b527817528b6e75043da5ae264448b541043ccc2af9ca52086aabafd",
+                                    "amd64efd42f69a712a4202a2cfd1dd7763bb21eee669242ea4038cc971af147f0c33a",
+                                    "i386e00bb8779db964581e17dcc93de9158607e2ca7a4397b36e59ba84c673d67258"
                             )),
                     new PkgH("gcc-libs/gcc-libs-7.1.1-2",
                             Arrays.asList(
