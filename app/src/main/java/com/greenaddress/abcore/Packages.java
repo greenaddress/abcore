@@ -11,7 +11,7 @@ class Packages {
     private final static String GLIBC_MINOR = "2";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
-    private final static String BIP148_URL = "https://uasf.bitcoinreminder.com/core-%s-uasfsegwit0.3/%s";
+    private final static String BIP148_URL = "https://uasf.bitcoinreminder.com/core-%s-uasfsegwit1.0/%s";
 
     final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
             Arrays.asList(
@@ -47,12 +47,12 @@ class Packages {
                     "i3867b9c1a454390c5f29051429e20a477ccc30c2d7afdccc4cd68443e37a4d687d5"
             ));
 
-    final static PkgH BIP148_PACKAGE = new PkgH(String.format("bitcoin-%s-bip148_segwit0.3-", CORE_V),
+    final static PkgH BIP148_PACKAGE = new PkgH(String.format("bitcoin-%s-uasfsegwit1.0-", CORE_V),
             Arrays.asList(
-                    "armhf11d060aa8f778a5ebc76931a5a0e3d890512d02c567ef2e8f11e82ca34306010",
-                    "arm6469522a0c3b17079097a7f1c35c70c136d98c3e26b6241c842d4131d860ed7afc",
-                    "amd64668ba1ae6d54307878e1e02d396b96e0bb3829b71735cb1992910cadf861db1f",
-                    "i3869f94978a25cf4cd40a4356e493195938c6379c416b8d5f977940879e3ff36578"
+                    "armhffa5ca48172aac3bd59ad37e78cc15f6af2ec79507eeb21a630bc96dbd92af74b",
+                    "arm640c9dba1e5fbe92ad7201c55bdc4ee7f8212a68a1126f12e2130a21b8ad151c6e",
+                    "amd64f07f6c29d63492120ff770ee50875d60354f420ee9272c419dd1321493a6d656",
+                    "i386411af7c9d84ee0cb46cbf72d40b81a793cabc975078dddeaf7dbffa4c4b9903d"
             ));
 
     private static String getRepo(final String arch) {
