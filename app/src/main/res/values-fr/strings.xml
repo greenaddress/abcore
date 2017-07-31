@@ -1,0 +1,20 @@
+<resources>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="title_activity_download_settings">Paramètres de téléchargement</string>
+    <string name="pref_title_edit_bitcoin_conf">Modifier manuellement bitcoin.conf</string>
+    <string name="pref_header_conf">Configuration Bitcoin</string>
+    <string name="pref_header_conf_download">Configuration du téléchargement</string>
+    <string name="pref_header_android">Configuration Supplémentaire</string>
+    <string name="title_activity_peer">Peers</string>
+    <string name="title_activity_progress">Progression Synchronisation</string>
+    <string name="download_core">L\'application nécessite Bitcoin et ses dépendances pour fonctionner. Cliquez sur le bouton pour commencer à télécharger et à configurer Bitcoin</string>
+    <string name="start">Télécharger</string>
+    <string name="failedretry">Échec, voulez-vous réessayer?</string>
+    <string name="waitfetchingconfiguring">Veuillez patienter, récupération, déballage et configuration de Bitcoin&#8230;</string>
+    <string name="archunsupported">L\'architecture %1$s n\'est pas supportée</string>
+    <string name="runningturnoff">Bitcoin %1$s %2$s est en cours d\'exécution, désactivez-le pour l\'arrêter.</string>
+    <string name="stoppedturnon">"Bitcoin %1$s %2$s n\'est pas en cours d\'exécution, activez-le pour le démarrer."</string>
+    <string name="switchcoreon">Activer</string>
+    <string name="switchcoreoff">Désactiver</string>
+    <string name="pleasewait">"Veuillez patienter pendant que nous détectons si le deamon est en cours d\'exécution&#8230;</string>
+</resources>
