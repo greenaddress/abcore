@@ -9,12 +9,12 @@ Web site: <a href="http://abco.re">abco.re</a>
 
 Warning: This app is still in a very Proof of Concept/Alpha stage.
 
-<a href="https://f-droid.org/repository/browse/?fdfilter=abcore&fdid=com.greenaddress.abcore" target="_blank">
+<a href="https://f-droid.org/packages/com.greenaddress.abcore/" target="_blank">
 <img src="https://f-droid.org/badge/get-it-on.png" height="90"/></a>
 <a href="https://play.google.com/apps/testing/com.greenaddress.abcore" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="90"/></a>
 
-If you want to try it, you can also get it directly from GitHub https://github.com/greenaddress/abcore/releases/tag/v0.59alphaPoC
+If you want to try it, you can also get it directly from GitHub [here](https://github.com/greenaddress/abcore/releases/tag/v0.59alphaPoC).
 
 What is Android Bitcoin Core?
 -----------------------------
