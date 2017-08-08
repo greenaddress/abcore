@@ -17,3 +17,4 @@
 #}
 
 -dontwarn org.apache.commons.compress.archivers.**
+-dontwarn org.apache.commons.compress.compressors.brotli.**
