@@ -6,7 +6,7 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.greenaddress.abcore"
@@ -29,9 +29,11 @@ android {
 
     productFlavors {
         prod {
+            flavorDimensions "default"
             versionCode Integer.parseInt(String.format("%s%s", 16, defaultConfig.getProperty("versionCode")))
         }
         prod_21 {
+            flavorDimensions "default"
             minSdkVersion 21
             versionCode Integer.parseInt(String.format("%s%s", 21, defaultConfig.getProperty("versionCode")))
         }
@@ -49,10 +51,10 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.android.support:design:26.0.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
     compile 'org.apache.commons:commons-compress:1.14'
     compile 'org.tukaani:xz:1.6'
     compile 'wf.bitcoin:JavaBitcoindRpcClient:0.9.14'
-    compile 'com.android.support:support-v4:26.0.1'
+    compile 'com.android.support:support-v4:26.1.0'
 }
