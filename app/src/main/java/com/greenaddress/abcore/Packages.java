@@ -11,7 +11,6 @@ class Packages {
     private final static String GLIBC_MINOR = "4";
     private final static String CORE_URL = "https://bitcoin.org/bin/%s";
     private final static String KNOTS_CORE_URL = "https://bitcoinknots.org/files/0.14.x/%s";
-    private final static String BIP148_URL = "https://uasf.bitcoinreminder.com/core-%s-uasfsegwit1.0/%s";
 
     final static List<PkgH> ARCH_PACKAGES = new ArrayList<>(
             Arrays.asList(
@@ -47,14 +46,6 @@ class Packages {
                     "i3867b9c1a454390c5f29051429e20a477ccc30c2d7afdccc4cd68443e37a4d687d5"
             ));
 
-    final static PkgH BIP148_PACKAGE = new PkgH(String.format("bitcoin-%s-uasfsegwit1.0-", CORE_V),
-            Arrays.asList(
-                    "armhffa5ca48172aac3bd59ad37e78cc15f6af2ec79507eeb21a630bc96dbd92af74b",
-                    "arm640c9dba1e5fbe92ad7201c55bdc4ee7f8212a68a1126f12e2130a21b8ad151c6e",
-                    "amd64f07f6c29d63492120ff770ee50875d60354f420ee9272c419dd1321493a6d656",
-                    "i386411af7c9d84ee0cb46cbf72d40b81a793cabc975078dddeaf7dbffa4c4b9903d"
-            ));
-
     private static String getRepo(final String arch) {
         if (arch.equals("amd64") || arch.equals("i386"))
             return "https://archive.archlinux.org/packages";
@@ -78,8 +69,7 @@ class Packages {
             return String.format(Packages.CORE_URL, path);
         else if (pkg.pkg.contains("knots"))
             return String.format(Packages.KNOTS_CORE_URL, path);
-        else
-            return String.format(Packages.BIP148_URL, CORE_V, path);
+        throw new RuntimeException("Package not found");
     }
 
     static class PkgH {

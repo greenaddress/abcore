@@ -2,11 +2,9 @@
     <string-array name="pref_use_values" >
         <item>core</item>
         <item>knots</item>
-        <item>bip148</item>
     </string-array>
     <string-array name="pref_use_options" >
         <item>Bitcoin Core</item>
         <item>Bitcoin Knots</item>
-        <item>Bitcoin UASF BIP148</item>
     </string-array>
 </resources>

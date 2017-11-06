@@ -42,7 +42,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     private void downloadCorePackage(final String arch) throws IOException, NoSuchAlgorithmException {
         downloadPackage(Packages.CORE_PACKAGE, arch, false);
         downloadPackage(Packages.KNOTS_CORE_PACKAGE, arch, false);
-        downloadPackage(Packages.BIP148_PACKAGE, arch, false);
     }
 
     public void testArm64Packages() throws IOException, NoSuchAlgorithmException {
