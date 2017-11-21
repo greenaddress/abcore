@@ -5,13 +5,13 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
     }
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.greenaddress.abcore"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 61
         versionName "0.61"
     }
@@ -49,10 +49,10 @@ repositories {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:appcompat-v7:27.0.1'
+    compile 'com.android.support:design:27.0.1'
     compile 'org.apache.commons:commons-compress:1.14'
     compile 'org.tukaani:xz:1.6'
     compile 'wf.bitcoin:JavaBitcoindRpcClient:0.9.14'
-    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:support-v4:27.0.1'
 }
