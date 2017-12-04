@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.greenaddress.abcore"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 61
         versionName "0.61"
@@ -30,11 +30,6 @@ android {
     productFlavors {
         prod {
             flavorDimensions "default"
-            versionCode Integer.parseInt(String.format("%s%s", 16, defaultConfig.getProperty("versionCode")))
-        }
-        prod_21 {
-            flavorDimensions "default"
-            minSdkVersion 21
             versionCode Integer.parseInt(String.format("%s%s", 21, defaultConfig.getProperty("versionCode")))
         }
     }
@@ -52,7 +47,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.android.support:design:27.0.2'
     compile 'org.apache.commons:commons-compress:1.14'
-    compile 'org.tukaani:xz:1.6'
     compile 'wf.bitcoin:JavaBitcoindRpcClient:0.9.14'
     compile 'com.android.support:support-v4:27.0.2'
 }

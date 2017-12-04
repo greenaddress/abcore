@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -43,9 +42,6 @@ public class LogActivity extends AppCompatActivity {
             }
 
             return sb.reverse().toString();
-        } catch (final FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
         } catch (final IOException e) {
             e.printStackTrace();
             return null;
@@ -69,7 +65,7 @@ public class LogActivity extends AppCompatActivity {
             return;
         }
 
-        final EditText et = (EditText) findViewById(R.id.editText);
+        final EditText et = findViewById(R.id.editText);
         for (int lines = 1000; lines > 0; --lines) {
             final String txt = getLastLines(f, lines);
             if (txt != null) {

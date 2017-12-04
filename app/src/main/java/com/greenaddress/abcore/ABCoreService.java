@@ -12,7 +12,6 @@ import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 public class ABCoreService extends Service {
 
@@ -64,55 +63,25 @@ public class ABCoreService extends Service {
     public int onStartCommand(final Intent intent, final int flags, final int startId) {
         if (mProcess != null || intent == null)
             return START_STICKY;
-        final String arch = Utils.getArch();
-        final File dir = Utils.getDir(this);
         Log.i(TAG, "Core service msg");
 
         // start core
         try {
-            final String tmpArch = arch.equals("amd64") ? "x86_64" : arch;
-            final String aarch = arch.equals("arm64") ? "aarch64" : tmpArch;
-            final String gnu;
-
-            if (arch.equals("armhf")) {
-                gnu = "gnueabihf";
-            } else {
-                gnu = "gnu";
-            }
-
-            final String ld;
-
-            ld = String.format("%s/usr/lib/ld-%s.so", dir.getAbsoluteFile(), Packages.GLIBC_MAJOR);
-
 
             // allow to pass in a different datadir directory
 
             // HACK: if user sets a datadir in the bitcoin.conf file that should then be the one
             // used
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-            final ProcessBuilder pb = new ProcessBuilder(ld,
-                    String.format("%s/bitcoin-%s/bin/bitcoind", dir.getAbsolutePath(), Packages.CORE_V),
-                    "-server=1",
-                    String.format("-datadir=%s", Utils.getDataDir(this)),
-                    String.format("-conf=%s", Utils.getBitcoinConf(this)));
+            final String path = getNoBackupFilesDir().getCanonicalPath();
+            final ProcessBuilder pb = new ProcessBuilder(
+                    String.format("%s/bitcoind", path),
+                    "--server=1",
+                    String.format("--datadir=%s", Utils.getDataDir(this)),
+                    String.format("--conf=%s", Utils.getBitcoinConf(this)));
 
-            final Map<String, String> env = pb.environment();
+            pb.directory(new File(path));
 
-            // unset LD_PRELOAD for devices such as Samsung S6 (LD_PRELOAD errors on libsigchain.so starting core although works ..)
-
-            env.put("LD_PRELOAD", "");
-
-            env.put("LD_LIBRARY_PATH",
-                    String.format("%s:%s:%s:%s:%s:%s",
-                            String.format("%s/lib", dir.getAbsolutePath()),
-                            String.format("%s/usr/lib", dir.getAbsolutePath()),
-                            String.format("%s/lib/%s-linux-%s", dir.getAbsolutePath(), aarch, gnu),
-                            String.format("%s/lib/arm-linux-gnueabihf", dir.getAbsolutePath()),
-                            String.format("%s/usr/lib/%s-linux-%s", dir.getAbsolutePath(), aarch, gnu),
-                            String.format("%s/usr/lib/arm-linux-gnueabihf", dir.getAbsolutePath())
-                    ));
-
-            pb.directory(new File(Utils.getDataDir(this)));
 
             mProcess = pb.start();
             final ProcessLogger.OnError er = new ProcessLogger.OnError() {

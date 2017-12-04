@@ -37,11 +37,11 @@ public class DownloadActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mPB = (ProgressBar) findViewById(R.id.progressBar);
-        mTvStatus = (TextView) findViewById(R.id.textView);
-        mButton = (Button) findViewById(R.id.button);
-        mTvDetails = (TextView) findViewById(R.id.textViewDetails);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        mPB = findViewById(R.id.progressBar);
+        mTvStatus = findViewById(R.id.textView);
+        mButton = findViewById(R.id.button);
+        mTvDetails = findViewById(R.id.textViewDetails);
         mContent = findViewById(android.R.id.content);
         setSupportActionBar(toolbar);
 

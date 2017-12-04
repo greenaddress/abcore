@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -24,11 +23,7 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
         final Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         final boolean ac_usb_plugged = plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return ac_usb_plugged || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
-        }
-        return ac_usb_plugged;
-
+        return ac_usb_plugged || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
     }
 
     private static boolean isWifiConnected(final Context context) {

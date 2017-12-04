@@ -19,12 +19,12 @@ If you want to try it, you can also get it directly from GitHub [here](https://g
 What is Android Bitcoin Core?
 -----------------------------
 
-Android Bitcoin Core is an Android app that fetches bitcoin core daemon and dependencies and is meant to make it easier 
-to run Bitcoin Core daemon node on always on Android set top box devices and home appliances.
+Android Bitcoin Core is an Android app that fetches bitcoin core daemon built for Android using the NDK and is meant to make it easier
+to run Bitcoin Core daemon node on always on Android set top box devices and home appliances as well as mobile devices.
 
-The dependencies are fetched from Arch Linux and the full node software (Core 0.14.2, Knots 0.14.2.knots20170618) is meant to be used as a personal node when on the go (either by using a mobile wallet that allows to connect to a remote and specific node or even directly on your mobile device).
+The full node software (Core 0.15.1 and Knots) is meant to be used as a personal node when on the go (either by using a mobile wallet that allows to connect to a remote and specific node or even directly on your mobile device).
 
-ABCore works on x86, x86_64, armhf and arm64 Android (any version from 4.0.0 onwards - sdk 16). Mips is not supported.
+ABCore works on x86, x86_64, armhf and arm64 Android (any version from Lollipop onwards - sdk 21). Mips is not supported.
 
 License
 -------
@@ -37,14 +37,14 @@ Privacy
 
 ABCore doesn't do any kind of phone home, doesn't have In-App Purchase or advertising.
 
-During the initial configuration it connects to the Arch Linux archive for your architecture to fetch the required dependencies and once it is installed it only communicates with the rest of the Bitcoin network like any normal full node.
+During the initial configuration it connects to Github to fetch the required binaries and once it is installed it only communicates with the rest of the Bitcoin network like any normal full node.
 
 Limitations
 -----------
 
-ABCore requires a fair amount of ram (tested with 2GB) and a fair amount of disk space (tested with 100GB) as well as a decent always on connection - 3G or 4G is not adviced.
+ABCore requires a fair amount of ram (tested with 2GB) and a fair amount of disk space (tested with 256GB for non pruned node) as well as a decent always on connection - 3G or 4G is not adviced.
 
-We also do not advice to use this as a wallet, we advice to use this as your personal blockchain anchor when on the go with wallets that support to set a personal node.
+We also do not advice to use this as a wallet at this time, we advice to use this as your personal blockchain anchor when on the go with wallets that support to set a personal node.
 
 The contributors of ABCore are not liable for any cost or damage caused by the app including but not limited to data charges/penalties.
 

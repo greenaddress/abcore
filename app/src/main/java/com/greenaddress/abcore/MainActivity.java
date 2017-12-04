@@ -87,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mTvStatus = (TextView) findViewById(R.id.textView);
-        mSwitchCore = (Switch) findViewById(R.id.switchCore);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        mTvStatus = findViewById(R.id.textView);
+        mSwitchCore = findViewById(R.id.switchCore);
+        mProgressBar = findViewById(R.id.progressBar);
         setSupportActionBar(toolbar);
         setSwitch();
     }

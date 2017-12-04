@@ -30,7 +30,7 @@ public class PeerActivity extends ListActivity {
         setContentView(R.layout.activity_peer);
 
         setListAdapter(adapter);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +61,8 @@ public class PeerActivity extends ListActivity {
     }
 
     private void refresh() {
-        final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarPeerList);
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final ProgressBar pb = findViewById(R.id.progressBarPeerList);
+        final FloatingActionButton fab = findViewById(R.id.fab);
 
         pb.setVisibility(View.VISIBLE);
         fab.setVisibility(View.GONE);
@@ -79,9 +79,9 @@ public class PeerActivity extends ListActivity {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarPeerList);
+            final ProgressBar pb = findViewById(R.id.progressBarPeerList);
             pb.setVisibility(View.GONE);
-            final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            final FloatingActionButton fab = findViewById(R.id.fab);
             fab.setVisibility(View.VISIBLE);
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
             switch (text) {

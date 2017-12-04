@@ -216,8 +216,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 public boolean onPreferenceClick(final Preference preference) {
                     final File dir = Utils.getDir(getActivity());
                     deleteRF(new File(dir, "shachecks"));
-                    deleteRF(new File(dir, "usr"));
-                    deleteRF(new File(dir, String.format("bitcoin-%s", Packages.CORE_V)));
+                    deleteRF(new File(dir, "bitcoind"));
                     getActivity().finish();
                     return true;
                 }

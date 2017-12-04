@@ -21,7 +21,7 @@ public class ConsoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_console);
 
-        final EditText console = (EditText) findViewById(R.id.editText2);
+        final EditText console = findViewById(R.id.editText2);
         console.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(final TextView textView, final int actionId, final KeyEvent event) {
@@ -68,11 +68,11 @@ public class ConsoleActivity extends AppCompatActivity {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
-            final EditText history = (EditText) findViewById(R.id.editText);
+            final EditText history = findViewById(R.id.editText);
 
             switch (text) {
                 case "CONSOLE_REQUEST":
-                    final EditText console = (EditText) findViewById(R.id.editText2);
+                    final EditText console = findViewById(R.id.editText2);
                     final String res = intent.getStringExtra("res");
 
                     history.setText(String.format("%s -> %s", console.getText().toString(), res));

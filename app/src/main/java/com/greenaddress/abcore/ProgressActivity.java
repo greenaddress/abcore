@@ -24,7 +24,7 @@ public class ProgressActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -63,8 +63,8 @@ public class ProgressActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            final ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarSyncBlock);
-            final TextView textStatus = (TextView) findViewById(R.id.textViewSyncBlock);
+            final ProgressBar pb = findViewById(R.id.progressBarSyncBlock);
+            final TextView textStatus = findViewById(R.id.textViewSyncBlock);
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
             switch (text) {
                 case "progress": {

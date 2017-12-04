@@ -8,7 +8,7 @@
     <string name="pref_header_android">Extra Configuration</string>
     <string name="title_activity_peer">Peers</string>
     <string name="title_activity_progress">Synchronization progress</string>
-    <string name="download_core">The app requires Bitcoin and its dependencies to function. Click on the button to start downloading and configuring Bitcoin</string>
+    <string name="download_core">The app requires a Bitcoin daemon to function. Click on the button to start downloading and configuring Bitcoin</string>
     <string name="start">Start download</string>
     <string name="failedretry">Failure, want to retry?</string>
     <string name="waitfetchingconfiguring">Please wait. Fetching, unpacking and configuring Bitcoin&#8230;</string>

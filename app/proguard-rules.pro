@@ -18,3 +18,6 @@
 
 -dontwarn org.apache.commons.compress.archivers.**
 -dontwarn org.apache.commons.compress.compressors.brotli.**
+-dontwarn org.apache.commons.compress.compressors.lzma.**
+-dontwarn org.apache.commons.compress.compressors.xz.**
+
