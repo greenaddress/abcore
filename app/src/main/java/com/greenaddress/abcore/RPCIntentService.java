@@ -7,7 +7,10 @@ import android.util.Log;
 import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -42,15 +45,37 @@ public class RPCIntentService extends IntentService {
 
     private String getRpcUrl() throws IOException {
         final Properties p = getBitcoinConf();
-        final String user = p.getProperty("rpcuser", "bitcoinrpc");
-        final String password = p.getProperty("rpcpassword");
+        String user = p.getProperty("rpcuser");
+        String password = p.getProperty("rpcpassword");
+        final String testnet = p.getProperty("testnet");
+        final String nonMainnet = testnet == null || !testnet.equals("1") ? p.getProperty("regtest") : testnet;
+        if (user == null || password == null) {
+            final String cookie = String.format("%s/%s", p.getProperty("datadir"), ".cookie");
+            final String cookieTestnet = String.format("%s/%s", p.getProperty("datadir"), "testnet3/.cookie");
+
+            final String fCookie = nonMainnet == null || !nonMainnet.equals("1") ? cookie : cookieTestnet;
+            final File file = new File(fCookie);
+
+            final StringBuilder text = new StringBuilder();
+
+            try {
+                final BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    text.append(line);
+                }
+                br.close();
+            }
+            catch (IOException e) {
+            }
+            final String cookie_content = text.toString();
+            user = "__cookie__";
+            if (cookie_content.length() > user.length() + 2)
+                password = cookie_content.substring(user.length() + 1);
+        }
         final String host = p.getProperty("rpcconnect", "127.0.0.1");
         final String port = p.getProperty("rpcport");
-
-        final String testnet = p.getProperty("testnet");
-
-        final String nonMainnet = testnet == null || !testnet.equals("1") ? p.getProperty("regtest") : testnet;
-
         final String url = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "8332" : port) + "/";
         final String testUrl = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "18332" : port) + "/";
 

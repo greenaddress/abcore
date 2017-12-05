@@ -20,7 +20,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Properties;
 
 class Utils {
@@ -154,45 +153,6 @@ class Utils {
         } catch (final IOException e) {
             return false;
         }
-    }
-
-    static String toBase58(final byte[] in) {
-
-        final char[] ab = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
-
-        int zeroCounter = 0;
-
-        while (zeroCounter < in.length && in[zeroCounter] == 0)
-            ++zeroCounter;
-
-        final byte[] cp = Arrays.copyOf(in, in.length);
-
-        final char[] enc = new char[cp.length * 2];
-
-        int resBegin = enc.length;
-        int begin = zeroCounter;
-
-        while (begin < cp.length) {
-
-            int rem = 0;
-            for (int j = begin; j < cp.length; ++j) {
-                final int temp = ((int) cp[j] & 0xFF) + (256 * rem);
-                cp[j] = (byte) (temp / 58);
-                rem = temp % 58;
-            }
-
-            enc[--resBegin] = ab[(byte) rem];
-            if (cp[begin] == 0)
-                ++begin;
-        }
-
-        while (resBegin < enc.length && ab[0] == enc[resBegin])
-            ++resBegin;
-
-        while (--zeroCounter >= 0)
-            enc[--resBegin] = ab[0];
-
-        return new String(enc, resBegin, enc.length - resBegin);
     }
 
     static String getFilePathFromUrl(final Context c, final String url) {

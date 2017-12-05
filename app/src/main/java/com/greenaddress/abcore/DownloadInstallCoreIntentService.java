@@ -14,9 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.List;
-import java.util.Random;
 
 public class DownloadInstallCoreIntentService extends IntentService {
 
@@ -26,14 +24,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
     public DownloadInstallCoreIntentService() {
         super(DownloadInstallCoreIntentService.class.getName());
-    }
-
-    private static String getRnd() {
-
-        final Random ranGen = new SecureRandom();
-        final byte[] pass = new byte[16];
-        ranGen.nextBytes(pass);
-        return Utils.toBase58(pass);
     }
 
     public static void configureCore(final Context c) throws IOException {
@@ -47,8 +37,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
         try {
             outputStream = new FileOutputStream(coreConf);
-            outputStream.write("rpcuser=bitcoinrpc\n".getBytes());
-            outputStream.write(String.format("rpcpassword=%s\n", getRnd()).getBytes());
             outputStream.write("listen=1\n".getBytes());
 
             //outputStream.write("bind=127.0.0.1\n".getBytes());
