@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -68,24 +67,26 @@ public class ProgressActivity extends AppCompatActivity {
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
             switch (text) {
                 case "progress": {
-                    final int max = intent.getIntExtra("max", -1);
-                    final int sync = intent.getIntExtra("sync", -1);
+                    final int max = 100;
+                    final int blocks = intent.getIntExtra("blocks", 0);
+
+
+                    final double sync = intent.getDoubleExtra("sync", -1);
+                    final int percent = (int) Math.round(sync);
                     if (timer != null) {
                         timer.cancel();
                         timer.purge();
                     }
-                    if (max == -1)
+                    if (blocks == 0)
                         Snackbar.make(findViewById(android.R.id.content),
                                 "There are no peers yet", Snackbar.LENGTH_LONG).show();
                     else {
                         pb.setMax(max);
-                        pb.setProgress(sync);
-                        if (max == sync)
-                            textStatus.setText(String.format("Up to date (block height %s)", sync));
+                        pb.setProgress(percent);
+                        if (max == percent)
+                            textStatus.setText(String.format("Up to date (block height %s)", blocks));
                         else
-                            textStatus.setText(String.format("Processed %s%s (%s out of %s)", new DecimalFormat("#.##").format(((double) sync / max) * 100.0), "%", sync, max));
-
-
+                            textStatus.setText(String.format("Processed %s%s (block height %s)", Math.round(sync), "%" , blocks));
                         timer = new Timer();
                         timer.schedule(new TimerTask() {
                             public void run() {

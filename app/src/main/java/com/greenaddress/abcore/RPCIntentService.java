@@ -113,17 +113,9 @@ public class RPCIntentService extends IntentService {
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "progress");
 
-        final List<BitcoindRpcClient.PeerInfoResult> pir = bitcoin.getPeerInfo();
-        int max = -1;
-        for (final BitcoindRpcClient.PeerInfoResult r : pir) {
-            final int h = r.getStartingHeight();
-            if (h > max && h != 0)
-                max = h;
-        }
-
-        broadcastIntent.putExtra("max", max);
-        broadcastIntent.putExtra("sync", bitcoin.getBlockCount());
-
+        final BitcoindRpcClient.BlockChainInfo info = bitcoin.getBlockChainInfo();
+        broadcastIntent.putExtra("sync", info.verificationProgress() * 100);
+        broadcastIntent.putExtra("blocks", info.blocks());
         sendBroadcast(broadcastIntent);
 
     }
