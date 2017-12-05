@@ -1,11 +1,13 @@
 package com.greenaddress.abcore;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
@@ -42,13 +44,28 @@ public class ABCoreService extends Service {
         final PendingIntent pI;
         pI = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
         final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        final Notification n = new Notification.Builder(this)
+
+        final Notification.Builder b = new Notification.Builder(this)
                 .setContentTitle("ABCore is running")
                 .setContentIntent(pI)
                 .setContentText(String.format("Version %s", Packages.CORE_V))
                 .setSmallIcon(R.drawable.ic_info_black_24dp)
-                .setOngoing(true)
-                .build();
+                .setOngoing(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            final int importance = NotificationManager.IMPORTANCE_LOW;
+
+            final NotificationChannel mChannel = new NotificationChannel("channel_00", "ABCore", importance);
+            mChannel.setDescription(String.format("Version %s", Packages.CORE_V));
+            mChannel.enableLights(true);
+            mChannel.enableVibration(true);
+            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+            nM.createNotificationChannel(mChannel);
+            b.setChannelId("channel_00");
+        }
+
+
+        final Notification n = b.build();
 
         nM.notify(NOTIFICATION_ID, n);
 
