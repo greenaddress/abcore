@@ -5,28 +5,27 @@ import java.util.List;
 
 class Packages {
 
-    final static String CORE_V = "0.15.1";
-    private final static String KNOTS_V = ".knots20171111";
+    final static String CORE_V = "0.16.0";
 
-    private final static String URL = "https://github.com/greenaddress/abcore/releases/download/v0.61alphaPoC/%s_v%s%s.tar.gz";
+    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v%s/%s_bitcoin%s.tar.gz";
 
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "3865955arm-linux-androideabi99f382412eea95da7592e45bea9b2d06249541a6dc9c7acf54fbc63898b7e702",
-            "3671269aarch64-linux-androidb4f4689196179e6d2637490bce0506aeffcb8a140f3d91dbdfb326a9e875ae8f",
-            "4067477x86_64-linux-androidf9a946d6be46d75f87ecadc54b5a2987cad8464713909ff6c06b499652a946c9",
-            "4065739i686-linux-android03bb9a40bc155c476be8e498990cc3384066d44b8b183fac17d4f615a8cc7961"
+            "3903927arm-linux-androideabi87b2ae4496ea0d4a71cca79a9abf983290a35c7473298504baef2ffff416b012",
+            "3722934aarch64-linux-android918181e1ea3bb42e9c440d2c8a12f57c5ef69fd3ad5d9dbc7f257f4a42f431e6",
+            "4113968x86_64-linux-android0ca65b1317e1fb05f4fdd29d249a600526c8fc84ed35e241c80bd4f80594098d",
+            "4112769i686-linux-android7fcfdcd3cf643d897e006d1a8a9d45133ec4b8abf051f58e3b73630bd3250495"
     );
 
 
     final static List<String> NATIVE_KNOTS =
             Arrays.asList(
-                    "3979715arm-linux-androideabif6d14368ea603c32424507a0ad53f1cce1ca949b90aea3c0b5bb83e2b680c23e",
-                    "3777051aarch64-linux-android0b09eced668570531923bd3a03922c51d63e6a5b180288e26c75253e15f1ddc7",
-                    "4186541x86_64-linux-android614d9a105aedd48ebbbb6d440cbdb97e198e36414ce40660013b38477f6b6083",
-                    "4186390i686-linux-androidfbe8d674c209e1fb3a8acfb9fa5040cf409695b8c2f944f1ad15be72611e978d"
+                    "4107514arm-linux-androideabi7b7d2dfe5a179805b948dff1a37cabc1400874411d84a94680026c0ffa6d0edb",
+                    "3914765aarch64-linux-android3d80d68528bb21b3433de41e5354ecad195badfe3f1049a89bfd729fc55eef11",
+                    "4325805x86_64-linux-android975636798528cf57b22ecbc96f342808dbda34111ab5873d1d9463840cf744c7",
+                    "4327164i686-linux-android47b4af30c46c60d1996f0af21f4ef3455e0a7b31e11b9d8fc9e84572b02fe33f"
             );
 
     static String getPackageUrl(final String distro, final String arch) {
-        return String.format(URL, arch, CORE_V, distro.equals("core")? "" : KNOTS_V);
+        return String.format(URL, CORE_V, arch, distro.equals("core")? "" : "knots");
     }
 }
