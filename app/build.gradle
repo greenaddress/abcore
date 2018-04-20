@@ -44,9 +44,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'org.apache.commons:commons-compress:1.14'
     implementation 'wf.bitcoin:JavaBitcoindRpcClient:0.9.14'
-    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.1'
 }
