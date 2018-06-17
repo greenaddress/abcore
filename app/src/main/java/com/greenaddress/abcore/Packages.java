@@ -5,15 +5,16 @@ import java.util.List;
 
 class Packages {
 
-    final static String CORE_V = "0.16.0";
+    final static String CORE_V = "0.16.1";
+    final static String KNOTS_V = "0.16.0";
 
     private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v%s/%s_bitcoin%s.tar.gz";
 
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "3903927arm-linux-androideabi87b2ae4496ea0d4a71cca79a9abf983290a35c7473298504baef2ffff416b012",
-            "3722934aarch64-linux-android918181e1ea3bb42e9c440d2c8a12f57c5ef69fd3ad5d9dbc7f257f4a42f431e6",
-            "4113968x86_64-linux-android0ca65b1317e1fb05f4fdd29d249a600526c8fc84ed35e241c80bd4f80594098d",
-            "4112769i686-linux-android7fcfdcd3cf643d897e006d1a8a9d45133ec4b8abf051f58e3b73630bd3250495"
+            "3821902arm-linux-androideabiab44e38a07f84370a2181f54082969e01673ce475229919dc582c9b76e13befb",
+            "3820722aarch64-linux-android39b25f1413b159a1bfe806ee32de85d141559b395708502f6ef4547149f047f2",
+            "4181597x86_64-linux-android9eb99c35c64eb9e38876c38788b666d29fefd7548a808c73f3d0aa3ecda35988",
+            "4090532i686-linux-android5e962b265b73de66c5c002a6b631517aefff4befd6fe87e61e795cdeee411b6d"
     );
 
 
@@ -26,6 +27,9 @@ class Packages {
             );
 
     static String getPackageUrl(final String distro, final String arch) {
-        return String.format(URL, CORE_V, arch, distro.equals("core")? "" : "knots");
+        if (distro.equals("core")) {
+            return String.format(URL, CORE_V, arch, "");
+        }
+        return String.format(URL, KNOTS_V, arch, "knots");
     }
 }

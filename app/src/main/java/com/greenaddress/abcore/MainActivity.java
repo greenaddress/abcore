@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-        mTvStatus.setText(getString(R.string.runningturnoff, useDistribution, Packages.CORE_V));
+        mTvStatus.setText(getString(R.string.runningturnoff, useDistribution, useDistribution.equals("knots") ? Packages.KNOTS_V : Packages.CORE_V));
         if (!mSwitchCore.isChecked())
             mSwitchCore.setChecked(true);
         mSwitchCore.setText(R.string.switchcoreoff);
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-        mTvStatus.setText(getString(R.string.stoppedturnon, useDistribution, Packages.CORE_V));
+        mTvStatus.setText(getString(R.string.stoppedturnon, useDistribution, useDistribution.equals("knots") ? Packages.KNOTS_V : Packages.CORE_V));
         if (mSwitchCore.isChecked())
             mSwitchCore.setChecked(false);
         mSwitchCore.setText(R.string.switchcoreon);
