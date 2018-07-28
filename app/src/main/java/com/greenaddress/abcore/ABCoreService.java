@@ -7,10 +7,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -47,15 +45,10 @@ public class ABCoreService extends Service {
         pI = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
         final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-
-
         final Notification.Builder b = new Notification.Builder(this)
                 .setContentTitle("ABCore is running")
                 .setContentIntent(pI)
-                .setContentText(String.format("Version %s", useDistribution.equals("knots") ? Packages.KNOTS_V : Packages.CORE_V))
+                .setContentText(String.format("Version %s", Packages.BITCOIN_NDK))
                 .setSmallIcon(R.drawable.ic_info_black_24dp)
                 .setOngoing(true);
 
@@ -63,7 +56,7 @@ public class ABCoreService extends Service {
             final int importance = NotificationManager.IMPORTANCE_LOW;
 
             final NotificationChannel mChannel = new NotificationChannel("channel_00", "ABCore", importance);
-            mChannel.setDescription(String.format("Version %s", useDistribution.equals("knots") ? Packages.KNOTS_V : Packages.CORE_V));
+            mChannel.setDescription(String.format("Version %s", Packages.BITCOIN_NDK));
             mChannel.enableLights(true);
             mChannel.enableVibration(true);
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});

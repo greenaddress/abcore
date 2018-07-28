@@ -57,7 +57,7 @@ public class ProgressActivity extends AppCompatActivity {
 
     class RPCResponseReceiver extends BroadcastReceiver {
 
-        public static final String ACTION_RESP =
+        static final String ACTION_RESP =
                 "com.greenaddress.intent.action.RPC_PROCESSED";
 
         @Override

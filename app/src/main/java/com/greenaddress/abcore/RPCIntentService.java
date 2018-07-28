@@ -67,7 +67,7 @@ public class RPCIntentService extends IntentService {
                 }
                 br.close();
             }
-            catch (IOException e) {
+            catch (final IOException ignored) {
             }
             final String cookie_content = text.toString();
             user = "__cookie__";

@@ -63,7 +63,7 @@ public class ConsoleActivity extends AppCompatActivity {
 
     class RPCResponseReceiver extends BroadcastReceiver {
 
-        public static final String ACTION_RESP = "com.greenaddress.intent.action.RPC_PROCESSED";
+        static final String ACTION_RESP = "com.greenaddress.intent.action.RPC_PROCESSED";
 
         @Override
         public void onReceive(final Context context, final Intent intent) {

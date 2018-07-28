@@ -154,11 +154,6 @@ public class DownloadInstallCoreIntentService extends IntentService {
     private void sendUpdate(final String upd, final Integer bytesPerSec, final Integer bytesDownloaded, final Integer bytesSize, final String fileExtracted) {
         final Intent broadcastIntent = new Intent();
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-
-
         broadcastIntent.setAction(DownloadActivity.DownloadInstallCoreResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "ABCOREUPDATE");
@@ -168,7 +163,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         if (bytesPerSec != null)
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
 
-        broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s %s", upd, fileExtracted, useDistribution.equals("knots") ? Packages.KNOTS_V : Packages.CORE_V));
+        broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s %s", upd, fileExtracted, Packages.BITCOIN_NDK));
 
 
         sendBroadcast(broadcastIntent);

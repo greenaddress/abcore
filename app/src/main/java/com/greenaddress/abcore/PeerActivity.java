@@ -74,7 +74,7 @@ public class PeerActivity extends ListActivity {
 
     class RPCResponseReceiver extends BroadcastReceiver {
 
-        public static final String ACTION_RESP =
+        static final String ACTION_RESP =
                 "com.greenaddress.intent.action.RPC_PROCESSED";
 
         @Override
