@@ -23,6 +23,6 @@ jdk:
     - oraclejdk8
 
 script:
-    - "./gradlew clean assembleRelease"
+    - "./gradlew clean lint assembleRelease"
     - "android-wait-for-emulator"
     - "./gradlew cAT"
