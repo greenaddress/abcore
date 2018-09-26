@@ -12,8 +12,8 @@ android {
         applicationId "com.greenaddress.abcore"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 66
-        versionName "0.66"
+        versionCode 67
+        versionName "0.67"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
