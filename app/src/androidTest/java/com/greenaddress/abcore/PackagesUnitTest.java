@@ -1,26 +1,20 @@
 package com.greenaddress.abcore;
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.support.test.InstrumentationRegistry;
+
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-
-
-    public ApplicationTest() {
-        super(Application.class);
-    }
+public class PackagesUnitTest {
 
     private void downloadPackage(final String distro, final String arch) throws IOException, NoSuchAlgorithmException {
         final String url = Packages.getPackageUrl(distro, arch);
-        final String filePath = Utils.getFilePathFromUrl(getContext(), url);
+
+        final String filePath = InstrumentationRegistry.getTargetContext().getNoBackupFilesDir().getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
         Utils.downloadFile(url, filePath);
         final List<String> hashes = distro.equals("knots") ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
 
@@ -41,18 +35,22 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         downloadPackage("knots", arch);
     }
 
+    @Test
     public void testArm64Packages() throws IOException, NoSuchAlgorithmException {
         downloadCorePackage("aarch64-linux-android");
     }
 
+    @Test
     public void testAmd64Packages() throws IOException, NoSuchAlgorithmException {
         downloadCorePackage("x86_64-linux-android");
     }
 
+    @Test
     public void testi386Packages() throws IOException, NoSuchAlgorithmException {
         downloadCorePackage("i686-linux-android");
     }
 
+    @Test
     public void testArmHfPackages() throws IOException, NoSuchAlgorithmException {
         downloadCorePackage("arm-linux-androideabi");
     }
