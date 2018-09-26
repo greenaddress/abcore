@@ -5,25 +5,25 @@ import java.util.List;
 
 class Packages {
 
-    final static String BITCOIN_NDK = "0.16.2";
+    final static String BITCOIN_NDK = "0.16.3";
 
-    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.16.2/%s_bitcoin%s.tar.gz";
-    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.16.2.knots20180730/%s_bitcoin%s.tar.gz";
+    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.16.3/%s_bitcoin%s.tar.gz";
+    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.16.3/%s_bitcoin%s.tar.gz";
 
 
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "3820562arm-linux-androideabiad9ddaa9d9f18e8bb2ce2e4e08a43778d54669535faecc3d791f6a2065a2b4ee",
-            "3819156aarch64-linux-android42a8e81cfd4784c1366f584989a7c3fb76b01adbf12338b0cadee7564de1f5aa",
-            "4175958x86_64-linux-android9cdeffcec7e2c3053c4d898e3e7eb697359793293b0942742be1bb7e18be1d34",
-            "4088067i686-linux-androida105e0c02ca26b9c64c26de72fa0fdd95238a064c6ff0a435619b8443d3db068"
+            "3820644arm-linux-androideabi0c9988853f1c4d37912cd8787f385df61cda0e3150655c74db9573c6838f93ed",
+            "3818557aarch64-linux-androidd52dbc4078dfdd41f75be08a97968e8ef7d1c0810a0ff85890a042cf5d6b246d",
+            "4176548x86_64-linux-androidbb37ad7e63792e15c75f225ccaf1d5b73b4acd881653d4780e933e8d771cb030",
+            "4088035i686-linux-androidc585a3293cbc968eab684b1a1c76b6ee854d710402c17304eb9848c75c826425"
     );
 
 
     final static List<String> NATIVE_KNOTS = Arrays.asList(
-            "4003537arm-linux-androideabiaa026c69d4f2b51efe5730dea8cbb9575ff7e6ca651a29cd7e2b970ac48a497b",
-            "3998145aarch64-linux-android32faebb115926f731bfb0b5f2ee524d8876c90c2ed677e9e4844d73345770bc0",
-            "4412806x86_64-linux-android6fc81027363625f88a3d5c1bf3338838c33c47f5e6ffe43a7f6aec3bc4b1f39a",
-            "4320618i686-linux-android1a036a5b06ff9b88f7b7b60c973a8c0913d8194b3f8ed2fb0b6260430f657f87"
+            "4004146arm-linux-androideabi241d614774733ab68d98299e6eb9c313238ad27830e8364d03006f7543b00a34",
+            "3998141aarch64-linux-androidb415944c32948f4ceab4447087e5031aed06acc57120f7a45f55300862258373",
+            "4411787x86_64-linux-androidcf05c6d6be9d628a0bc6fc2c3bf9202e84f9afc1d6a0db3f995aa59261fffa5d",
+            "4320595i686-linux-android14c0d2249d91b679f69bea52ffe1343284142c4dde02622aefee0c30bee86c9c"
     );
 
     static String getPackageUrl(final String distro, final String arch) {
