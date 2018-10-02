@@ -5,11 +5,11 @@ dist: trusty
 android:
     components:
         - tools
-        - build-tools-27.0.3
+        - build-tools-28.0.3
         - android-27
         - android-21
         - sys-img-armeabi-v7a-android-21
-        - platform-tools-26
+        - platform-tools-28
         - extra-android-support
         - extra-android-m2repository
         - extra-google-m2repository
