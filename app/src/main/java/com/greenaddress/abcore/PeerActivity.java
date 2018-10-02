@@ -1,5 +1,6 @@
 package com.greenaddress.abcore;
 
+import android.annotation.SuppressLint;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,6 +22,7 @@ public class PeerActivity extends ListActivity {
     private ArrayAdapter<String> adapter;
     private RPCResponseReceiver rpcResponseReceiver;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class PeerActivity extends ListActivity {
         refresh();
     }
 
+    @SuppressLint("RestrictedApi")
     private void refresh() {
         final ProgressBar pb = findViewById(R.id.progressBarPeerList);
         final FloatingActionButton fab = findViewById(R.id.fab);
@@ -77,6 +80,7 @@ public class PeerActivity extends ListActivity {
         static final String ACTION_RESP =
                 "com.greenaddress.intent.action.RPC_PROCESSED";
 
+        @SuppressLint("RestrictedApi")
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final ProgressBar pb = findViewById(R.id.progressBarPeerList);
