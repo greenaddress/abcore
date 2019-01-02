@@ -69,36 +69,27 @@ public class ProgressActivity extends AppCompatActivity {
                 case "progress": {
                     final int max = 100;
                     final int blocks = intent.getIntExtra("blocks", 0);
-
-
-                    final double sync = intent.getDoubleExtra("sync", -1);
-                    final int percent = (int) Math.round(sync);
+                    final int percent = intent.getIntExtra("sync", -1);
                     if (timer != null) {
                         timer.cancel();
                         timer.purge();
                     }
-                    if (blocks == 0)
-                        Snackbar.make(findViewById(android.R.id.content),
-                                "There are no peers yet", Snackbar.LENGTH_LONG).show();
-                    else {
-                        pb.setMax(max);
-                        pb.setProgress(percent);
-                        if (max == percent)
-                            textStatus.setText(String.format("Up to date (block height %s)", blocks));
-                        else
-                            textStatus.setText(String.format("Processed %s%s (block height %s)", Math.round(sync), "%" , blocks));
-                        timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            public void run() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        refresh();
-                                    }
-                                });
-                            }
-                        }, 1000, 1000);
-                    }
+
+                    pb.setMax(max);
+                    pb.setProgress(percent);
+                    textStatus.setText(String.format("Processed %s%s (block height %s)", percent, "%" , blocks));
+                    timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refresh();
+                                }
+                            });
+                        }
+                    }, 1000, 1000);
+
 
                     break;
                 }

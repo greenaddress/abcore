@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -114,7 +115,7 @@ public class RPCIntentService extends IntentService {
         broadcastIntent.putExtra(PARAM_OUT_MSG, "progress");
 
         final BitcoindRpcClient.BlockChainInfo info = bitcoin.getBlockChainInfo();
-        broadcastIntent.putExtra("sync", info.verificationProgress() * 100);
+        broadcastIntent.putExtra("sync", info.verificationProgress().multiply(BigDecimal.valueOf(100)).intValue());
         broadcastIntent.putExtra("blocks", info.blocks());
         sendBroadcast(broadcastIntent);
 
@@ -203,26 +204,12 @@ public class RPCIntentService extends IntentService {
 
             final BitcoindRpcClient bitcoin = getRpc();
 
-            Log.i(TAG, "" + bitcoin.getEstimateFee(1));
-
             final Intent broadcastIntent = new Intent();
             broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
             broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
             broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
-
-            broadcastIntent.putExtra("FEE", "" + bitcoin.getEstimateFee(1));
-            broadcastIntent.putExtra("INFO", "" + bitcoin.getInfo());
-
-
-            final List<BitcoindRpcClient.PeerInfoResult> pir = bitcoin.getPeerInfo();
-            // find the most common blockchain height that is higher than hardcoded constant
-            for (final BitcoindRpcClient.PeerInfoResult r : pir) {
-                Log.i(TAG, "Blocks synched " + r.getSyncedBlocks());
-                Log.i(TAG, "Blocks starting " + r.getStartingHeight()); /*winner is*/
-                Log.i(TAG, "Blocks headers " + r.getSyncedHeaders());
-            }
-
-            Log.i(TAG, "Blocks " + bitcoin.getInfo().blocks());
+            // verify we are fully connected to rpc
+            bitcoin.getBlockCount();
 
             sendBroadcast(broadcastIntent);
 
