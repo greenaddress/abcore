@@ -90,7 +90,7 @@ public class DownloadActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        if (Utils.isBitcoinCoreConfigured(this))
+        if (Utils.isDaemonInstalled(this))
             finish();
 
         final IntentFilter downloadFilter = new IntentFilter(DownloadInstallCoreResponseReceiver.ACTION_RESP);

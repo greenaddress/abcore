@@ -48,7 +48,7 @@ public class ABCoreService extends Service {
         final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final String version = prefs.getBoolean("useknots", false) ? Packages.BITCOIN_KNOTS_NDK : Packages.BITCOIN_NDK;
+        final String version = Packages.getVersion(prefs.getString("version", Packages.BITCOIN_NDK));
 
         final Notification.Builder b = new Notification.Builder(this)
                 .setContentTitle("ABCore is running")
@@ -96,8 +96,11 @@ public class ABCoreService extends Service {
             // used
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
             final String path = getNoBackupFilesDir().getCanonicalPath();
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            final String useDistribution = prefs.getString("usedistribution", "core");
+            final String daemon = "liquid".equals(useDistribution) ? "liquidd" : "bitcoind";
             final ProcessBuilder pb = new ProcessBuilder(
-                    String.format("%s/bitcoind", path),
+                    String.format("%s/%s", path, daemon),
                     "--server=1",
                     String.format("--datadir=%s", Utils.getDataDir(this)),
                     String.format("--conf=%s", Utils.getBitcoinConf(this)));

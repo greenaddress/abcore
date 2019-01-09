@@ -80,7 +80,7 @@ public class ConsoleActivity extends AppCompatActivity {
                     break;
                 case "exception":
                     Snackbar.make(findViewById(android.R.id.content),
-                            "Core is not running", Snackbar.LENGTH_INDEFINITE).show();
+                            "Daemon is not running", Snackbar.LENGTH_INDEFINITE).show();
                     break;
             }
         }

@@ -2,7 +2,7 @@
 
     <ListPreference
         android:key="usedistribution"
-        android:title="Use Bitcoin Distribution"
+        android:title="Use Daemon Distribution"
         android:entryValues="@array/pref_use_values"
         android:entries="@array/pref_use_options"
     />

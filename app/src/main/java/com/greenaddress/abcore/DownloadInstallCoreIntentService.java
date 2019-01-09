@@ -50,6 +50,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
             outputStream.write("upnp=0\n".getBytes());
             // don't attempt onion connections by default
             outputStream.write("onlynet=ipv4\n".getBytes());
+            outputStream.write("validatepegin=0\n".getBytes());
+
             outputStream.write("blocksonly=1\n".getBytes());
             for (final File f : c.getExternalFilesDirs(null))
                 outputStream.write(String.format("# for external storage try: %s\n", f.getCanonicalPath()).getBytes());
@@ -92,9 +94,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-            final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-            final List<String> distro = "knots".equals(useDistribution) ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
-
+            final String useDistribution = prefs.getString("usedistribution", "core");
+            final List<String> distro = "knots".equals(useDistribution) ? Packages.NATIVE_KNOTS : "liquid".equals(useDistribution) ? Packages.NATIVE_LIQUID : Packages.NATIVE_CORE;
 
             final String url = Packages.getPackageUrl(useDistribution, arch);
             final String filePath = Utils.getFilePathFromUrl(this, url);
@@ -178,7 +179,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
 
 
-        broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s %s", upd, fileExtracted, fileExtracted.equals("knots") ? Packages.BITCOIN_KNOTS_NDK : Packages.BITCOIN_NDK));
+        broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s %s", upd, fileExtracted, "knots".equals(fileExtracted) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(fileExtracted) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
 
 
         sendBroadcast(broadcastIntent);

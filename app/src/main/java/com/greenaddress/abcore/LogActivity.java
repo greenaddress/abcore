@@ -1,6 +1,8 @@
 package com.greenaddress.abcore;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
 
@@ -58,7 +60,11 @@ public class LogActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        final File f = new File(Utils.getDataDir(this) + (Utils.isTestnet(this) ? "/testnet3/debug.log" : "/debug.log"));
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        final String daemon = "liquid".equals(useDistribution) ? "/liquidv1/debug.log" : "/debug.log";
+
+        final File f = new File(Utils.getDataDir(this) + (Utils.isTestnet(this) ? "/testnet3/debug.log" : daemon));
         if (!f.exists()) {
             ((EditText) findViewById(R.id.editText))
                     .setText("No debug file exists yet");

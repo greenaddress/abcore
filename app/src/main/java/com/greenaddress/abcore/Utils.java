@@ -1,7 +1,9 @@
 package com.greenaddress.abcore;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -178,8 +180,11 @@ class Utils {
             throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s", filePath, diff));
     }
 
-    static boolean isBitcoinCoreConfigured(final Context c) {
-        return new File(Utils.getDir(c).getAbsolutePath() + "/bitcoind").exists();
+    static boolean isDaemonInstalled(final Context c) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        final String daemon = useDistribution.equals("liquid") ? "liquidd" : "bitcoind";
+        return new File(Utils.getDir(c).getAbsolutePath() + "/" + daemon).exists();
     }
 
     interface OnDownloadUpdate {

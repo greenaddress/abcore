@@ -2,6 +2,8 @@ package com.greenaddress.abcore;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.compress.utils.IOUtils;
@@ -50,11 +52,16 @@ public class RPCIntentService extends IntentService {
         String password = p.getProperty("rpcpassword");
         final String testnet = p.getProperty("testnet");
         final String nonMainnet = testnet == null || !testnet.equals("1") ? p.getProperty("regtest") : testnet;
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String useDistribution = prefs.getString("usedistribution", "core");
         if (user == null || password == null) {
             final String cookie = String.format("%s/%s", p.getProperty("datadir"), ".cookie");
             final String cookieTestnet = String.format("%s/%s", p.getProperty("datadir"), "testnet3/.cookie");
+            final String cookieLiquid = String.format("%s/%s", p.getProperty("datadir"), "liquidv1/.cookie");
 
-            final String fCookie = nonMainnet == null || !nonMainnet.equals("1") ? cookie : cookieTestnet;
+            final String daemon = useDistribution.equals("liquid") ? cookieLiquid : cookie;
+
+            final String fCookie = nonMainnet == null || !nonMainnet.equals("1") ? daemon : cookieTestnet;
             final File file = new File(fCookie);
 
             final StringBuilder text = new StringBuilder();
@@ -78,8 +85,9 @@ public class RPCIntentService extends IntentService {
         final String port = p.getProperty("rpcport");
         final String url = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "8332" : port) + "/";
         final String testUrl = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "18332" : port) + "/";
-
-        return nonMainnet == null || !nonMainnet.equals("1") ? url : testUrl;
+        final String liquidUrl = "http://" + user + ':' + password + "@" + host + ":" + (port == null ? "7041" : port) + "/";
+        final String mainUrl = useDistribution.equals("liquid") ? liquidUrl : url;
+        return nonMainnet == null || !nonMainnet.equals("1") ? mainUrl : testUrl;
     }
 
     private BitcoindRpcClient getRpc() throws IOException {

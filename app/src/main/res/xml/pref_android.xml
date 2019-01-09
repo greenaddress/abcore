@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <CheckBoxPreference android:summary="If enabled, when the device is charging and on WiFi Core will automatically start" android:title="Starts when charging and on WiFi" android:key="startonchargingandwifi" android:defaultValue="false"/>
-    <Preference android:title="Delete core (no datadir)" android:key="deletecore"/>
-    <Preference android:title="Delete Bitcoin Core datadir" android:key="deletecoredatadir"/>
+    <Preference android:title="Delete daemon (no datadir)" android:key="deletecore"/>
+    <Preference android:title="Delete datadir" android:key="deletecoredatadir"/>
 
 </PreferenceScreen>

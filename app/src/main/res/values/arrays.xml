@@ -2,9 +2,11 @@
     <string-array name="pref_use_values" >
         <item>core</item>
         <item>knots</item>
+        <item>liquid</item>
     </string-array>
     <string-array name="pref_use_options" >
         <item>Bitcoin Core</item>
         <item>Bitcoin Knots</item>
+        <item>Blockstream Liquid</item>
     </string-array>
 </resources>

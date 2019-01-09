@@ -16,7 +16,7 @@ public class PackagesUnitTest {
 
         final String filePath = InstrumentationRegistry.getTargetContext().getNoBackupFilesDir().getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
         Utils.downloadFile(url, filePath);
-        final List<String> hashes = distro.equals("knots") ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
+        final List<String> hashes = "knots".equals(distro) ? Packages.NATIVE_KNOTS : "liquid".equals(distro) ? Packages.NATIVE_LIQUID : Packages.NATIVE_CORE;
 
         for (final String a : hashes) {
             final String h = a.substring(7);
@@ -33,6 +33,8 @@ public class PackagesUnitTest {
     private void downloadCorePackage(final String arch) throws IOException, NoSuchAlgorithmException {
         downloadPackage("core", arch);
         downloadPackage("knots", arch);
+        downloadPackage("liquid", arch);
+
     }
 
     @Test

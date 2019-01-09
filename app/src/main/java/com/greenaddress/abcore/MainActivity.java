@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         postDetection();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-        mTvStatus.setText(getString(R.string.runningturnoff, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : Packages.BITCOIN_NDK));
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        mTvStatus.setText(getString(R.string.runningturnoff, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
         if (!mSwitchCore.isChecked())
             mSwitchCore.setChecked(true);
         mSwitchCore.setText(R.string.switchcoreoff);
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         postDetection();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-        mTvStatus.setText(getString(R.string.stoppedturnon, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : Packages.BITCOIN_NDK));
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        mTvStatus.setText(getString(R.string.stoppedturnon, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
         if (mSwitchCore.isChecked())
             mSwitchCore.setChecked(false);
         mSwitchCore.setText(R.string.switchcoreon);
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        if (!Utils.isBitcoinCoreConfigured(this)) {
+        if (!Utils.isDaemonInstalled(this)) {
             startActivity(new Intent(this, DownloadActivity.class));
             return;
         }
