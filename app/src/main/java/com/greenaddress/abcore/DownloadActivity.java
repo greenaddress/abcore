@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,9 +48,9 @@ public class DownloadActivity extends AppCompatActivity {
 
         try {
             Utils.getArch();
-        } catch (final Utils.UnsupportedArch e) {
+        } catch (final Utils.ABIsUnsupported e) {
             mButton.setEnabled(false);
-            final String msg = getString(R.string.archunsupported, e.arch);
+            final String msg = getString(R.string.abis_unsupported, TextUtils.join(",", e.supported_ABIs));
             mTvStatus.setText(msg);
             showSnackMsg(msg);
         }

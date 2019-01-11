@@ -11,7 +11,6 @@
     <string name="start">Télécharger</string>
     <string name="failedretry">Échec, voulez-vous réessayer?</string>
     <string name="waitfetchingconfiguring">Veuillez patienter, récupération, déballage et configuration de Bitcoin&#8230;</string>
-    <string name="archunsupported">L\'architecture %1$s n\'est pas supportée</string>
     <string name="runningturnoff">Bitcoin %1$s %2$s est en cours d\'exécution, désactivez-le pour l\'arrêter.</string>
     <string name="stoppedturnon">"Bitcoin %1$s %2$s n\'est pas en cours d\'exécution, activez-le pour le démarrer."</string>
     <string name="switchcoreon">Activer</string>

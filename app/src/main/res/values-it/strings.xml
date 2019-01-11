@@ -11,7 +11,6 @@
     <string name="start">Fai partire il download</string>
     <string name="failedretry">Fallito, vuoi riprovare?</string>
     <string name="waitfetchingconfiguring">Per piacere aspetta. Scaricamento e configurazione di Bitcoin &#8230;</string>
-    <string name="archunsupported">Il dispostivo %1$s non è supportato</string>
     <string name="runningturnoff">Bitcoin %1$s %2$s è partito, porta Core su OFF per fermarlo.</string>
     <string name="stoppedturnon">"Bitcoin %1$s %2$s non è in funzione, porta Core su ON per farlo partire"</string>
     <string name="switchcoreon">Porta Core ON</string>

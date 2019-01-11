@@ -12,7 +12,7 @@
     <string name="start">Start download</string>
     <string name="failedretry">Failure, want to retry?</string>
     <string name="waitfetchingconfiguring">Please wait. Fetching, unpacking and configuring Bitcoin&#8230;</string>
-    <string name="archunsupported">Architecture %1$s is not supported</string>
+    <string name="abis_unsupported">The Application Binary Interfaces supported by this device aren\'t suppored by ABCore: %1$s</string>
     <string name="runningturnoff">Bitcoin %1$s %2$s is running, please switch OFF to stop it.</string>
     <string name="stoppedturnon">"Bitcoin %1$s %2$s is not running, please switch ON to start it."</string>
     <string name="switchcoreon">Switch ON</string>

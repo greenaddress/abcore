@@ -1,5 +1,4 @@
 <resources>
-    <string name="archunsupported">Architektur %1$s wird nicht unterstützt.@</string>
     <string name="download_core">Die App benötigt Bitcoin zum Funktionieren. Betätigen Sie die Schaltfläche um den Download und die Konfigurierung von Bitcoin zu beginnen.</string>
     <string name="failedretry">Fehler. Erneut versuchen?</string>
     <string name="pleasewait">"Bitte haben Sie etwas Geduld, während der Kern gesucht wird…</string>

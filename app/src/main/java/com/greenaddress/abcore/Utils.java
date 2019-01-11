@@ -1,6 +1,7 @@
 package com.greenaddress.abcore;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -114,16 +115,19 @@ class Utils {
     }
 
     static String getArch() {
-        final String arch = System.getProperty("os.arch");
-        if (arch.endsWith("86"))
-            return "i686-linux-android";
-        else if (arch.startsWith("armv7"))
-            return "arm-linux-androideabi";
-        else if (arch.endsWith("86_64"))
-            return "x86_64-linux-android";
-        else if ("aarch64".equals(arch) || "armv8l".equals(arch))
-            return "aarch64-linux-android";
-        throw new UnsupportedArch(arch);
+        for (final String abi : Build.SUPPORTED_ABIS) {
+            switch (abi) {
+                case "armeabi-v7a":
+                    return "arm-linux-androideabi";
+                case "arm64-v8a":
+                    return "aarch64-linux-android";
+                case "x86":
+                    return "i686-linux-android";
+                case "x86_64":
+                    return "x86_64-linux-android";
+            }
+        }
+        throw new ABIsUnsupported(Build.SUPPORTED_ABIS);
     }
 
     static File getDir(final Context c) {
@@ -176,12 +180,12 @@ class Utils {
         void update(final int bytesPerSecond, final int bytesDownloaded);
     }
 
-    static class UnsupportedArch extends RuntimeException {
-        final String arch;
+    static class ABIsUnsupported extends RuntimeException {
+        final String[] supported_ABIs;
 
-        UnsupportedArch(final String a) {
-            super(UnsupportedArch.class.getName());
-            this.arch = a;
+        ABIsUnsupported(final String[] s) {
+            super(ABIsUnsupported.class.getName());
+            this.supported_ABIs = s;
         }
     }
 
