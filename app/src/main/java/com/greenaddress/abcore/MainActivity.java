@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +73,11 @@ public class MainActivity extends AppCompatActivity {
                     final SharedPreferences.Editor e = prefs.edit();
                     e.putBoolean("magicallystarted", false);
                     e.apply();
-                    startService(new Intent(MainActivity.this, ABCoreService.class));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        startForegroundService(new Intent(MainActivity.this, ABCoreService.class));
+                    } else {
+                        startService(new Intent(MainActivity.this, ABCoreService.class));
+                    }
                 }
                 else {
                     final Intent i = new Intent(MainActivity.this, RPCIntentService.class);

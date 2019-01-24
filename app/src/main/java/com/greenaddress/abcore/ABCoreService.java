@@ -39,7 +39,7 @@ public class ABCoreService extends Service {
         return null;
     }
 
-    private void setupNotification() {
+    private void setupNotificationAndMoveToForeground() {
         final Intent i = new Intent(this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -72,7 +72,7 @@ public class ABCoreService extends Service {
 
         final Notification n = b.build();
 
-        nM.notify(NOTIFICATION_ID, n);
+        startForeground(NOTIFICATION_ID, n);
 
         final Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
@@ -125,7 +125,7 @@ public class ABCoreService extends Service {
             errorGobbler.start();
             outputGobbler.start();
 
-            setupNotification();
+            setupNotificationAndMoveToForeground();
 
         } catch (final IOException e) {
             Log.i(TAG, "Native exception!");
