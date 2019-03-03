@@ -87,7 +87,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             String rawSha = null;
             int bs = 0;
             for (final String a : distro) {
-                final String hash = a.substring(7, a.length());
+                final String hash = a.substring(7);
                 bs = Integer.parseInt(a.substring(0,7));
                 if (hash.startsWith(arch)) {
                     rawSha = hash;

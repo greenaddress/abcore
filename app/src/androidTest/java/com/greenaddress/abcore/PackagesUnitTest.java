@@ -19,7 +19,7 @@ public class PackagesUnitTest {
         final List<String> hashes = distro.equals("knots") ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
 
         for (final String a : hashes) {
-            final String h = a.substring(7, a.length());
+            final String h = a.substring(7);
             if (h.startsWith(arch)) {
                 Utils.validateSha256sum(arch, h, filePath);
                 break;
