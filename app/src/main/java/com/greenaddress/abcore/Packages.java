@@ -9,23 +9,23 @@ class Packages {
     final static String BITCOIN_KNOTS_NDK = "0.17.1";
 
 
-    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.17.1/%s_bitcoin%s.tar.gz";
-    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.17.1/%s_bitcoin%s.tar.gz";
+    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.17.1b/%s_bitcoin%s.tar.gz";
+    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.17.1b/%s_bitcoin%s.tar.gz";
 
 
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "3836183arm-linux-androideabia73a2e62e33ae994ecda021b130c55672a4dd3f53977b8427a4e45d5097f56a4",
-            "3910122aarch64-linux-androidaa45b42f08a4d7b71f12758f92155b319abfc8c04f55fba47bff1abbbfc0bdfa",
-            "4260400x86_64-linux-androidfeb2b7614111e7591cb4cfaa82fe31f97953324ccac55e25e2a8a26a24b2be60",
-            "4138985i686-linux-android2c6fda14756aa9fd08068bb85f5589f31e2c490f88e12c90b276256cb672c6df"
+            "3816351arm-linux-androideabif207bd1eaf76c665a3b1a892adb2f86420febb782f1d0066a2474637cef89b6e",
+            "3895937aarch64-linux-android683201131d9edd7ab3ca6bb20e17dae9f3f5b5e54d49574f783682e5d1dd384c",
+            "4293686x86_64-linux-android40c876d4b92cd8c9458e2273303ba4669713cf7b0187389f6a1b4c151f40f655",
+            "4142626i686-linux-android59b83c996e429f27ce1ac1f9e291d0d84f16ccff909c82ab6b1615f2d6c0205a"
     );
 
 
     final static List<String> NATIVE_KNOTS = Arrays.asList(
-            "3967502arm-linux-androideabi9ae8fbbdfe43178474e9f876e4d22f199cec98a94995ad84ef37e3172b499b25",
-            "4037180aarch64-linux-android96a76ad89f57b3a36e74f4de179ca9f0e9e1355558b423ea7229d666b5cb6c22",
-            "4402426x86_64-linux-android98a48e390c7b527135747e75b4925232e812204c99b425ffd9140541631f87f2",
-            "4278455i686-linux-android17354bd00d840f3cfd90df9031ba1249ac408a994a61c555fc7ddcc7329fdd1c"
+            "3946592arm-linux-androideabibc87bef758a455b335955c21205559b78d58b85b6cc9e6d5ab25d5d13ea19128",
+            "4024125aarch64-linux-androidd3135748e5fc1f47b73e2117158e43ffd840ccf49c8ac2e07f805883dfdb8d4c",
+            "4437929x86_64-linux-android17e162b33363da439739eced99735e24f00e4735e9e32ee461e440c542bacc4f",
+            "4287838i686-linux-android81ec3f60dfb5a2b9b5092bb5a775fb1fa87dba02190aea8b7537ddec134599c3"
     );
 
     static String getPackageUrl(final String distro, final String arch) {
