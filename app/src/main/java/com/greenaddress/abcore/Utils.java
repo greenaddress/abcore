@@ -127,7 +127,7 @@ class Utils {
                     return "x86_64-linux-android";
             }
         }
-        throw new ABIsUnsupported(Build.SUPPORTED_ABIS);
+        throw new ABIsUnsupported();
     }
 
     static File getDir(final Context c) {
@@ -181,11 +181,8 @@ class Utils {
     }
 
     static class ABIsUnsupported extends RuntimeException {
-        final String[] supported_ABIs;
-
-        ABIsUnsupported(final String[] s) {
+        ABIsUnsupported() {
             super(ABIsUnsupported.class.getName());
-            this.supported_ABIs = s;
         }
     }
 

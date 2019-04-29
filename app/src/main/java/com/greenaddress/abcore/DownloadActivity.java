@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +51,7 @@ public class DownloadActivity extends AppCompatActivity {
             Utils.getArch();
         } catch (final Utils.ABIsUnsupported e) {
             mButton.setEnabled(false);
-            final String msg = getString(R.string.abis_unsupported, TextUtils.join(",", e.supported_ABIs));
+            final String msg = getString(R.string.abis_unsupported, TextUtils.join(",", Build.SUPPORTED_ABIS));
             mTvStatus.setText(msg);
             showSnackMsg(msg);
         }
