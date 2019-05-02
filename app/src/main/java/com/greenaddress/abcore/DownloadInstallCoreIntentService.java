@@ -31,6 +31,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
         final File coreConf = new File(Utils.getBitcoinConf(c));
         if (coreConf.exists())
             return;
+        //noinspection ResultOfMethodCallIgnored
         coreConf.getParentFile().mkdirs();
 
         FileOutputStream outputStream;
@@ -78,7 +79,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
             final String useDistribution = prefs.getString("usedistribution", prefs.getBoolean("useknots", false) ? "knots" : "core");
-            final List<String> distro = useDistribution.equals("knots") ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
+            final List<String> distro = "knots".equals(useDistribution) ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
 
 
 
@@ -174,6 +175,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
     private static void markAsDone(final String sha, final File outputDir) throws IOException {
         final File shadir = new File(outputDir, "shachecks");
         if (!shadir.exists())
+            //noinspection ResultOfMethodCallIgnored
             shadir.mkdir();
         if (!new File(shadir, sha).createNewFile())
             throw new IOException();

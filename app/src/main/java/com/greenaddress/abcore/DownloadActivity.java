@@ -161,13 +161,10 @@ public class DownloadActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.download_distributions:
-                startActivity(new Intent(this, DownloadSettingsActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.download_distributions) {
+            startActivity(new Intent(this, DownloadSettingsActivity.class));
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
-
 }

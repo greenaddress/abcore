@@ -52,12 +52,14 @@ class Utils {
                 }
 
                 final int mode = ((TarArchiveEntry) entry).getMode();
+                //noinspection ResultOfMethodCallIgnored
                 f.setExecutable(true, (mode & 1) == 0);
             }
 
         } finally {
             IOUtils.closeQuietly(in);
         }
+        //noinspection ResultOfMethodCallIgnored
         input.delete();
     }
 

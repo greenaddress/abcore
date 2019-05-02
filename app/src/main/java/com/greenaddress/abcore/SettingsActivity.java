@@ -199,6 +199,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             for (File child : f.listFiles())
                 deleteRF(child);
 
+        //noinspection ResultOfMethodCallIgnored
         f.delete();
     }
 
