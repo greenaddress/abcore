@@ -13,11 +13,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class PowerBroadcastReceiver extends BroadcastReceiver {
+    private static final String TAG = PowerBroadcastReceiver.class.getName();
     private Boolean mWifiIsOn = null;
     private Boolean mCharging = null;
     private BroadcastReceiver mReceiver = null;
     private long mMillis = -1;
-    private static final String TAG = PowerBroadcastReceiver.class.getName();
 
     private static boolean isCharging(final Context context) {
         final Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -30,38 +30,6 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
         final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
-    }
-
-    public class RPCResponseReceiver extends BroadcastReceiver {
-        static final String ACTION_RESP =
-                "com.greenaddress.intent.action.RPC_PROCESSED";
-
-        @Override
-        public void onReceive(final Context context, final Intent intent) {
-
-            Log.d(TAG, "mWifiIsOn " + mWifiIsOn);
-            Log.d(TAG, "mCharging " + mCharging);
-
-            context.unregisterReceiver(mReceiver);
-            final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
-            switch (text) {
-                case "OK":
-                    Log.w(TAG, "CORE IS ALREADY RUNNING");
-                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                    if ((!mWifiIsOn || !mCharging) && prefs.getBoolean("magicallystarted", false) ) {
-                        Log.w(TAG, "STOPPING IT");
-                        stopCore(context);
-                    }
-                    break;
-                case "exception":
-                    Log.w(TAG, "CORE IS NOT RUNNING");
-                    if (mWifiIsOn && mCharging && (mMillis == -1 || System.currentTimeMillis() - mMillis > 20000)) {
-                        Log.w(TAG, "STARTING CORE");
-                        mMillis = System.currentTimeMillis();
-                        startCore(context);
-                    }
-            }
-        }
     }
 
     @Override
@@ -127,5 +95,37 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
         i.putExtra("stop", "yep");
         c.startService(i);
         setMagicallyStarted(c, false);
+    }
+
+    public class RPCResponseReceiver extends BroadcastReceiver {
+        static final String ACTION_RESP =
+                "com.greenaddress.intent.action.RPC_PROCESSED";
+
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+
+            Log.d(TAG, "mWifiIsOn " + mWifiIsOn);
+            Log.d(TAG, "mCharging " + mCharging);
+
+            context.unregisterReceiver(mReceiver);
+            final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
+            switch (text) {
+                case "OK":
+                    Log.w(TAG, "CORE IS ALREADY RUNNING");
+                    final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                    if ((!mWifiIsOn || !mCharging) && prefs.getBoolean("magicallystarted", false)) {
+                        Log.w(TAG, "STOPPING IT");
+                        stopCore(context);
+                    }
+                    break;
+                case "exception":
+                    Log.w(TAG, "CORE IS NOT RUNNING");
+                    if (mWifiIsOn && mCharging && (mMillis == -1 || System.currentTimeMillis() - mMillis > 20000)) {
+                        Log.w(TAG, "STARTING CORE");
+                        mMillis = System.currentTimeMillis();
+                        startCore(context);
+                    }
+            }
+        }
     }
 }

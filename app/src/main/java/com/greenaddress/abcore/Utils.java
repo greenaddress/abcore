@@ -169,13 +169,17 @@ class Utils {
         final String hash = Utils.sha256Hex(filePath);
         final String sha256hash = sha256raw.substring(sha256raw.indexOf(arch) + arch.length());
         Log.d(TAG, hash);
-        return sha256hash.equals(hash) ? null: hash;
+        return sha256hash.equals(hash) ? null : hash;
     }
 
     static void validateSha256sum(final String arch, final String sha256raw, final String filePath) throws IOException, NoSuchAlgorithmException {
         final String diff = isSha256Different(arch, sha256raw, filePath);
         if (diff != null)
             throw new ValidationFailure(String.format("File %s doesn't match sha256sum %s", filePath, diff));
+    }
+
+    static boolean isBitcoinCoreConfigured(final Context c) {
+        return new File(Utils.getDir(c).getAbsolutePath() + "/bitcoind").exists();
     }
 
     interface OnDownloadUpdate {
@@ -192,9 +196,5 @@ class Utils {
         ValidationFailure(final String s) {
             super(s);
         }
-    }
-
-    static boolean isBitcoinCoreConfigured(final Context c) {
-        return new File(Utils.getDir(c).getAbsolutePath() + "/bitcoind").exists();
     }
 }

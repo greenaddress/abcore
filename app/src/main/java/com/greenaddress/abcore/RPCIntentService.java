@@ -67,8 +67,7 @@ public class RPCIntentService extends IntentService {
                     text.append(line);
                 }
                 br.close();
-            }
-            catch (final IOException ignored) {
+            } catch (final IOException ignored) {
             }
             final String cookie_content = text.toString();
             user = "__cookie__";
@@ -217,12 +216,12 @@ public class RPCIntentService extends IntentService {
             Log.i(TAG, "EXE", i);
 
             if (i instanceof BitcoinRPCException && (((BitcoinRPCException) i).getResponseCode() == 500)) {
-                    final Intent broadcastIntent = new Intent();
-                    broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
-                    broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                    broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
-                    sendBroadcast(broadcastIntent);
-                    return;
+                final Intent broadcastIntent = new Intent();
+                broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
+                broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
+                sendBroadcast(broadcastIntent);
+                return;
             }
 
             broadcastError(i);

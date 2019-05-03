@@ -21,8 +21,8 @@ public class ABCoreService extends Service {
 
     private final static String TAG = ABCoreService.class.getName();
     private final static int NOTIFICATION_ID = 922430164;
-    private Process mProcess;
     private static final String PARAM_OUT_MSG = "rpccore";
+    private Process mProcess;
 
     private static void removeNotification(final Context c) {
         ((NotificationManager) c.getSystemService(NOTIFICATION_SERVICE)).cancel(NOTIFICATION_ID);

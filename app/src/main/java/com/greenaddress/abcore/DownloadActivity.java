@@ -30,6 +30,28 @@ public class DownloadActivity extends AppCompatActivity {
     private TextView mTvDetails;
     private View mContent;
 
+    private static String niceFlat(final float f, final String s) {
+        if ((int) f == f)
+            return String.format("@ %s %s", f, s);
+        return String.format(Locale.US, "@ %.2f %s", f, s);
+    }
+
+    private static String getSpeed(final int bytesPerSec) {
+        if (bytesPerSec == 0)
+            return "";
+
+        if (bytesPerSec >= 1024 * 1024 * 1024)
+            return niceFlat((float) bytesPerSec / (1024 * 1024 * 1024), "GB/s");
+
+        if (bytesPerSec >= 1024 * 1024)
+            return niceFlat((float) bytesPerSec / (1024 * 1024), "MB/s");
+
+        if (bytesPerSec >= 1024)
+            return String.format("@ %s KB/s", bytesPerSec / 1024);
+
+        return String.format("@ %s B/s", bytesPerSec);
+    }
+
     private void showSnackMsg(final String msg) {
         if (msg != null && !msg.trim().isEmpty())
             Snackbar.make(mContent, msg, Snackbar.LENGTH_INDEFINITE).show();
@@ -55,28 +77,6 @@ public class DownloadActivity extends AppCompatActivity {
             mTvStatus.setText(msg);
             showSnackMsg(msg);
         }
-    }
-
-    private static String niceFlat(final float f, final String s) {
-        if ((int) f == f)
-            return String.format("@ %s %s", f, s);
-        return String.format(Locale.US, "@ %.2f %s", f, s);
-    }
-
-    private static String getSpeed(final int bytesPerSec) {
-        if (bytesPerSec == 0)
-            return "";
-
-        if (bytesPerSec >= 1024 * 1024 * 1024)
-            return niceFlat((float) bytesPerSec / (1024 * 1024 * 1024), "GB/s");
-
-        if (bytesPerSec >= 1024 * 1024)
-            return niceFlat((float) bytesPerSec / (1024 * 1024 ), "MB/s");
-
-        if (bytesPerSec >= 1024)
-            return String.format("@ %s KB/s", bytesPerSec / 1024);
-
-        return String.format("@ %s B/s", bytesPerSec);
     }
 
     @Override
@@ -118,6 +118,23 @@ public class DownloadActivity extends AppCompatActivity {
         mTvStatus.setText(R.string.waitfetchingconfiguring);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.download, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        // Handle item selection
+        if (item.getItemId() == R.id.download_distributions) {
+            startActivity(new Intent(this, DownloadSettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public class DownloadInstallCoreResponseReceiver extends BroadcastReceiver {
         public static final String ACTION_RESP =
                 "com.greenaddress.intent.action.MESSAGE_PROCESSED";
@@ -149,22 +166,5 @@ public class DownloadActivity extends AppCompatActivity {
                     break;
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.download, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        // Handle item selection
-        if (item.getItemId() == R.id.download_distributions) {
-            startActivity(new Intent(this, DownloadSettingsActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

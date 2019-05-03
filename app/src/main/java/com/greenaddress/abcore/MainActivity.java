@@ -78,8 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         startService(new Intent(MainActivity.this, ABCoreService.class));
                     }
-                }
-                else {
+                } else {
                     final Intent i = new Intent(MainActivity.this, RPCIntentService.class);
                     i.putExtra("stop", "yep");
                     startService(i);

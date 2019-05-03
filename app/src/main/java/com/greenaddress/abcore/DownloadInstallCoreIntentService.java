@@ -65,6 +65,20 @@ public class DownloadInstallCoreIntentService extends IntentService {
         }
     }
 
+    private static void markAsDone(final String sha, final File outputDir) throws IOException {
+        final File shadir = new File(outputDir, "shachecks");
+        if (!shadir.exists())
+            //noinspection ResultOfMethodCallIgnored
+            shadir.mkdir();
+        if (!new File(shadir, sha).createNewFile())
+            throw new IOException();
+    }
+
+    private static boolean isUnpacked(final String sha, final File outputDir) {
+        final File shadir = new File(outputDir, "shachecks");
+        return new File(shadir, sha).exists();
+    }
+
     @Override
     protected void onHandleIntent(final Intent intent) {
         HAS_BEEN_STARTED = true;
@@ -82,14 +96,13 @@ public class DownloadInstallCoreIntentService extends IntentService {
             final List<String> distro = "knots".equals(useDistribution) ? Packages.NATIVE_KNOTS : Packages.NATIVE_CORE;
 
 
-
             final String url = Packages.getPackageUrl(useDistribution, arch);
             final String filePath = Utils.getFilePathFromUrl(this, url);
             String rawSha = null;
             int bs = 0;
             for (final String a : distro) {
                 final String hash = a.substring(7);
-                bs = Integer.parseInt(a.substring(0,7));
+                bs = Integer.parseInt(a.substring(0, 7));
                 if (hash.startsWith(arch)) {
                     rawSha = hash;
                     break;
@@ -159,30 +172,15 @@ public class DownloadInstallCoreIntentService extends IntentService {
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "ABCOREUPDATE");
 
-        broadcastIntent.putExtra("ABCOREUPDATE",  bytesDownloaded);
-        broadcastIntent.putExtra("ABCOREUPDATEMAX",  bytesSize);
+        broadcastIntent.putExtra("ABCOREUPDATE", bytesDownloaded);
+        broadcastIntent.putExtra("ABCOREUPDATEMAX", bytesSize);
         if (bytesPerSec != null)
             broadcastIntent.putExtra("ABCOREUPDATESPEED", bytesPerSec);
-
 
 
         broadcastIntent.putExtra("ABCOREUPDATETXT", String.format("%s %s %s", upd, fileExtracted, fileExtracted.equals("knots") ? Packages.BITCOIN_KNOTS_NDK : Packages.BITCOIN_NDK));
 
 
         sendBroadcast(broadcastIntent);
-    }
-
-    private static void markAsDone(final String sha, final File outputDir) throws IOException {
-        final File shadir = new File(outputDir, "shachecks");
-        if (!shadir.exists())
-            //noinspection ResultOfMethodCallIgnored
-            shadir.mkdir();
-        if (!new File(shadir, sha).createNewFile())
-            throw new IOException();
-    }
-
-    private static boolean isUnpacked(final String sha, final File outputDir) {
-        final File shadir = new File(outputDir, "shachecks");
-        return new File(shadir, sha).exists();
     }
 }

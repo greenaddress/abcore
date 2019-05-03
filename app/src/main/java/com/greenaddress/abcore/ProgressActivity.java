@@ -77,7 +77,7 @@ public class ProgressActivity extends AppCompatActivity {
 
                     pb.setMax(max);
                     pb.setProgress(percent);
-                    textStatus.setText(String.format("Processed %s%s (block height %s)", percent, "%" , blocks));
+                    textStatus.setText(String.format("Processed %s%s (block height %s)", percent, "%", blocks));
                     timer = new Timer();
                     timer.schedule(new TimerTask() {
                         public void run() {
