@@ -34,7 +34,6 @@ public class PackagesUnitTest {
         downloadPackage("core", arch);
         downloadPackage("knots", arch);
         downloadPackage("liquid", arch);
-
     }
 
     @Test
