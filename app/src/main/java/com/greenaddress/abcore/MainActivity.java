@@ -1,10 +1,14 @@
 package com.greenaddress.abcore;
 
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,58 +20,64 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.qrcode.encoder.ByteMatrix;
+import com.google.zxing.qrcode.encoder.Encoder;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getName();
     private RPCResponseReceiver mRpcResponseReceiver;
     private TextView mTvStatus;
     private Switch mSwitchCore;
-    private ProgressBar mProgressBar;
+    private TextView mQrCodeText;
+    private ImageView mImageViewQr;
+    private final static int SCALE = 4;
+    private Timer mTimer;
 
-    private void postDetection() {
-        mProgressBar.setVisibility(View.GONE);
-        mSwitchCore.setVisibility(View.VISIBLE);
-    }
-
-    private void preDetection() {
-        mProgressBar.setVisibility(View.VISIBLE);
-        mSwitchCore.setVisibility(View.GONE);
-    }
 
     private void postStart() {
-        mSwitchCore.setOnCheckedChangeListener(null);
-        postDetection();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         final String useDistribution = prefs.getString("usedistribution", "core");
         mTvStatus.setText(getString(R.string.runningturnoff, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
-        if (!mSwitchCore.isChecked())
-            mSwitchCore.setChecked(true);
         mSwitchCore.setText(R.string.switchcoreoff);
-        setSwitch();
-
+        if (!mSwitchCore.isChecked()) {
+            mSwitchCore.setOnCheckedChangeListener(null);
+            mSwitchCore.setChecked(true);
+            setSwitch();
+        }
+    }
+    private void refresh() {
+        final Intent i = new Intent(this, RPCIntentService.class);
+        i.putExtra("REQUEST", "localonion");
+        startService(i);
     }
 
     private void postConfigure() {
-        mSwitchCore.setOnCheckedChangeListener(null);
-        postDetection();
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
         final String useDistribution = prefs.getString("usedistribution", "core");
         mTvStatus.setText(getString(R.string.stoppedturnon, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
-        if (mSwitchCore.isChecked())
-            mSwitchCore.setChecked(false);
         mSwitchCore.setText(R.string.switchcoreon);
-        setSwitch();
+        if (mSwitchCore.isChecked()) {
+            mSwitchCore.setOnCheckedChangeListener(null);
+            mSwitchCore.setChecked(false);
+            setSwitch();
+        }
     }
 
     private void setSwitch() {
         mSwitchCore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
-                preDetection();
                 if (isChecked) {
                     final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                     final SharedPreferences.Editor e = prefs.edit();
@@ -78,6 +88,21 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         startService(new Intent(MainActivity.this, ABCoreService.class));
                     }
+                    if (mTimer != null) {
+                        mTimer.cancel();
+                        mTimer.purge();
+                    }
+                    mTimer = new Timer();
+                    mTimer.schedule(new TimerTask() {
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    refresh();
+                                }
+                            });
+                        }
+                    }, 1000, 1000);
                 } else {
                     final Intent i = new Intent(MainActivity.this, RPCIntentService.class);
                     i.putExtra("stop", "yep");
@@ -94,9 +119,21 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         mTvStatus = findViewById(R.id.textView);
         mSwitchCore = findViewById(R.id.switchCore);
-        mProgressBar = findViewById(R.id.progressBar);
+        mQrCodeText = findViewById(R.id.textViewQr);
+        mImageViewQr = findViewById(R.id.qrcodeImageView);
         setSupportActionBar(toolbar);
         setSwitch();
+        final View.OnClickListener cliboard = new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                final ClipData clip = ClipData.newPlainText("Onion Address", mQrCodeText.getText().toString());
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(MainActivity.this, "Copied to clipboard!", Toast.LENGTH_LONG).show();
+            }
+        };
+        mImageViewQr.setOnClickListener(cliboard);
+        mQrCodeText.setOnClickListener(cliboard);
     }
 
     @Override
@@ -105,6 +142,10 @@ public class MainActivity extends AppCompatActivity {
         if (mRpcResponseReceiver != null)
             unregisterReceiver(mRpcResponseReceiver);
         mRpcResponseReceiver = null;
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer.purge();
+        }
     }
 
     @Override
@@ -122,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
         rpcFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(mRpcResponseReceiver, rpcFilter);
 
-        preDetection();
         startService(new Intent(this, RPCIntentService.class));
     }
 
@@ -176,6 +216,27 @@ public class MainActivity extends AppCompatActivity {
                     if (exe != null)
                         Log.i(TAG, exe);
                     postConfigure();
+                    break;
+                case "localonion":
+                    final String onion = intent.getStringExtra(RPCIntentService.PARAM_ONION_MSG);
+                    if (onion != null && mTimer != null) {
+                        mTimer.cancel();
+                        mTimer.purge();
+                    }
+                    mQrCodeText.setText(onion);
+                    final ByteMatrix matrix;
+                    try {
+                        matrix = Encoder.encode(onion, ErrorCorrectionLevel.M).getMatrix();
+                    } catch (final WriterException e) {
+                        throw new RuntimeException(e);
+                    }
+                    final int height = matrix.getHeight() * SCALE;
+                    final int width = matrix.getWidth() * SCALE;
+                    final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                    for (int x = 0; x < width; ++x)
+                        for (int y = 0; y < height; ++y)
+                            bitmap.setPixel(x, y, matrix.get(x / SCALE, y / SCALE) == 1 ? Color.BLACK : 0);
+                    mImageViewQr.setImageBitmap(bitmap);
             }
         }
     }

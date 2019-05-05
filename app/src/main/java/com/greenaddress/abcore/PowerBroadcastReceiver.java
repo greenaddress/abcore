@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -80,7 +81,11 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
 
     private void startCore(final Context c) {
         setMagicallyStarted(c, true);
-        c.startService(new Intent(c, ABCoreService.class));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            c.startForegroundService(new Intent(c, ABCoreService.class));
+        } else {
+            c.startService(new Intent(c, ABCoreService.class));
+        }
     }
 
     private void setMagicallyStarted(final Context c, final boolean started) {

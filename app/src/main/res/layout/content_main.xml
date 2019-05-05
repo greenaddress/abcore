@@ -20,22 +20,34 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
-    <Switch
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textViewQr"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:id="@+id/switchCore"
-        android:text="@string/switchcoreon"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="73dp"
+        android:layout_marginLeft="73dp"
+        android:layout_marginTop="190dp" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
+    <Switch
+        android:id="@+id/switchCore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:progress="50"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="true"/>
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/switchcoreon" />
+
+    <ImageView
+        android:id="@+id/qrcodeImageView"
+        android:layout_width="316dp"
+        android:layout_height="358dp"
+        android:layout_below="@+id/switchCore"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="143dp" />
 
 </RelativeLayout>

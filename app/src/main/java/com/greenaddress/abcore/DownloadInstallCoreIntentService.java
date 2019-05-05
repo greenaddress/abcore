@@ -49,9 +49,8 @@ public class DownloadInstallCoreIntentService extends IntentService {
             //outputStream.write("regtest=1\n".getBytes());
             outputStream.write("upnp=0\n".getBytes());
             // don't attempt onion connections by default
-            outputStream.write("onlynet=ipv4\n".getBytes());
             outputStream.write("validatepegin=0\n".getBytes());
-
+            outputStream.write("listenonion=1\n".getBytes());
             outputStream.write("blocksonly=1\n".getBytes());
             for (final File f : c.getExternalFilesDirs(null))
                 outputStream.write(String.format("# for external storage try: %s\n", f.getCanonicalPath()).getBytes());

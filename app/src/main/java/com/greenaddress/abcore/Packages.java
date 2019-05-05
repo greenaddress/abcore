@@ -9,26 +9,26 @@ class Packages {
     final static String BITCOIN_KNOTS_NDK = "0.18.0";
     final static String BITCOIN_LIQUID_NDK = "0.17.0";
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "3947023aarch64-linux-androidc581e24c60cd26b3d6d0066d11aa50e47a174567abc74a58c7541f497042d1b3",
-            "3836030arm-linux-androideabi0ecb59d59f9e6104846920c346c14bcee50415fe356e8a1372167e882eafcdf1",
-            "4166841i686-linux-androida54fca3d49d8cf61902be21264b68c8bbec087d2dd1f761419d00b353f66bd70",
-            "4307941x86_64-linux-android9b6b7a201faf2c939e3df8a61c229507ec3de926933996de750ff9005935a6f0"
+            "4613524aarch64-linux-androidff97eb601200cae77ea89b1370f1606eddf7c53cd17ad0a9f7974539bfd270cc",
+            "4509768arm-linux-androideabi5b80ae53728f4d55620a0b3c7e0b30c412e1b36f9ec24f5ff8f7e62a565d0fa9",
+            "5247152i686-linux-androida44d181025addf73522fb80968e56dd5dade55a02287f192a80f360c6f75adb3",
+            "5448412x86_64-linux-androida30ca997e201ff80f6852769a00637b7e5676a51b2ba9c7f666c2253edcfa278"
     );
     final static List<String> NATIVE_KNOTS = Arrays.asList(
-            "4064581aarch64-linux-android7215d6cfbb4be6cc7654cb9b5eb399e8ea485d22091ff6e595877744ffea4a03",
-            "3956120arm-linux-androideabi0780b45d66c2168c0134da293d289e4ee603752d6dfd2b8d094735bb420151a5",
-            "4299987i686-linux-android194a994311723a9a056c8823523dacfaf7ea0812beeecd35c59e69a928d703f4",
-            "4437992x86_64-linux-android844d4e83ac0769de246e8afa1be6c63d752310f062539362f23ef616d31afb56"
+            "4686912aarch64-linux-androide97670dfb990e2a7e33226fc70501ef9ac7083e432c70ce331d1a4728177c6eb",
+            "4589528arm-linux-androideabia5e965ef0994a7f59c9a56bc052df48bc7c34fde9576f3a34ba60f8eacb2dd20",
+            "5335788i686-linux-android0cdc5b500c30cc1ba0bb2cbfbcdc2cbcd15cbb7294859bd3dbcfbb59f51fd5c9",
+            "5537272x86_64-linux-android4ce5226c02fae19941a6a5cca8fc1cb0a9ae932b8f48d672e6991b19e0844fec"
     );
     final static List<String> NATIVE_LIQUID = Arrays.asList(
-            "4057394aarch64-linux-androide244082382979ca36a10d9cce010129abdfb43727c003477749c439a72b42075",
-            "3960900arm-linux-androideabi1989f67936a129e3526f91df9be9ab24b8cb363c0f90f99e6c376ad5c9f08d51",
-            "4305316i686-linux-android6ec2a0f176d4341d97c94dfaf862df452210d79b61a011b9577e2a3a2d4c6ba1",
-            "4452465x86_64-linux-androidb88f81e0ad0b80549bd1aead4c15a84a488d126cb0776c2bb19f0297b7d613ee"
+            "4692064aarch64-linux-androida2e95410e3b78d4078499c27b1c82532f5eacb30a05144a9518689e505a3f67b",
+            "4604416arm-linux-androideabie00046d14e9fb8e4587d549a4dc8ba4ce3b26c1dfc55365d6e06dfbcd55e56fb",
+            "5362300i686-linux-androida646243f5fe5c32c211844ade509390765bd3af47f055901556915f866a51b67",
+            "5572612x86_64-linux-androidc2a5cfcdb69fe7ba45ac1109db1c9570108782162b619d2a30490a08f343d68f"
     );
-    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.0b/%s_bitcoin%s.tar.gz";
-    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.0b/%s_bitcoin%s.tar.gz";
-    private final static String URL_LIQUID = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.0b/%s_%s.tar.gz";
+    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.0c/%s_bitcoin%s.tar.xz";
+    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.0c/%s_bitcoin%s.tar.xz";
+    private final static String URL_LIQUID = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.0c/%s_%s.tar.xz";
 
     static String getPackageUrl(final String distro, final String arch) {
         if ("core".equals(distro)) {

@@ -9,7 +9,7 @@ import android.util.Log;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+import org.apache.commons.compress.compressors.xz.XZCompressorInputStream;
 import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.BufferedInputStream;
@@ -33,7 +33,7 @@ class Utils {
         TarArchiveInputStream in = null;
         try {
 
-            in = new TarArchiveInputStream(new BufferedInputStream(new GzipCompressorInputStream(new BufferedInputStream(new FileInputStream(input)))));
+            in = new TarArchiveInputStream(new BufferedInputStream(new XZCompressorInputStream(new BufferedInputStream(new FileInputStream(input)))));
 
             ArchiveEntry entry;
 
@@ -183,7 +183,7 @@ class Utils {
     static boolean isDaemonInstalled(final Context c) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
         final String useDistribution = prefs.getString("usedistribution", "core");
-        final String daemon = useDistribution.equals("liquid") ? "liquidd" : "bitcoind";
+        final String daemon = "liquid".equals(useDistribution) ? "liquidd" : "bitcoind";
         return new File(Utils.getDir(c).getAbsolutePath() + "/" + daemon).exists();
     }
 
