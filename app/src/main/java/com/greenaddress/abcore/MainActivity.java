@@ -126,10 +126,13 @@ public class MainActivity extends AppCompatActivity {
         final View.OnClickListener cliboard = new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                final ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                final ClipData clip = ClipData.newPlainText("Onion Address", mQrCodeText.getText().toString());
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(MainActivity.this, "Copied to clipboard!", Toast.LENGTH_LONG).show();
+                final String onion =  mQrCodeText.getText().toString();
+                if (!onion.isEmpty()) {
+                    final ClipData clip = ClipData.newPlainText("Onion Address", onion);
+                    final ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(MainActivity.this, "Copied to clipboard!", Toast.LENGTH_LONG).show();
+                }
             }
         };
         mImageViewQr.setOnClickListener(cliboard);
@@ -222,6 +225,9 @@ public class MainActivity extends AppCompatActivity {
                     if (onion != null && mTimer != null) {
                         mTimer.cancel();
                         mTimer.purge();
+                    }
+                    if (onion == null || onion.isEmpty()) {
+                        break;
                     }
                     mQrCodeText.setText(onion);
                     final ByteMatrix matrix;
