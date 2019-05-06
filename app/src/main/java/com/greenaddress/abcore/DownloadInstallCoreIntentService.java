@@ -131,7 +131,7 @@ public class DownloadInstallCoreIntentService extends IntentService {
 
             sendUpdate("Uncompressing", useDistribution);
 
-            Utils.extractTarGz(new File(filePath), dir);
+            Utils.extractTarXz(new File(filePath), dir);
 
             // bitcoin core & deps installed, configure it now
             configureCore(this);

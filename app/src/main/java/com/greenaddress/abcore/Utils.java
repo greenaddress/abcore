@@ -29,7 +29,7 @@ class Utils {
 
     private final static String TAG = Utils.class.getSimpleName();
 
-    static void extractTarGz(final File input, final File outputDir) throws IOException {
+    static void extractTarXz(final File input, final File outputDir) throws IOException {
         TarArchiveInputStream in = null;
         try {
 
