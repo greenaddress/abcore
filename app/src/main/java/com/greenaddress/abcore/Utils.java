@@ -184,7 +184,8 @@ class Utils {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(c);
         final String useDistribution = prefs.getString("usedistribution", "core");
         final String daemon = "liquid".equals(useDistribution) ? "liquidd" : "bitcoind";
-        return new File(Utils.getDir(c).getAbsolutePath() + "/" + daemon).exists();
+        return new File(Utils.getDir(c).getAbsolutePath() + "/" + daemon).exists()
+                && new File(Utils.getDir(c).getAbsolutePath() + "/tor").exists();
     }
 
     interface OnDownloadUpdate {
