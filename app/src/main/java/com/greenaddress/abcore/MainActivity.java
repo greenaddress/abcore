@@ -75,6 +75,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setupTimer() {
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer.purge();
+        }
+        mTimer = new Timer();
+        mTimer.schedule(new TimerTask() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh();
+                    }
+                });
+            }
+        }, 1000, 1000);
+    }
+
     private void setSwitch() {
         mSwitchCore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
@@ -88,21 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         startService(new Intent(MainActivity.this, ABCoreService.class));
                     }
-                    if (mTimer != null) {
-                        mTimer.cancel();
-                        mTimer.purge();
-                    }
-                    mTimer = new Timer();
-                    mTimer.schedule(new TimerTask() {
-                        public void run() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    refresh();
-                                }
-                            });
-                        }
-                    }, 1000, 1000);
+                    setupTimer();
                 } else {
                     final Intent i = new Intent(MainActivity.this, RPCIntentService.class);
                     i.putExtra("stop", "yep");
@@ -167,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mRpcResponseReceiver, rpcFilter);
 
         startService(new Intent(this, RPCIntentService.class));
+
+        setupTimer();
     }
 
     @Override
