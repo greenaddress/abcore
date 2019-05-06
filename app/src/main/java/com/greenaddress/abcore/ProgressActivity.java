@@ -64,12 +64,20 @@ public class ProgressActivity extends AppCompatActivity {
         public void onReceive(final Context context, final Intent intent) {
             final ProgressBar pb = findViewById(R.id.progressBarSyncBlock);
             final TextView textStatus = findViewById(R.id.textViewSyncBlock);
+            final TextView textHash = findViewById(R.id.textViewHash);
+
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
             switch (text) {
                 case "progress": {
                     final int max = 100;
                     final int blocks = intent.getIntExtra("blocks", 0);
                     final int percent = intent.getIntExtra("sync", -1);
+                    final String hash = intent.getStringExtra("hash");
+
+                    if (hash != null && !hash.isEmpty()) {
+                        textHash.setText(hash);
+                    }
+
                     if (timer != null) {
                         timer.cancel();
                         timer.purge();
@@ -88,7 +96,7 @@ public class ProgressActivity extends AppCompatActivity {
                                 }
                             });
                         }
-                    }, 1000, 1000);
+                    }, 500, 500);
 
 
                     break;

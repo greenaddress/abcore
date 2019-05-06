@@ -1,6 +1,8 @@
 package com.greenaddress.abcore;
 
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -8,9 +10,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ConsoleActivity extends AppCompatActivity {
 
@@ -36,6 +40,7 @@ public class ConsoleActivity extends AppCompatActivity {
                 return false; // pass on to other listeners.
             }
         });
+
     }
 
     @Override
@@ -74,7 +79,16 @@ public class ConsoleActivity extends AppCompatActivity {
                 case "CONSOLE_REQUEST":
                     final EditText console = findViewById(R.id.editText2);
                     final String res = intent.getStringExtra("res");
-
+                    final View.OnClickListener ocl = new View.OnClickListener() {
+                        @Override
+                        public void onClick(final View v) {
+                            final ClipData clip = ClipData.newPlainText("rpc output", res);
+                            final ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            clipboard.setPrimaryClip(clip);
+                            Toast.makeText(ConsoleActivity.this, String.format("%s copied to clipboard!", res), Toast.LENGTH_LONG).show();
+                        }
+                    };
+                    history.setOnClickListener(res.isEmpty() ? null : ocl);
                     history.setText(String.format("%s -> %s", console.getText().toString(), res));
                     console.setText("");
                     break;

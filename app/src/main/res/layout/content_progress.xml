@@ -29,4 +29,13 @@
         android:id="@+id/textViewSyncBlock"
         android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/textViewHash"
+        android:layout_width="347dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/progressBarSyncBlock"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="32dp" />
 </RelativeLayout>

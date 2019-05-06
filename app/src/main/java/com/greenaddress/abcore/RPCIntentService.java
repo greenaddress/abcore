@@ -128,6 +128,8 @@ public class RPCIntentService extends IntentService {
         final BitcoindRpcClient.BlockChainInfo info = bitcoin.getBlockChainInfo();
         broadcastIntent.putExtra("sync", info.verificationProgress().multiply(BigDecimal.valueOf(100)).intValue());
         broadcastIntent.putExtra("blocks", info.blocks());
+        broadcastIntent.putExtra("hash", info.bestBlockHash());
+
         sendBroadcast(broadcastIntent);
 
     }
