@@ -228,13 +228,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "localonion":
                     final String onion = intent.getStringExtra(RPCIntentService.PARAM_ONION_MSG);
-                    if (onion != null && mTimer != null) {
-                        mTimer.cancel();
-                        mTimer.purge();
-                    }
+
                     if (onion == null || onion.isEmpty()) {
                         break;
                     }
+                    if (mTimer != null) {
+                        mTimer.cancel();
+                        mTimer.purge();
+                    }
+
                     mQrCodeText.setText(onion);
                     final ByteMatrix matrix;
                     try {
