@@ -122,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
         mQrCodeText = findViewById(R.id.textViewQr);
         mImageViewQr = findViewById(R.id.qrcodeImageView);
         setSupportActionBar(toolbar);
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        getSupportActionBar().setSubtitle(String.format("Daemon: %s", useDistribution));
+
         setSwitch();
         final View.OnClickListener cliboard = new View.OnClickListener() {
             @Override
@@ -177,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.dashboard:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
             case R.id.configuration:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
