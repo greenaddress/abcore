@@ -4,10 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +30,9 @@ public class ProgressActivity extends AppCompatActivity {
         setContentView(R.layout.activity_progress);
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        getSupportActionBar().setSubtitle(String.format("Daemon: %s", useDistribution));
     }
 
     @Override

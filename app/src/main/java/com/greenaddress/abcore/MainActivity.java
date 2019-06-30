@@ -122,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
         mQrCodeText = findViewById(R.id.textViewQr);
         mImageViewQr = findViewById(R.id.qrcodeImageView);
         setSupportActionBar(toolbar);
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        getSupportActionBar().setSubtitle(String.format("Daemon: %s", useDistribution));
+
         setSwitch();
         final View.OnClickListener cliboard = new View.OnClickListener() {
             @Override
