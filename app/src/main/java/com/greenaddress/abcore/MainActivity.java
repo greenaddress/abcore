@@ -125,7 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
-        getSupportActionBar().setSubtitle(String.format("Daemon: %s", useDistribution));
+        getSupportActionBar().setTitle(R.string.title_activity_main);
+        getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
 
         setSwitch();
         final View.OnClickListener cliboard = new View.OnClickListener() {
