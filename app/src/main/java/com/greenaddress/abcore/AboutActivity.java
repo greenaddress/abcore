@@ -17,7 +17,7 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
-        getSupportActionBar().setSubtitle(String.format("Daemon: %s", useDistribution));
+        getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
     }
 
 
