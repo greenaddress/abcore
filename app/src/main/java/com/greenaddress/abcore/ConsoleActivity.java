@@ -73,43 +73,6 @@ public class ConsoleActivity extends AppCompatActivity {
         startService(i);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.dashboard:
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-            case R.id.configuration:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            case R.id.peerview:
-                startActivity(new Intent(this, PeerActivity.class));
-                return true;
-            case R.id.synchronization:
-                startActivity(new Intent(this, ProgressActivity.class));
-                return true;
-            case R.id.debug:
-                startActivity(new Intent(this, LogActivity.class));
-                return true;
-            case R.id.console:
-                startActivity(new Intent(this, ConsoleActivity.class));
-                return true;
-            case R.id.about:
-                startActivity(new Intent(this, AboutActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     class RPCResponseReceiver extends BroadcastReceiver {
 
         static final String ACTION_RESP = "com.greenaddress.intent.action.RPC_PROCESSED";
