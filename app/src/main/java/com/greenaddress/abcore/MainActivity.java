@@ -183,9 +183,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.dashboard:
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
             case R.id.configuration:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
