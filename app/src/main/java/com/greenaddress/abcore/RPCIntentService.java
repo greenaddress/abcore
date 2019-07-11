@@ -117,21 +117,6 @@ public class RPCIntentService extends IntentService {
 
     }
 
-    private void broadcastProgress() throws IOException {
-        final BitcoindRpcClient bitcoin = getRpc();
-
-        final Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
-        broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        broadcastIntent.putExtra(PARAM_OUT_MSG, "progress");
-
-        final BitcoindRpcClient.BlockChainInfo info = bitcoin.getBlockChainInfo();
-        broadcastIntent.putExtra("sync", info.verificationProgress().multiply(BigDecimal.valueOf(100)).intValue());
-        broadcastIntent.putExtra("blocks", info.blocks());
-        sendBroadcast(broadcastIntent);
-
-    }
-
     private void broadcastNetwork() throws IOException {
         final BitcoindRpcClient bitcoin = getRpc();
         final Intent broadcastIntent = new Intent();
@@ -152,6 +137,9 @@ public class RPCIntentService extends IntentService {
                 break;
             }
         }
+        final BitcoindRpcClient.BlockChainInfo blockChainInfo = bitcoin.getBlockChainInfo();
+        broadcastIntent.putExtra("sync", blockChainInfo.verificationProgress().multiply(BigDecimal.valueOf(100)).intValue());
+        broadcastIntent.putExtra("blocks", blockChainInfo.blocks());
         sendBroadcast(broadcastIntent);
     }
 
@@ -230,9 +218,6 @@ public class RPCIntentService extends IntentService {
             if (request != null)
                 if (request.equals("peerlist")) {
                     broadcastPeerlist();
-                    return;
-                } else if (request.equals("progress")) {
-                    broadcastProgress();
                     return;
                 } else if (request.equals("localonion")) {
                     broadcastNetwork();

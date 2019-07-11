@@ -25,60 +25,99 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.Encoder;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getName();
     private RPCResponseReceiver mRpcResponseReceiver;
     private TextView mTvStatus;
+    private TextView mTvDaemon;
     private Switch mSwitchCore;
     private TextView mQrCodeText;
     private ImageView mImageViewQr;
+
     private final static int SCALE = 4;
-    private Timer mTimer;
-
-
-    private void postStart() {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        final String useDistribution = prefs.getString("usedistribution", "core");
-        mTvStatus.setText(getString(R.string.runningturnoff, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
-        mSwitchCore.setText(R.string.switchcoreoff);
-        if (!mSwitchCore.isChecked()) {
-            mSwitchCore.setOnCheckedChangeListener(null);
-            mSwitchCore.setChecked(true);
-            setSwitch();
-        }
+    private boolean switchOn = false;
+    private enum DaemonStatus {
+        UNKNOWN,
+        STARTING,
+        RUNNING,
+        STOPPING,
+        STOPPED
     }
+    private DaemonStatus daemonStatus = DaemonStatus.STOPPED;
+
+    private Handler handler = new Handler();
+    /**
+     * Runnable object that refreshes the UI with updated
+     * daemonStatus and progress
+     */
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            refresh();
+            // wait for 10 seconds before refreshing again
+            handler.postDelayed(this, 10000);
+        }
+    };
+
     private void refresh() {
-        final Intent i = new Intent(this, RPCIntentService.class);
-        i.putExtra("REQUEST", "localonion");
-        startService(i);
+        if (switchOn){
+            if (daemonStatus == DaemonStatus.STARTING ||daemonStatus == DaemonStatus.RUNNING || daemonStatus == DaemonStatus.UNKNOWN) {
+                //refresh
+                final Intent i = new Intent(this, RPCIntentService.class);
+                i.putExtra("REQUEST", "localonion");
+                startService(i);
+            }
+            else {
+                // daemonStatus = STOPPING or STOPPED
+                // if we get here it means that the daemonStatus and switchOn somehow fell out of sync
+                // This is a bad state and we will simply try to stop the daemon and get back to a
+                // consistent state
+                stopDaemonAndSetStatus();
+            }
+        } else{
+            // switch OFF
+            if (daemonStatus == DaemonStatus.STOPPING ||daemonStatus == DaemonStatus.UNKNOWN) {
+                //refresh
+                final Intent i = new Intent(this, RPCIntentService.class);
+                i.putExtra("REQUEST", "localonion");
+                startService(i);
+            }
+            else if (daemonStatus == DaemonStatus.STARTING || daemonStatus == DaemonStatus.RUNNING){
+                // if we get here it means that the daemonStatus and switchOn somehow fell out of sync
+                // This is a bad state and we will simply try to stop the daemon and get back to a
+                // consistent state
+                stopDaemonAndSetStatus();
+            }
+            // when daemonStatus = STOPPED, switch OFF and daemon is not running, so nothing to do
+        }
     }
 
-    private void postConfigure() {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final String useDistribution = prefs.getString("usedistribution", "core");
-        mTvStatus.setText(getString(R.string.stoppedturnon, useDistribution, "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK));
+    private void stopDaemonAndSetStatus(){
+        switchOn = false;
+        daemonStatus = DaemonStatus.STOPPING;
+        mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
         mSwitchCore.setText(R.string.switchcoreon);
-        if (mSwitchCore.isChecked()) {
-            mSwitchCore.setOnCheckedChangeListener(null);
-            mSwitchCore.setChecked(false);
-            setSwitch();
-        }
+        final Intent i = new Intent(MainActivity.this, RPCIntentService.class);
+        i.putExtra("stop", "yep");
+        startService(i);
     }
 
     private void setSwitch() {
         mSwitchCore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {
+                    switchOn = true;
+                    daemonStatus = DaemonStatus.STARTING;
+                    mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
+                    mSwitchCore.setText(R.string.switchcoreoff);
                     final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
                     final SharedPreferences.Editor e = prefs.edit();
                     e.putBoolean("magicallystarted", false);
@@ -88,25 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         startService(new Intent(MainActivity.this, ABCoreService.class));
                     }
-                    if (mTimer != null) {
-                        mTimer.cancel();
-                        mTimer.purge();
-                    }
-                    mTimer = new Timer();
-                    mTimer.schedule(new TimerTask() {
-                        public void run() {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    refresh();
-                                }
-                            });
-                        }
-                    }, 1000, 1000);
                 } else {
-                    final Intent i = new Intent(MainActivity.this, RPCIntentService.class);
-                    i.putExtra("stop", "yep");
-                    startService(i);
+                    stopDaemonAndSetStatus();
                 }
             }
         });
@@ -117,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        mTvStatus = findViewById(R.id.textView);
+        mTvDaemon = findViewById(R.id.textViewDaemon);
+        mTvStatus = findViewById(R.id.textViewStatus);
         mSwitchCore = findViewById(R.id.switchCore);
         mQrCodeText = findViewById(R.id.textViewQr);
         mImageViewQr = findViewById(R.id.qrcodeImageView);
@@ -125,8 +148,11 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
+        final String daemonVersion = "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK;
+
         getSupportActionBar().setTitle(R.string.title_activity_main);
         getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
+        mTvDaemon.setText(getString(R.string.subtitle, useDistribution + " " + daemonVersion));
 
         setSwitch();
         final View.OnClickListener cliboard = new View.OnClickListener() {
@@ -140,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
         };
         mImageViewQr.setOnClickListener(cliboard);
         mQrCodeText.setOnClickListener(cliboard);
+        daemonStatus = DaemonStatus.UNKNOWN;
+        mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
+        mSwitchCore.setText(R.string.switchcoreon);
     }
 
     @Override
@@ -148,10 +177,7 @@ public class MainActivity extends AppCompatActivity {
         if (mRpcResponseReceiver != null)
             unregisterReceiver(mRpcResponseReceiver);
         mRpcResponseReceiver = null;
-        if (mTimer != null) {
-            mTimer.cancel();
-            mTimer.purge();
-        }
+        handler.removeCallbacks(runnableCode);
     }
 
     @Override
@@ -170,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mRpcResponseReceiver, rpcFilter);
 
         startService(new Intent(this, RPCIntentService.class));
+        handler.postDelayed(runnableCode, 2000);
     }
 
     @Override
@@ -188,9 +215,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.peerview:
                 startActivity(new Intent(this, PeerActivity.class));
-                return true;
-            case R.id.synchronization:
-                startActivity(new Intent(this, ProgressActivity.class));
                 return true;
             case R.id.debug:
                 startActivity(new Intent(this, LogActivity.class));
@@ -213,22 +237,56 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
+            final ProgressBar pb = findViewById(R.id.progressBarSyncBlock);
+            final TextView textStatus = findViewById(R.id.textViewSyncBlock);
+
             switch (text) {
                 case "OK":
-                    postStart();
+                    if (daemonStatus == DaemonStatus.STARTING || daemonStatus == DaemonStatus.UNKNOWN){
+                        daemonStatus = DaemonStatus.RUNNING;
+                        mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
+                    }
+                    else if (daemonStatus == DaemonStatus.STOPPED ){
+                        // if we get here it means that the daemon is *actually* running but the screen is reflecting
+                        // as OFF. This is a bad state and we will simply try to stop the daemon and get
+                        // back to a consistent state
+                        stopDaemonAndSetStatus();
+                    }
+                    // for daemonStatus = STOPPING or RUNNING we don't have to do anything, the next time it refreshes
+                    // the right status will get reflected
                     break;
                 case "exception":
                     final String exe = intent.getStringExtra("exception");
                     if (exe != null)
                         Log.i(TAG, exe);
-                    postConfigure();
+
+                    if (daemonStatus == DaemonStatus.STOPPING || daemonStatus == DaemonStatus.UNKNOWN){
+                        daemonStatus = DaemonStatus.STOPPED;
+                        mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
+                    }
+                    else if (daemonStatus == DaemonStatus.STARTING || daemonStatus == DaemonStatus.RUNNING){
+                        // if we get here it means that the daemon is *actually not* running but the screen is reflecting
+                        // as if its running or we are trying to start it. This is a bad state and we will simply
+                        // try to stop the daemon and get back to a consistent state
+                        stopDaemonAndSetStatus();
+                    }
+                    //for daemonStatus = STOPPED we don't have to do anything
                     break;
                 case "localonion":
-                    final String onion = intent.getStringExtra(RPCIntentService.PARAM_ONION_MSG);
-                    if (onion != null && mTimer != null) {
-                        mTimer.cancel();
-                        mTimer.purge();
+                    if (daemonStatus == DaemonStatus.STARTING || daemonStatus == DaemonStatus.UNKNOWN){
+                        daemonStatus = DaemonStatus.RUNNING;
+                        mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
                     }
+                    else if (daemonStatus == DaemonStatus.STOPPED ){
+                        // if we get here it means that the daemon is *actually* running but the screen is reflecting
+                        // as OFF. This is a bad state and we will simply try to stop the daemon and get
+                        // back to a consistent state
+                        stopDaemonAndSetStatus();
+                    }
+                    // for daemonStatus = STOPPING or RUNNING we don't have to do anything, the next time it refreshes
+                    // the right status will get reflected
+
+                    final String onion = intent.getStringExtra(RPCIntentService.PARAM_ONION_MSG);
                     mQrCodeText.setText(onion);
                     final ByteMatrix matrix;
                     try {
@@ -243,6 +301,14 @@ public class MainActivity extends AppCompatActivity {
                         for (int y = 0; y < height; ++y)
                             bitmap.setPixel(x, y, matrix.get(x / SCALE, y / SCALE) == 1 ? Color.BLACK : 0);
                     mImageViewQr.setImageBitmap(bitmap);
+
+                    final int max = 100;
+                    final int blocks = intent.getIntExtra("blocks", 0);
+                    final int percent = intent.getIntExtra("sync", -1);
+
+                    pb.setMax(max);
+                    pb.setProgress(percent);
+                    textStatus.setText(getString(R.string.progress_bar_message, percent, blocks));
             }
         }
     }
