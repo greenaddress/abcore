@@ -52,7 +52,7 @@ dependencies {
     implementation 'org.tukaani:xz:1.8'
     implementation 'wf.bitcoin:JavaBitcoindRpcClient:1.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.google.zxing:core:3.3.2'
+    implementation 'com.google.zxing:core:3.4.0'
 
     androidTestImplementation 'com.android.support:support-annotations:28.0.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
