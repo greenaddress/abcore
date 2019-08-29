@@ -116,11 +116,18 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(final Context context, final Intent intent) {
 
+            if (context == null || intent == null)
+                return;
+
             Log.d(TAG, "mWifiIsOn " + mWifiIsOn);
             Log.d(TAG, "mCharging " + mCharging);
 
             context.unregisterReceiver(mReceiver);
+            if (!intent.hasExtra(RPCIntentService.PARAM_OUT_MSG))
+                return;
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
+            if (text == null)
+                return;
             switch (text) {
                 case "OK":
                     Log.w(TAG, "CORE IS ALREADY RUNNING");
