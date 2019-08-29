@@ -22,6 +22,8 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
 
     private static boolean isCharging(final Context context) {
         final Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (intent == null)
+            return false;
         final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         final boolean ac_usb_plugged = plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
         return ac_usb_plugged || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
@@ -29,6 +31,8 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
 
     private static boolean isWifiConnected(final Context context) {
         final ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null)
+            return false;
         final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI;
     }
