@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getName();
     private RPCResponseReceiver mRpcResponseReceiver;
     private TextView mTvStatus;
-    private TextView mTvDaemon;
     private Switch mSwitchCore;
     private TextView mQrCodeText;
     private ImageView mImageViewQr;
@@ -53,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
     }
     private DaemonStatus daemonStatus = DaemonStatus.STOPPED;
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     /**
      * Runnable object that refreshes the UI with updated
      * daemonStatus and progress
      */
-    private Runnable runnableCode = new Runnable() {
+    private final Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
             refresh();
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = findViewById(R.id.toolbar);
-        mTvDaemon = findViewById(R.id.textViewDaemon);
+        final TextView mTvDaemon = findViewById(R.id.textViewDaemon);
         mTvStatus = findViewById(R.id.textViewStatus);
         mSwitchCore = findViewById(R.id.switchCore);
         mQrCodeText = findViewById(R.id.textViewQr);
