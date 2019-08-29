@@ -77,7 +77,7 @@ public class ConsoleActivity extends AppCompatActivity {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
-            final EditText history = findViewById(R.id.editText);
+            final TextView history = findViewById(R.id.textView);
 
             switch (text) {
                 case "CONSOLE_REQUEST":
