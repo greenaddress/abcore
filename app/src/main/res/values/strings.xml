@@ -15,13 +15,11 @@
     <string name="pref_header_conf_download">Download Configuration</string>
     <string name="pref_header_android">Extra Configuration</string>
     <string name="title_activity_peer">Peers</string>
-    <string name="title_activity_progress">Synchronization progress</string>
     <string name="download_core">The app requires a fullnode daemon to function. Click on the button to start downloading and configuring the daemon</string>
     <string name="start">Start download</string>
     <string name="failedretry">Failure, want to retry?</string>
     <string name="abis_unsupported">The Application Binary Interfaces supported by this device aren\'t suppored by ABCore: %1$s</string>
     <string name="waitfetchingconfiguring">Please wait. Fetching, unpacking and configuring the daemon&#8230;</string>
-    <string name="archunsupported">Architecture %1$s is not supported</string>
     <string name="switchcoreon">Switch ON</string>
     <string name="switchcoreoff">Switch OFF</string>
     <string name="progress_bar_message">Processed %1d%% (block height %2d)</string>

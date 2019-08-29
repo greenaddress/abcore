@@ -9,7 +9,6 @@
     <string name="switchcoreoff">Kern auf OFF stellen</string>
     <string name="switchcoreon">Kern auf ON stellen</string>
     <string name="title_activity_download_settings">Einstellungen herunterladen</string>
-    <string name="title_activity_progress">Synchronisationsfortschritt</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="waitfetchingconfiguring">Bitte haben Sie etwas Geduld&#8230; Lade und konfiguriere Bitcoin.</string>
 </resources>

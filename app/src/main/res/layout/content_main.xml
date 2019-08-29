@@ -33,7 +33,6 @@
             android:theme="@style/AppTheme.Switch"/>
 
         <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
             android:layout_width="350dp"
             android:layout_height="90dp"
             android:layout_gravity="center"
@@ -48,7 +47,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewSyncBlockheader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="synchronization progress:"
@@ -79,7 +77,6 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view2"
             android:layout_width="350dp"
             android:layout_height="420dp"
             android:layout_gravity="center"
@@ -95,7 +92,6 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/bitcoinp2pHeader"
                     android:layout_width="320dp"
                     android:text="bitcoin-p2p:"
                     android:textAppearance="?android:attr/textAppearanceMedium"
