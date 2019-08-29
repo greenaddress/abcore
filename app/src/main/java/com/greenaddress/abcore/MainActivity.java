@@ -235,7 +235,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
+            if (context == null || intent == null || !intent.hasExtra(RPCIntentService.PARAM_OUT_MSG))
+                return;
             final String text = intent.getStringExtra(RPCIntentService.PARAM_OUT_MSG);
+            if (text == null)
+                return;
             final ProgressBar pb = findViewById(R.id.progressBarSyncBlock);
             final TextView textStatus = findViewById(R.id.textViewSyncBlock);
 
@@ -284,14 +288,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // for daemonStatus = STOPPING or RUNNING we don't have to do anything, the next time it refreshes
                     // the right status will get reflected
-
+                    if (!intent.hasExtra(RPCIntentService.PARAM_ONION_MSG))
+                        return;
                     final String onion = intent.getStringExtra(RPCIntentService.PARAM_ONION_MSG);
+                    if (onion == null)
+                        return;
                     mQrCodeText.setText(onion);
                     final ByteMatrix matrix;
                     try {
                         matrix = Encoder.encode(onion, ErrorCorrectionLevel.M).getMatrix();
                     } catch (final WriterException e) {
-                        throw new RuntimeException(e);
+                        return;
                     }
                     final int height = matrix.getHeight() * SCALE;
                     final int width = matrix.getWidth() * SCALE;
