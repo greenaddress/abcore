@@ -35,7 +35,12 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        switch (intent.getAction()) {
+        if (context == null || intent == null)
+            return;
+        final String action = intent.getAction();
+        if (action == null)
+            return;
+        switch (action) {
             case Intent.ACTION_BATTERY_LOW:
             case Intent.ACTION_SHUTDOWN:
             case Intent.ACTION_POWER_DISCONNECTED:
@@ -45,6 +50,8 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
                 break;
             case WifiManager.NETWORK_STATE_CHANGED_ACTION:
                 final Boolean prev = mWifiIsOn;
+                if (!intent.hasExtra(WifiManager.EXTRA_NETWORK_INFO))
+                    return;
                 final NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
                 mWifiIsOn = info != null && info.isConnected() || isWifiConnected(context);
                 if (prev != null && prev == mWifiIsOn)
@@ -57,7 +64,7 @@ public class PowerBroadcastReceiver extends BroadcastReceiver {
                 mCharging = true;
                 break;
             default:
-                Log.w(TAG, intent.getAction());
+                Log.w(TAG, action);
                 return;
         }
 
