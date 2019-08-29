@@ -1,6 +1,6 @@
 package com.greenaddress.abcore;
 
-import android.support.test.InstrumentationRegistry;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class PackagesUnitTest {
     private void downloadPackage(final String distro, final String arch) throws IOException, NoSuchAlgorithmException {
         final String url = Packages.getPackageUrl(distro, arch);
 
-        final String filePath = InstrumentationRegistry.getTargetContext().getNoBackupFilesDir().getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
+        final String filePath = InstrumentationRegistry.getInstrumentation().getTargetContext().getNoBackupFilesDir().getAbsoluteFile() + "/" + url.substring(url.lastIndexOf("/") + 1);
         Utils.downloadFile(url, filePath);
         final List<String> hashes = "knots".equals(distro) ? Packages.NATIVE_KNOTS : "liquid".equals(distro) ? Packages.NATIVE_LIQUID : Packages.NATIVE_CORE;
 
