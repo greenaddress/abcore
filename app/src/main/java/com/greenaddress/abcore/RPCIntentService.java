@@ -30,7 +30,6 @@ import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
 public class RPCIntentService extends IntentService {
 
     public static final String PARAM_OUT_MSG = "rpccore";
-    public static final String PARAM_OUT_INFO = "rpccoreinfo";
     public static final String PARAM_ONION_MSG = "onionaddr";
 
     private static final String TAG = RPCIntentService.class.getName();

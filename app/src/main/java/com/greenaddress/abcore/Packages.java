@@ -9,6 +9,9 @@ class Packages {
     final static String BITCOIN_KNOTS_NDK = "0.18.0";
     final static String BITCOIN_LIQUID_NDK = "0.17.0.1";
 
+    // these three lists are the output of ./run.sh on bitcoin_ndk
+    // size in bytes, arch, and sha256 of the native build
+
     final static List<String> NATIVE_CORE = Arrays.asList(
             "4457584aarch64-linux-android9209e31ebe51887a11a02a2e2e6a2795608923c539d825f66c3168f957daaa4d",
             "4345624arm-linux-androideabi29d70965ffb4b74f80e0a0ad7e4986cf3bb5579904fd0ff6686973143d7be3de",
