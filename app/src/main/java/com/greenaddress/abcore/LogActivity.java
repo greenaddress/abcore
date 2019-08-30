@@ -24,7 +24,7 @@ public class LogActivity extends AppCompatActivity {
         getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
     }
 
-    private String getLastLines(final File file, final int lines) {
+    private static String getLastLines(final File file, final int lines) {
         RandomAccessFile fileHandler = null;
         try {
             fileHandler = new RandomAccessFile(file, "r");
