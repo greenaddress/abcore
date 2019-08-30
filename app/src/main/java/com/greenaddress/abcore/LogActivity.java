@@ -2,6 +2,7 @@ package com.greenaddress.abcore;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +13,15 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class LogActivity extends AppCompatActivity {
+    private final Handler mMsgHandler = new Handler();
+
+    private final Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            refresh();
+            mMsgHandler.postDelayed(this, 600);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +72,7 @@ public class LogActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void refresh() {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
@@ -94,6 +102,19 @@ public class LogActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
+        mMsgHandler.postDelayed(runnableCode, 600);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMsgHandler.removeCallbacks(runnableCode);
     }
 
 }

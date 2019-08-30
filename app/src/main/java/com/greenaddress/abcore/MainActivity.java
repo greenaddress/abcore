@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private DaemonStatus mDaemonStatus = DaemonStatus.STOPPED;
 
-    private final Handler handler = new Handler();
+    private final Handler mMsgHandler = new Handler();
     /**
      * Runnable object that refreshes the UI with updated
      * mDaemonStatus and progress
@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             refresh();
-            // wait for 10 seconds before refreshing again
-            handler.postDelayed(this, 10000);
+            mMsgHandler.postDelayed(this, 1000);
         }
     };
 
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         if (mRpcResponseReceiver != null)
             unregisterReceiver(mRpcResponseReceiver);
         mRpcResponseReceiver = null;
-        handler.removeCallbacks(runnableCode);
+        mMsgHandler.removeCallbacks(runnableCode);
     }
 
     @Override
@@ -187,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mRpcResponseReceiver, rpcFilter);
 
         startService(new Intent(this, RPCIntentService.class));
-        handler.postDelayed(runnableCode, 2000);
         getSupportActionBar().setTitle(R.string.title_activity_main);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -197,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         final String daemonVersion = "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK;
         mTvDaemon.setText(getString(R.string.subtitle, useDistribution + " " + daemonVersion));
         mTvStatus.setText(getString(R.string.status_header, mDaemonStatus.toString()));
-
+        mMsgHandler.postDelayed(runnableCode, 1000);
     }
 
     @Override
