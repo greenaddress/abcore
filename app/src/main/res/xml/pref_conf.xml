@@ -6,6 +6,7 @@
 
     <CheckBoxPreference android:title="Pruning" android:key="pruning" android:defaultValue="true"/>
     <CheckBoxPreference android:title="Blocks only" android:key="blocksonly" android:defaultValue="true"/>
+    <CheckBoxPreference android:title="Restart on Boot" android:key="restartOnBoot" android:defaultValue="false"/>
 
     <EditTextPreference android:inputType="number" android:title="Pruning MB" android:key="prune" android:defaultValue="1000" android:dependency="pruning"/>
 

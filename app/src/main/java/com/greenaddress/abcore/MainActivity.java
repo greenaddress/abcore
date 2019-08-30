@@ -11,9 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,12 +24,14 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.Encoder;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -144,11 +145,11 @@ public class MainActivity extends AppCompatActivity {
         mQrCodeText = findViewById(R.id.textViewQr);
         mImageViewQr = findViewById(R.id.qrcodeImageView);
         setSupportActionBar(toolbar);
+        
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
         final String daemonVersion = "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK;
-
         getSupportActionBar().setTitle(R.string.title_activity_main);
         getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
         mTvDaemon.setText(getString(R.string.subtitle, useDistribution + " " + daemonVersion));
@@ -168,6 +169,23 @@ public class MainActivity extends AppCompatActivity {
         daemonStatus = DaemonStatus.UNKNOWN;
         mTvStatus.setText(getString(R.string.status_header, daemonStatus.toString()));
         mSwitchCore.setText(R.string.switchcoreon);
+
+        boolean restart = prefs.getBoolean("restartOnBoot", false);
+        if(restart){
+            // Add 30 sec delay
+            autoRestart();
+        }
+    }
+
+    public void autoRestart(){
+        final Handler handler = new Handler();
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                mSwitchCore.setChecked(true);
+            }
+        };
+        handler.postDelayed(task, 30000);
     }
 
     @Override

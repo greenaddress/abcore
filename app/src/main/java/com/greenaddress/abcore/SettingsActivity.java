@@ -15,8 +15,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 
-import androidx.appcompat.app.ActionBar;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import androidx.appcompat.app.ActionBar;
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
@@ -116,11 +115,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             final Properties p = new Properties();
             try {
+
                 p.load(new FileInputStream(Utils.getBitcoinConf(getActivity())));
 
                 final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
                 final SharedPreferences.Editor e = prefs.edit();
 
+                e.putBoolean("restartOnBoot", p.getProperty("restartOnBoot", "0").equals("1"));
                 e.putBoolean("testnet", p.getProperty("testnet", "0").equals("1"));
                 e.putBoolean("upnp", p.getProperty("upnp", "0").equals("1"));
                 e.putBoolean("blocksonly", p.getProperty("blocksonly", "0").equals("1"));
@@ -155,6 +156,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             findPreference("upnp").setOnPreferenceChangeListener(ps);
             findPreference("blocksonly").setOnPreferenceChangeListener(ps);
             findPreference("disablewallet").setOnPreferenceChangeListener(ps);
+            findPreference("restartOnBoot").setOnPreferenceChangeListener(ps);
             findPreference("datadir").setSummary(p.getProperty("datadir", Utils.getDataDir(getActivity())));
             findPreference("prune").setSummary(p.getProperty("prune", "1000"));
             findPreference("prune").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
