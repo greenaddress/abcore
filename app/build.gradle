@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.greenaddress.abcore"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 74
         versionName "0.74"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
