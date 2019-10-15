@@ -6,33 +6,33 @@ import java.util.List;
 class Packages {
 
     final static String BITCOIN_NDK = "0.18.1";
-    final static String BITCOIN_KNOTS_NDK = "0.18.0";
+    final static String BITCOIN_KNOTS_NDK = "0.18.1";
     final static String BITCOIN_LIQUID_NDK = "0.17.0.1";
 
     // these three lists are the output of ./run.sh on bitcoin_ndk
     // size in bytes, arch, and sha256 of the native build
 
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "4457584aarch64-linux-android9209e31ebe51887a11a02a2e2e6a2795608923c539d825f66c3168f957daaa4d",
-            "4345624arm-linux-androideabi29d70965ffb4b74f80e0a0ad7e4986cf3bb5579904fd0ff6686973143d7be3de",
-            "5118928i686-linux-android4b252564cccc80137c67e61b70c8c81c60ce49632b6aaafd2bf32e08e59c5089",
-            "5232628x86_64-linux-androidd7d5bc7945db35b1c6ab9adbf0a71349a685f10beaf191b0f90845203e1bca03"
+            "4848136aarch64-linux-android23b3e92aa838dfa5f05016cdb88d6e20e67cf96c93284100f1c97459901cc10b",
+            "4897328arm-linux-androideabi0d700006529af4fafb4d022baf7b3287b1e68abb4c50a4818e70f020a473e6cc",
+            "5648180i686-linux-androida71932d05fde2ae475b11db14af2ec84026838d442a0a9b8ecfc1cf3517d1ee1",
+            "5657736x86_64-linux-androidbf3d6a6ec84dfb77d7076c4a593d743a2958b59c676a01d2c4bfe1363057b50b"
     );
     final static List<String> NATIVE_KNOTS = Arrays.asList(
-            "4522504aarch64-linux-android70b5a3de50766639c680fd5c84d2a51323775fabfa2ee01673c86d626058fa5e",
-            "4416424arm-linux-androideabi7e5015c68b0cbfaa7f39bd3a9ebd314ad10d3efbb544f7ffb35cb25b809e96ce",
-            "5201088i686-linux-android9afaa412286ea95ce7d65510b31d909979661dac3381882517a64d184b21608f",
-            "5310668x86_64-linux-android3a46a77caae8ecd34487b9dabd9d6a780a85ca90e959337c194ece051e28f407"
+            "4841948aarch64-linux-androidbbe3a2d02d10794d914edf387023b76e9cd3a4cce196c00bd80d88172c427a6d",
+            "4891640arm-linux-androideabid583a59b63ec58fc6a7f11f42cb87c849ce18b16ad23631c369b4167ef355665",
+            "5639564i686-linux-android61f00737995d4519bfe9715231e7a37c50b5268de50433d3db613e48577b98e8",
+            "5650972x86_64-linux-androida6b3323ea866baea07e62cbe7d0997f940b86f38579f1458dca5f9ad539ba640"
     );
     final static List<String> NATIVE_LIQUID = Arrays.asList(
-            "4594488aarch64-linux-android9333417f27deb893bea4ff23d27c70e38498323252bc7121eb96a8b46681aa61",
-            "4494116arm-linux-androideabie5019ce55625208c3b66e270e5cb12096fa30c0f8dd9f6eb915265cee71f603c",
-            "5292712i686-linux-androidc1cf98d6994e83273b23dc83fa046d854463998ef63ddbe81a8c353b56d74bcf",
-            "5409312x86_64-linux-androide257f8a4ed1d39f29f0e8529f133ea6ae1d6713644117e91e8dd20eb6a847e2c"
+            "4985268aarch64-linux-android57005da16d4b6cadf47f1e320f65dfec6653f94bcbab301f3b8e681f187c6f44",
+            "5052320arm-linux-androideabi478f37cf1a2ef2720457b8b6a4814c5c5738e250a480bc9680efb66c2c1419c5",
+            "5823492i686-linux-android4400bc2779d3084b2ad432c6bc22e420dc4872548d3e621db67b543f734ba38d",
+            "5834616x86_64-linux-androidc72ac213209a9a2b78a6d425366ecab3223c6a2e22f55808f6d71f4ae7a91104"
     );
-    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1/%s_bitcoin%s.tar.xz";
-    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1/%s_bitcoin%s.tar.xz";
-    private final static String URL_LIQUID = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1/%s_%s.tar.xz";
+    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1b/%s_bitcoin%s.tar.xz";
+    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1b/%s_bitcoin%s.tar.xz";
+    private final static String URL_LIQUID = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1b/%s_%s.tar.xz";
 
     static String getPackageUrl(final String distro, final String arch) {
         if ("core".equals(distro)) {
