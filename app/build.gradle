@@ -46,7 +46,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'org.apache.commons:commons-compress:1.19'
     implementation 'org.tukaani:xz:1.8'
