@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import net.freehaven.tor.control.TorControlConnection;
+
 import org.apache.commons.compress.utils.IOUtils;
 
 import java.io.BufferedInputStream;
@@ -16,6 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -157,6 +160,18 @@ public class RPCIntentService extends IntentService {
     protected void onHandleIntent(final Intent intent) {
 
         if (intent.getStringExtra("stop") != null) {
+            final Socket s;
+            try {
+                s = new Socket("127.0.0.1", 9051);
+                final String cookie_path = getNoBackupFilesDir().getCanonicalPath() + "/tordata/control_auth_cookie";
+                final TorControlConnection conn = new TorControlConnection(s);
+                conn.launchThread(false);
+                conn.authenticate(IOUtils.toByteArray(new FileInputStream(cookie_path)));
+                conn.shutdownTor("HALT");
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+
             while (true) {
                 try {
                     getRpc().stop();
