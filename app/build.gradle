@@ -53,6 +53,8 @@ dependencies {
     implementation 'wf.bitcoin:JavaBitcoindRpcClient:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.zxing:core:3.4.0'
+    implementation 'net.freehaven.tor.control:jtorctl:0.2'
+
 
     implementation 'androidx.annotation:annotation:1.1.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
