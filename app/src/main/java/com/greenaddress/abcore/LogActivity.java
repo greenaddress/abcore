@@ -5,10 +5,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,26 +28,28 @@ public class LogActivity extends AppCompatActivity {
         }
     };
 
-    private File mLogFile;
+    private RecyclerView mRecyclerView;
+    private final LogLinesAdapter mLogLinesAdapter = new LogLinesAdapter();
 
+    private File mLogFile;
     private UpdateLogTask mUpdateLogTask;
 
     private final LogTaskCallback mLogTaskCallback = new LogTaskCallback() {
         @Override
-        public void onLogFileRead(String txt) {
-            final EditText et = findViewById(R.id.editText);
-            if (txt != null) {
-                et.getText().clearSpans();
-                et.getText().clear();
-                et.setText(txt);
-                try {
-                    et.setSelection(txt.length());
-                } catch (final IndexOutOfBoundsException e) {
-                    // pass
-                    // FIXME: Scroll to bottom doesn't work for some mobile (LG)
-                }
-                et.setKeyListener(null);
+        public void onLogFileRead(@NonNull String[] logLines) {
+
+            boolean isScrolledDown = false;
+            if (mRecyclerView.getChildCount() > 0) {
+                // assume is scrolled all the way down if last item is visible
+                isScrolledDown = mRecyclerView.findViewHolderForAdapterPosition(mLogLinesAdapter.getItemCount() - 1) != null;
             }
+
+            mLogLinesAdapter.updateLogs(logLines);
+
+            if (isScrolledDown) {
+                mRecyclerView.smoothScrollToPosition(mLogLinesAdapter.getItemCount());
+            }
+
             mUpdateLogTask = null;
             mMsgHandler.postDelayed(taskLoopRunnable, LOOP_DELAY);
         }
@@ -66,6 +69,9 @@ public class LogActivity extends AppCompatActivity {
 
         final String daemon = "liquid".equals(useDistribution) ? "/liquidv1/debug.log" : "/debug.log";
         mLogFile = new File(Utils.getDataDir(this) + (Utils.isTestnet(this) ? "/testnet3/debug.log" : daemon));
+
+        mRecyclerView = findViewById(R.id.logsRecyclerView);
+        mRecyclerView.setAdapter(mLogLinesAdapter);
     }
 
     private void runLogTask() {
@@ -140,7 +146,8 @@ public class LogActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             if (mTaskCallback != null) {
-                mTaskCallback.onLogFileRead(result);
+                final String[] logLines = result.split("\n");
+                mTaskCallback.onLogFileRead(logLines);
             }
         }
 
@@ -165,7 +172,7 @@ public class LogActivity extends AppCompatActivity {
     }
 
     private interface LogTaskCallback {
-        void onLogFileRead(String logs);
+        void onLogFileRead(@NonNull String[] logLines);
     }
 
 }
