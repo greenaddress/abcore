@@ -48,8 +48,8 @@ public class ABCoreService extends Service {
         pI = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_ONE_SHOT);
         final NotificationManager nM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        final String version = Packages.getVersion(prefs.getString("version", Packages.BITCOIN_NDK));
+        final String useDistribution = prefs.getString("usedistribution", "core");
+        final String version = Packages.getVersion(useDistribution);
 
         final Notification.Builder b = new Notification.Builder(this)
                 .setContentTitle("ABCore is running")
