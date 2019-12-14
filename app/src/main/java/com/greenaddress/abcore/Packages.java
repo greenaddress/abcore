@@ -5,34 +5,34 @@ import java.util.List;
 
 class Packages {
 
-    final static String BITCOIN_NDK = "0.18.1";
+    final static String BITCOIN_NDK = "0.19.0.1";
     final static String BITCOIN_KNOTS_NDK = "0.18.1";
-    final static String BITCOIN_LIQUID_NDK = "0.17.0.1";
+    final static String BITCOIN_LIQUID_NDK = "0.18.1.3";
 
     // these three lists are the output of ./run.sh on bitcoin_ndk
     // size in bytes, arch, and sha256 of the native build
 
     final static List<String> NATIVE_CORE = Arrays.asList(
-            "4407008aarch64-linux-android38321423557aa95804e3093a72eae38ca4d9b53ee510befb7aabd13f71f4754b",
-            "4300184arm-linux-androideabie3bb5f01749eb8e670796bf36b1c230104ab88995b851e1fa51f2cec25d38aea",
-            "5066156i686-linux-android97a0cbd3c9009571a6d426b860fb88001d095547751739e23a3976ed4ab81dc6",
-            "5158500x86_64-linux-android2f270e610766576a38ffd777c807f95b50da3d7b12f4face80f361e3932bc4d6"
+            "5527036aarch64-linux-android7f431841190c276b51318803f7e71e3012726fb7323d7abfebc926e466568575",
+            "5226832arm-linux-androideabi81bd282a2c607f62f17a0fb640927ff2d78588b389285de981dda0a6ef2e56f8",
+            "6176104i686-linux-android66553fc6a0b3077f70131eb0a246890901ed51e15642dd97be58eb7002490891",
+            "6363016x86_64-linux-android3ce9d65b36e8e74ab29a22836149b64680cb749d9dbf7a89a5fb9f5c81de4e22"
     );
     final static List<String> NATIVE_KNOTS = Arrays.asList(
-            "4400784aarch64-linux-android2cd4cc247a4515ead82415da341cf193cf7d9fcf62fe6703cff55dd48975334f",
-            "4292692arm-linux-androideabi61ac2979a519fec0d4a692c1ed03e78d4024bc59dc60613b11f4b6189fca4219",
-            "5058384i686-linux-android24f1246e1d1c58c618990d002256cdbb67dbcb2d0b3b3159db20319e4df4b8c2",
-            "5150340x86_64-linux-android4a80324170438489d3c0d590970092b929f5cc6165ccc6cc0096b206f11f490b"
+            "5368752aarch64-linux-android91a2414d3b697502924d13dcdb0fd586994c25b4008547aa012e37bce3b92a21",
+            "5091092arm-linux-androideabi17d6a46fe9893a962a2ea4c307be56126b865840dee676452bc931f1d18bdc1b",
+            "6033768i686-linux-androidb61fbe07604931ea1ff541e6331535fd0d6f94332611abfba92ad3df9b516380",
+            "6209312x86_64-linux-android3411ea5bc32d74529d45915a7e4d2376a37a075d56e34c439a1795f81e360b09"
             );
     final static List<String> NATIVE_LIQUID = Arrays.asList(
-            "4546516aarch64-linux-androidf6ea59f7989a090dc381ccda020ea555d2bc019e7756a97e60f9381c2b9da4a6",
-            "4450572arm-linux-androideabi3bb3418fdf0f94f0cea7f631bec1d003d7eb8a1b51e4d86827729045a01fd1a4",
-            "5238848i686-linux-androide9720789ab4cee32d12e31ac9968c89067320fb205c9cab8d494436d9777abe1",
-            "5335644x86_64-linux-androidcd8a855b7cabc341dd5b4f26b51461af3d93d4ff989d91c80eafc0c55e3b8407"
-    );
-    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1c/%s_bitcoin%s.tar.xz";
-    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1c/%s_bitcoin%s.tar.xz";
-    private final static String URL_LIQUID = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.18.1c/%s_%s.tar.xz";
+            "5790596aarch64-linux-androided0038610bfd710074a96bab736adf56d4fba9d76132cdd956eaeeb532ebdc35",
+            "5547968arm-linux-androideabi13e7f4270c51d7fe75809dd966a407e58ae0095f707b878423060b3a917592b0",
+            "6480784i686-linux-android35ebf1aca32caff99d7346ce93775d9fea8f2bd4cf57edcc78f0ff71b087c10c",
+            "6656944x86_64-linux-android947f94562018a45cbea9efcc391489fd54f578343eeb8c7dd5b48529d2b93c15"
+            );
+    private final static String URL = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.19.0.1/%s_bitcoin%s.tar.xz";
+    private final static String URL_KNOTS = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.19.0.1/%s_bitcoin%s.tar.xz";
+    private final static String URL_LIQUID = "https://github.com/greenaddress/bitcoin_ndk/releases/download/v0.19.0.1/%s_%s.tar.xz";
 
     static String getPackageUrl(final String distro, final String arch) {
         if ("core".equals(distro)) {
