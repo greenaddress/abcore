@@ -23,4 +23,10 @@
     <string name="switchcoreon">Switch ON</string>
     <string name="switchcoreoff">Switch OFF</string>
     <string name="progress_bar_message">Processed %1d%% (block height %2d)</string>
+    <string name="permission_required">Datadir in external folder requires storage permission.</string>
+    <string name="create_dir_dialog_title">Create Datadir</string>
+    <string name="create_dir_dialog_msg">The specified data dir does not exist. Do you want to create it?\n%s</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="create_dir_failed_msg">Datadir not created. Cannot start daemon.</string>
 </resources>

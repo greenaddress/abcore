@@ -133,17 +133,12 @@ public class ABCoreService extends Service {
             torErrorGobbler.start();
             torOutputGobbler.start();
 
-            // allow to pass in a different datadir directory
-
-            // HACK: if user sets a datadir in the bitcoin.conf file that should then be the one
-            // used
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             final String useDistribution = prefs.getString("usedistribution", "core");
             final String daemon = "liquid".equals(useDistribution) ? "liquidd" : "bitcoind";
             final ProcessBuilder pb = new ProcessBuilder(
                     String.format("%s/%s", path, daemon),
                     "--server=1",
-                    String.format("--datadir=%s", Utils.getDataDir(this)),
                     String.format("--conf=%s", Utils.getBitcoinConf(this)));
 
             pb.directory(new File(path));
