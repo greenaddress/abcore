@@ -278,6 +278,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     //for mDaemonStatus = STOPPED we don't have to do anything
                     break;
+                case "stopped":
+                    mDaemonStatus = DaemonStatus.STOPPED;
+                    mTvStatus.setText(getString(R.string.status_header, mDaemonStatus.toString()));
+                    break;
                 case "localonion":
                     if (mDaemonStatus == DaemonStatus.STARTING || mDaemonStatus == DaemonStatus.UNKNOWN){
                         mDaemonStatus = DaemonStatus.RUNNING;
@@ -318,6 +322,9 @@ public class MainActivity extends AppCompatActivity {
                     pb.setMax(max);
                     pb.setProgress(percent);
                     textStatus.setText(getString(R.string.progress_bar_message, percent, blocks));
+                    break;
+                default:
+                    Log.e(TAG, "Unexpected broadcast result - " + text);
             }
         }
     }
