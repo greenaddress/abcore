@@ -58,8 +58,10 @@ public class RPCIntentService extends IntentService {
         String password = p.getProperty("rpcpassword");
         final String testnet = p.getProperty("testnet");
         final String nonMainnet = testnet == null || !testnet.equals("1") ? p.getProperty("regtest") : testnet;
+
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
+
         if (user == null || password == null) {
             final String cookie = String.format("%s/%s", p.getProperty("datadir"), ".cookie");
             final String cookieTestnet = String.format("%s/%s", p.getProperty("datadir"), "testnet3/.cookie");
@@ -68,12 +70,12 @@ public class RPCIntentService extends IntentService {
             final String daemon = "liquid".equals(useDistribution) ? cookieLiquid : cookie;
 
             final String fCookie = nonMainnet == null || !nonMainnet.equals("1") ? daemon : cookieTestnet;
-            final File file = new File(fCookie);
+            final File cookieFile = new File(fCookie);
 
             final StringBuilder text = new StringBuilder();
 
             try {
-                final BufferedReader br = new BufferedReader(new FileReader(file));
+                final BufferedReader br = new BufferedReader(new FileReader(cookieFile));
                 String line;
 
                 while ((line = br.readLine()) != null) {
@@ -100,7 +102,7 @@ public class RPCIntentService extends IntentService {
         return new BitcoinJSONRPCClient(getRpcUrl());
     }
 
-    private void broadcastPeerlist() throws IOException {
+    private void broadcastPeerList() throws IOException {
         final BitcoindRpcClient bitcoin = getRpc();
 
         final Intent broadcastIntent = new Intent();
@@ -119,15 +121,17 @@ public class RPCIntentService extends IntentService {
 
     }
 
-    private void broadcastNetwork() throws IOException {
+    private void broadcastNetwork() throws IOException, BitcoinRPCException {
+        Log.d(TAG, "broadcastNetwork");
         final BitcoindRpcClient bitcoin = getRpc();
         final Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_MSG, "localonion");
+
         final BitcoindRpcClient.NetworkInfo info = bitcoin.getNetworkInfo();
-        for (final Object addrs : info.localAddresses()) {
-            final Map data = (Map) addrs;
+        for (final Object address : info.localAddresses()) {
+            final Map data = (Map) address;
             final String host = (String) data.get("address");
             if (host != null && host.endsWith(".onion")) {
                 final Long port =  (Long) data.get("port");
@@ -139,6 +143,7 @@ public class RPCIntentService extends IntentService {
                 break;
             }
         }
+
         final BitcoindRpcClient.BlockChainInfo blockChainInfo = bitcoin.getBlockChainInfo();
         broadcastIntent.putExtra("sync", blockChainInfo.verificationProgress().multiply(BigDecimal.valueOf(100)).intValue());
         broadcastIntent.putExtra("blocks", blockChainInfo.blocks());
@@ -146,7 +151,7 @@ public class RPCIntentService extends IntentService {
     }
 
     private void broadcastError(final Exception e) {
-        Log.e(TAG, e.getClass().getName());
+        Log.e(TAG, "broadcastError - " + e.getClass().getName());
         final Intent broadcastIntent = new Intent();
         broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -169,7 +174,7 @@ public class RPCIntentService extends IntentService {
                 conn.authenticate(IOUtils.toByteArray(new FileInputStream(cookie_path)));
                 conn.shutdownTor("HALT");
             } catch (final IOException e) {
-                e.printStackTrace();
+                Log.w(TAG, "Error stopping TOR", e);
             }
 
             while (true) {
@@ -231,7 +236,7 @@ public class RPCIntentService extends IntentService {
 
             if (request != null)
                 if (request.equals("peerlist")) {
-                    broadcastPeerlist();
+                    broadcastPeerList();
                     return;
                 } else if (request.equals("localonion")) {
                     broadcastNetwork();
@@ -250,17 +255,22 @@ public class RPCIntentService extends IntentService {
             sendBroadcast(broadcastIntent);
 
         } catch (final BitcoinRPCException | IOException i) {
-            Log.i(TAG, "EXE", i);
-
-            if (i instanceof BitcoinRPCException && (((BitcoinRPCException) i).getResponseCode() == 500)) {
-                final Intent broadcastIntent = new Intent();
-                broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
-                broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
-                sendBroadcast(broadcastIntent);
-                return;
+            if (i instanceof BitcoinRPCException) {
+                final BitcoinRPCException bitcoinRPCException = (BitcoinRPCException) i;
+                if (bitcoinRPCException.getResponseCode() == 500) {
+                    Log.d(TAG, "BitcoinRPCException - Internal Server Error");
+                    final Intent broadcastIntent = new Intent();
+                    broadcastIntent.setAction(MainActivity.RPCResponseReceiver.ACTION_RESP);
+                    broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                    broadcastIntent.putExtra(PARAM_OUT_MSG, "OK");
+                    sendBroadcast(broadcastIntent);
+                    return;
+                } else {
+                    Log.e(TAG, "BitcoinRPCException", i);
+                }
+            } else {
+                Log.e(TAG, "IOException", i);
             }
-
             broadcastError(i);
         }
     }

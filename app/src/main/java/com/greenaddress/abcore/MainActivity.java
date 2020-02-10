@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void refresh() {
-        if (mSwitchOn){
+        if (mSwitchOn) {
             if (mDaemonStatus == DaemonStatus.STARTING || mDaemonStatus == DaemonStatus.RUNNING || mDaemonStatus == DaemonStatus.UNKNOWN) {
                 //refresh
                 final Intent i = new Intent(this, RPCIntentService.class);
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 // consistent state
                 stopDaemonAndSetStatus();
             }
-        } else{
+        } else {
             // switch OFF
             if (mDaemonStatus == DaemonStatus.STOPPING || mDaemonStatus == DaemonStatus.UNKNOWN) {
                 //refresh
@@ -260,17 +260,15 @@ public class MainActivity extends AppCompatActivity {
                     // the right status will get reflected
                     break;
                 case "exception":
-                    if (intent.hasExtra("exception")) {
-                        final String exe = intent.getStringExtra("exception");
-                        if (exe != null)
-                            Log.i(TAG, exe);
+                    final String exe = intent.getStringExtra("exception");
+                    if (exe != null) {
+                        Log.i(TAG, exe);
                     }
 
-                    if (mDaemonStatus == DaemonStatus.STOPPING || mDaemonStatus == DaemonStatus.UNKNOWN){
+                    if (mDaemonStatus == DaemonStatus.STOPPING || mDaemonStatus == DaemonStatus.UNKNOWN) {
                         mDaemonStatus = DaemonStatus.STOPPED;
                         mTvStatus.setText(getString(R.string.status_header, mDaemonStatus.toString()));
-                    }
-                    else if (mDaemonStatus == DaemonStatus.STARTING || mDaemonStatus == DaemonStatus.RUNNING){
+                    } else if (mDaemonStatus == DaemonStatus.STARTING || mDaemonStatus == DaemonStatus.RUNNING) {
                         // if we get here it means that the daemon is *actually not* running but the screen is reflecting
                         // as if its running or we are trying to start it. This is a bad state and we will simply
                         // try to stop the daemon and get back to a consistent state
@@ -279,11 +277,11 @@ public class MainActivity extends AppCompatActivity {
                     //for mDaemonStatus = STOPPED we don't have to do anything
                     break;
                 case "localonion":
-                    if (mDaemonStatus == DaemonStatus.STARTING || mDaemonStatus == DaemonStatus.UNKNOWN){
+                    if (mDaemonStatus == DaemonStatus.STARTING || mDaemonStatus == DaemonStatus.UNKNOWN) {
                         mDaemonStatus = DaemonStatus.RUNNING;
                         mTvStatus.setText(getString(R.string.status_header, mDaemonStatus.toString()));
                     }
-                    else if (mDaemonStatus == DaemonStatus.STOPPED ){
+                    else if (mDaemonStatus == DaemonStatus.STOPPED) {
                         // if we get here it means that the daemon is *actually* running but the screen is reflecting
                         // as OFF. This is a bad state and we will simply try to stop the daemon and get
                         // back to a consistent state
