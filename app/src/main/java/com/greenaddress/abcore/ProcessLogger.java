@@ -11,37 +11,38 @@ import java.io.InputStreamReader;
 
 class ProcessLogger extends Thread {
 
-    private final static String TAG = ProcessLogger.class.getName();
-    private final InputStream is;
-    private final OnError er;
+    private final String mTAG;
+    private final InputStream mInputStream;
+    private final OnError mOnError;
 
-    ProcessLogger(final InputStream is, OnError er) {
+    ProcessLogger(final InputStream inputStream, String name, OnError onErrorCallback) {
         super();
-        this.is = is;
-        this.er = er;
+        mTAG = ProcessLogger.class.getSimpleName() + "-" + name;
+        this.mInputStream = inputStream;
+        this.mOnError = onErrorCallback;
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
     }
 
     @Override
     public void run() {
         try {
-            final InputStreamReader isr = new InputStreamReader(is);
+            final InputStreamReader isr = new InputStreamReader(mInputStream);
             final BufferedReader br = new BufferedReader(isr);
             String line;
             final String[] errors = new String[3];
 
             int counter = 0;
             while ((line = br.readLine()) != null) {
-                Log.v(TAG, line);
+                Log.v(mTAG, line);
                 errors[counter++ % 3] = line;
             }
-            if (er != null)
-                er.onError(errors);
+            if (mOnError != null)
+                mOnError.onError(errors);
 
         } catch (final IOException ioe) {
             ioe.printStackTrace();
         } finally {
-            IOUtils.closeQuietly(is);
+            IOUtils.closeQuietly(mInputStream);
         }
     }
 
