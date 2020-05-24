@@ -4,20 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -27,7 +25,9 @@ public class DownloadActivity extends AppCompatActivity {
     private final static String TAG = DownloadActivity.class.getName();
     private DownloadInstallCoreResponseReceiver mDownloadInstallCoreResponseReceiver;
     private ProgressBar mPB;
-    private Button mButton;
+    private Button mButtonCore;
+    private Button mButtonKnots;
+    private Button mButtonLiquid;
     private TextView mTvStatus;
     private TextView mTvDetails;
     private View mContent;
@@ -63,18 +63,20 @@ public class DownloadActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        final Toolbar toolbar = findViewById(R.id.toolbar);
         mPB = findViewById(R.id.progressBar);
         mTvStatus = findViewById(R.id.textView);
-        mButton = findViewById(R.id.button);
+        mButtonCore = findViewById(R.id.buttonCore);
+        mButtonKnots = findViewById(R.id.buttonKnots);
+        mButtonLiquid = findViewById(R.id.buttonLiquid);
         mTvDetails = findViewById(R.id.textViewDetails);
         mContent = findViewById(android.R.id.content);
-        setSupportActionBar(toolbar);
 
         try {
             Utils.getArch();
         } catch (final Utils.ABIsUnsupported e) {
-            mButton.setEnabled(false);
+            mButtonCore.setEnabled(false);
+            mButtonKnots.setEnabled(false);
+            mButtonLiquid.setEnabled(false);
             final String msg = getString(R.string.abis_unsupported, TextUtils.join(",", Build.SUPPORTED_ABIS));
             mTvStatus.setText(msg);
             showSnackMsg(msg);
@@ -100,41 +102,52 @@ public class DownloadActivity extends AppCompatActivity {
             mDownloadInstallCoreResponseReceiver = new DownloadInstallCoreResponseReceiver();
         downloadFilter.addCategory(Intent.CATEGORY_DEFAULT);
         registerReceiver(mDownloadInstallCoreResponseReceiver, downloadFilter);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences.Editor e = prefs.edit();
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mButtonCore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                e.putString("usedistribution","core");
+                e.apply();
                 mPB.setVisibility(View.VISIBLE);
                 startService(new Intent(DownloadActivity.this, DownloadInstallCoreIntentService.class));
-                mButton.setEnabled(false);
                 disableWhileDownloading();
             }
         });
+
+        mButtonKnots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                e.putString("usedistribution","knots");
+                e.apply();
+                mPB.setVisibility(View.VISIBLE);
+                startService(new Intent(DownloadActivity.this, DownloadInstallCoreIntentService.class));
+                disableWhileDownloading();
+            }
+        });
+
+        mButtonLiquid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                e.putString("usedistribution","liquid");
+                e.apply();
+                mPB.setVisibility(View.VISIBLE);
+                startService(new Intent(DownloadActivity.this, DownloadInstallCoreIntentService.class));
+                disableWhileDownloading();
+            }
+        });
+
 
         if (DownloadInstallCoreIntentService.HAS_BEEN_STARTED)
             disableWhileDownloading();
     }
 
     private void disableWhileDownloading() {
-        mButton.setEnabled(false);
+        mButtonCore.setEnabled(false);
+        mButtonKnots.setEnabled(false);
+        mButtonLiquid.setEnabled(false);
         mTvStatus.setText(R.string.waitfetchingconfiguring);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.download, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        // Handle item selection
-        if (item.getItemId() == R.id.download_distributions) {
-            startActivity(new Intent(this, DownloadSettingsActivity.class));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public class DownloadInstallCoreResponseReceiver extends BroadcastReceiver {
@@ -154,7 +167,9 @@ public class DownloadActivity extends AppCompatActivity {
                     mPB.setProgress(0);
                     mPB.setVisibility(View.GONE);
                     mTvDetails.setText(exe);
-                    mButton.setEnabled(true);
+                    mButtonCore.setEnabled(true);
+                    mButtonKnots.setEnabled(true);
+                    mButtonLiquid.setEnabled(true);
                     mTvStatus.setText(R.string.failedretry);
                     break;
                 case "ABCOREUPDATE":

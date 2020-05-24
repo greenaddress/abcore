@@ -7,7 +7,6 @@
     <string name="pref_header_android">Configuration Supplémentaire</string>
     <string name="title_activity_peer">Peers</string>
     <string name="download_core">L\'application nécessite Bitcoin pour fonctionner. Cliquez sur le bouton pour commencer à télécharger et à configurer Bitcoin</string>
-    <string name="start">Télécharger</string>
     <string name="failedretry">Échec, voulez-vous réessayer?</string>
     <string name="waitfetchingconfiguring">Veuillez patienter, récupération, déballage et configuration de Bitcoin&#8230;</string>
     <string name="switchcoreon">Activer</string>

@@ -1,0 +1,33 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:selectable="false"
+        android:summary="@string/summary_about" />
+
+    <Preference
+        android:summary="0.77"
+        android:title="@string/title_version" />
+
+
+    <Preference
+        android:summary="@string/source_url"
+        android:title="@string/source_title">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="@string/source_url" />
+    </Preference>
+
+    <Preference
+        android:summary="@string/license_url"
+        android:title="@string/license_title">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="@string/license_url" />
+    </Preference>
+
+    <Preference
+        android:summary="@string/summary_contrib"
+        android:title="@string/title_contrib" />
+
+
+</PreferenceScreen>

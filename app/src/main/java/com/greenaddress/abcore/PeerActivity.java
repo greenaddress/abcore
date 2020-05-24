@@ -6,10 +6,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeerActivity extends ListActivity {
+public class PeerActivity extends ABCoreBaseActivity {
 
     private final List<String> listItems = new ArrayList<>();
     private ArrayAdapter<String> adapter;
@@ -27,12 +32,14 @@ public class PeerActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                listItems);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listItems);
         setContentView(R.layout.activity_peer);
 
-        setListAdapter(adapter);
+        ListView list=findViewById(R.id.listview);
+        list.setAdapter(adapter);
+
+        setUpTopNavBar();
+
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {

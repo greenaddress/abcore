@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class LogActivity extends AppCompatActivity {
+public class LogActivity extends ABCoreBaseActivity {
 
     private static final int LOOP_DELAY = 600;
 
@@ -63,9 +63,7 @@ public class LogActivity extends AppCompatActivity {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String useDistribution = prefs.getString("usedistribution", "core");
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setSubtitle(getString(R.string.subtitle, useDistribution));
-        setSupportActionBar(toolbar);
+        setUpTopNavBar();
 
         final String daemon = "liquid".equals(useDistribution) ? "/liquidv1/debug.log" : "/debug.log";
         mLogFile = new File(Utils.getDataDir(this) + (Utils.isTestnet(this) ? "/testnet3/debug.log" : daemon));

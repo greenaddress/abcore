@@ -34,7 +34,7 @@ import com.google.zxing.qrcode.encoder.ByteMatrix;
 import com.google.zxing.qrcode.encoder.Encoder;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ABCoreBaseActivity {
     private final static String TAG = MainActivity.class.getName();
     private RPCResponseReceiver mRpcResponseReceiver;
     private TextView mTvStatus;
@@ -137,12 +137,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = findViewById(R.id.toolbar);
         mTvStatus = findViewById(R.id.textViewStatus);
         mSwitchCore = findViewById(R.id.switchCore);
         mQrCodeText = findViewById(R.id.textViewQr);
         mImageViewQr = findViewById(R.id.qrcodeImageView);
-        setSupportActionBar(toolbar);
 
         setSwitch();
         final View.OnClickListener cliboard = new View.OnClickListener() {
@@ -192,42 +190,12 @@ public class MainActivity extends AppCompatActivity {
 
         final String useDistribution = prefs.getString("usedistribution", "core");
         getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
+
         final TextView mTvDaemon = findViewById(R.id.textViewDaemon);
         final String daemonVersion = "knots".equals(useDistribution) ? Packages.BITCOIN_KNOTS_NDK : "liquid".equals(useDistribution) ? Packages.BITCOIN_LIQUID_NDK : Packages.BITCOIN_NDK;
         mTvDaemon.setText(getString(R.string.subtitle, useDistribution + " " + daemonVersion));
         mTvStatus.setText(getString(R.string.status_header, mDaemonStatus.toString()));
         mMsgHandler.postDelayed(runnableCode, 1000);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        final MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.configuration:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            case R.id.peerview:
-                startActivity(new Intent(this, PeerActivity.class));
-                return true;
-            case R.id.debug:
-                startActivity(new Intent(this, LogActivity.class));
-                return true;
-            case R.id.console:
-                startActivity(new Intent(this, ConsoleActivity.class));
-                return true;
-            case R.id.about:
-                startActivity(new Intent(this, AboutActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public class RPCResponseReceiver extends BroadcastReceiver {

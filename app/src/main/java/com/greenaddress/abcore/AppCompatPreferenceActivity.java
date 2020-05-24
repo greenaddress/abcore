@@ -33,7 +33,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().onPostCreate(savedInstanceState);
     }
 
-    ActionBar getSupportActionBar() {
+    protected ActionBar getSupportActionBar() {
         return getDelegate().getSupportActionBar();
     }
 

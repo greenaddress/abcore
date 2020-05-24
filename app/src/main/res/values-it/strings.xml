@@ -7,7 +7,6 @@
     <string name="pref_header_android">Configuratione aggiuntiva</string>
     <string name="title_activity_peer">Nodi</string>
     <string name="download_core">Questa app richiede Bitcoin per funzionare. Tocca il bottone per far partire lo scaricamento e la configurazione di Bitcoin</string>
-    <string name="start">Fai partire il download</string>
     <string name="failedretry">Fallito, vuoi riprovare?</string>
     <string name="waitfetchingconfiguring">Per piacere aspetta. Scaricamento e configurazione di Bitcoin &#8230;</string>
     <string name="switchcoreon">Porta Core ON</string>

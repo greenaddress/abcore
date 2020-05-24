@@ -17,7 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class ConsoleActivity extends AppCompatActivity {
+public class ConsoleActivity extends ABCoreBaseActivity {
 
     private RPCResponseReceiver rpcResponseReceiver;
 
@@ -26,11 +26,7 @@ public class ConsoleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_console);
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final String useDistribution = prefs.getString("usedistribution", "core");
-        getSupportActionBar().setSubtitle(getString(R.string.subtitle, useDistribution));
+        setUpTopNavBar();
 
         final EditText console = findViewById(R.id.editText2);
         console.setOnEditorActionListener(new TextView.OnEditorActionListener() {

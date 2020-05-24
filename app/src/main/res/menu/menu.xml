@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/main"
+          android:title="Dashboard"/>
     <item android:id="@+id/configuration"
           android:title="Settings"/>
     <item android:id="@+id/peerview"
@@ -8,6 +10,4 @@
           android:title="Debug Log"/>
     <item android:id="@+id/console"
           android:title="Console"/>
-    <item android:id="@+id/about"
-          android:title="About"/>
 </menu>

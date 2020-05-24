@@ -10,5 +10,9 @@
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_android"/>
 
+    <header
+        android:fragment="com.greenaddress.abcore.SettingsActivity$AboutFragment"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/pref_header_about"/>
 
 </preference-headers>

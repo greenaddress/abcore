@@ -5,7 +5,6 @@
     <string name="pref_header_conf">Bitcoin Konfiguration</string>
     <string name="pref_header_conf_download">Konfiguration herunterladen</string>
     <string name="pref_title_edit_bitcoin_conf">Bitcoin.conf manuell editieren</string>
-    <string name="start">Download beginnen</string>
     <string name="switchcoreoff">Kern auf OFF stellen</string>
     <string name="switchcoreon">Kern auf ON stellen</string>
     <string name="title_activity_download_settings">Einstellungen herunterladen</string>

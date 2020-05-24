@@ -1,9 +1,0 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <ListPreference
-        android:key="usedistribution"
-        android:title="Use Daemon Distribution"
-        android:entryValues="@array/pref_use_values"
-        android:entries="@array/pref_use_options"
-    />
-</PreferenceScreen>
